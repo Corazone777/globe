@@ -15,8 +15,7 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            /* Update CSS fallback color to match new deep void */
-            background-color: #000103;
+            background-color: #000103; /* Deep space void */
             font-family: 'Inter', sans-serif;
             color: white;
         }
@@ -51,7 +50,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.2rem 4rem;
-            /* Updated gradient background to blend with deeper void */
             background: linear-gradient(180deg, rgba(0, 1, 3, 0.95) 0%, rgba(0, 1, 3, 0.3) 100%);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -63,13 +61,15 @@
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 35px;
             text-decoration: none;
         }
 
         .logo {
             height: 35px;
             max-width: 150px; 
+            /* Forces SVG to pure white with a subtle shadow */
+            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         .brand-text {
@@ -113,19 +113,19 @@
             height: 2px;
             bottom: -6px;
             left: 0;
-            background-color: #00ffcc; /* Restored Teal */
+            background-color: #00ffcc; /* TEAL UNDERLINE RESTORED */
             transition: width 0.3s ease;
-            box-shadow: 0 0 8px #00ffcc; /* Restored Teal glow */
+            box-shadow: 0 0 8px #00ffcc;
         }
 
         .desktop-nav a:hover::after { width: 100%; }
 
-       .roi-btn {
+        .roi-btn {
             background: rgba(0, 255, 204, 0.1);
             border: 1px solid rgba(0, 255, 204, 0.5);
             padding: 8px 20px;
             border-radius: 4px;
-            color: #00ffcc !important; 
+            color: #00ffcc !important; /* TEAL BUTTON RESTORED */
         }
 
         .roi-btn:hover {
@@ -151,7 +151,7 @@
         .hamburger span {
             width: 100%;
             height: 3px;
-            background-color: #00ffcc;
+            background-color: #00ffcc; /* Mobile icon changed to Teal */
             border-radius: 10px;
             transition: all 0.3s ease-in-out;
         }
@@ -166,7 +166,6 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            /* Updated mobile menu color to match new deep void */
             background: rgba(0, 1, 3, 0.98);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -188,35 +187,45 @@
             pointer-events: auto; 
         }
 
-        /* --- HERO FOOTER TYPOGRAPHY --- */
-        .hero-footer {
+        /* --- HERO CENTER TYPOGRAPHY --- */
+        .hero-center {
             position: absolute;
-            bottom: 8%; 
-            left: 0;
+            top: 50%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             z-index: 50;
             pointer-events: none; 
+            text-align: center;
         }
 
         .hero-title {
             margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
             font-family: 'Rajdhani', sans-serif;
             font-size: 3.5rem;
             font-weight: 800;
             letter-spacing: 6px;
             text-transform: uppercase;
-            color: #ffffff;
+            color: #00ffcc; 
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 2px 5px rgba(0, 0, 0, 0.8);
         }
-
+        .hero-logo {
+            height: 80px; 
+            /* Forces SVG to pure white with a heavier shadow for 3D depth */
+            filter: brightness(0) invert(1) drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+        }
         .hero-subtitle {
-            margin: 0;
+            margin-bottom: 10px;
             font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: 400;
             letter-spacing: 4px;
             text-transform: uppercase;
@@ -227,6 +236,7 @@
         /* --- RESPONSIVE BREAKPOINTS --- */
         @media (max-width: 1024px) {
             .hero-title { font-size: 2.8rem; letter-spacing: 4px; }
+            .hero-logo { height: 48px; }
             .hero-subtitle { font-size: 1rem; letter-spacing: 3px; }
         }
 
@@ -238,10 +248,12 @@
         @media (max-width: 768px) {
             .desktop-nav { display: none; } 
             .hamburger { display: flex; }   
-            .brand-text { font-size: 1.1rem; }
-            .hero-title { font-size: 1.8rem; letter-spacing: 2px; text-align: center; padding: 0 10px; }
-            .hero-subtitle { font-size: 0.8rem; letter-spacing: 2px; text-align: center; padding: 0 10px; }
-            .hero-footer { bottom: 6%; }
+            .brand-text { display: none; } /* Hide text next to top-left logo to save mobile space */
+            
+            /* Stack logo and title on mobile */
+            .hero-title { flex-direction: column; gap: 10px; font-size: 1.8rem; letter-spacing: 2px; padding: 0 10px; }
+            .hero-logo { height: 40px; }
+            .hero-subtitle { font-size: 0.8rem; letter-spacing: 2px; padding: 0 10px; }
         }
     </style>
 </head>
@@ -251,7 +263,7 @@
     <div id="ui-layer">
         <header>
             <a href="#" class="brand-container">
-                <img src="IBEXlogo.svg" alt="" class="logo" onerror="this.style.display='none'">
+                <img src="IBEXlogo.svg" alt="IBEX" class="logo" onerror="this.style.display='none'">
                 <div class="brand-text">IBEX Staffing</div>
             </a>
             
@@ -278,9 +290,12 @@
             <a href="#" class="roi-btn">ROI Calculator</a>
         </div>
 
-        <div class="hero-footer">
-            <h1 class="hero-title">IBEX Staffing Solutions</h1>
-            <h2 class="hero-subtitle">Your Gateway to Elite Global Talent</h2>
+       <div class="hero-center">
+            <h1 class="hero-title">
+                <span>WITH</span>
+                <img src="IBEXlogo.svg" alt="IBEX Logo" class="hero-logo" onerror="this.style.display='none'">
+            </h1>
+            <h2 class="hero-subtitle">The whole world is your office building</h2>
         </div>
     </div>
 
@@ -301,11 +316,11 @@
         const createScene = function () {
             const scene = new BABYLON.Scene(engine);
             
-            // THE FIX 1: Set the 3D void to absolute space void black
             scene.clearColor = new BABYLON.Color4(0.00, 0.00, 0.00, 1);
 
             camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 4.5, BABYLON.Vector3.Zero(), scene);
-            camera.target = new BABYLON.Vector3(0, -0.2, 0);
+            // Reset target to perfect center so the globe sits exactly behind the text
+            camera.target = new BABYLON.Vector3(0, 0, 0);
             camera.attachControl(canvas, true);
             camera.wheelPrecision = 50;
             camera.lowerRadiusLimit = 2.5;
@@ -314,13 +329,11 @@
 
             const hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
             hemLight.intensity = 1.8; 
-            // THE FIX: Completely disables the shiny reflection dot on the globe
+            // Removes the glowing reflection dot from the globe
             hemLight.specular = new BABYLON.Color3(0, 0, 0);
 
             // --- PROCEDURAL 3D STARFIELD ---
             const starRoot = new BABYLON.TransformNode("starRoot", scene);
-            
-            // THE FIX: Increased base diameter to make them prominently larger
             const starMesh = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.08, segments: 4 }, scene);
             const starMat = new BABYLON.StandardMaterial("starMat", scene);
             starMat.emissiveColor = new BABYLON.Color3(0.8, 0.9, 1.0); 
@@ -340,7 +353,6 @@
                 
                 const matrix = BABYLON.Matrix.Translation(x, y, z);
                 
-                // THE FIX: Adjusted the minimum scale so they don't shrink below a single pixel
                 const scale = 0.6 + Math.random() * 0.6; 
                 const scaleMatrix = BABYLON.Matrix.Scaling(scale, scale, scale);
                 scaleMatrix.multiplyToRef(matrix, matrix);
@@ -356,17 +368,13 @@
 
             const glowLayer = new BABYLON.GlowLayer("glow", scene);
             glowLayer.intensity = 0.9; 
-            
-            // THE FIX: We specifically DO NOT add starMesh to the glowLayer anymore. 
-            // This instantly stops the shader from causing them to flicker!
-            glowLayer.addIncludedOnlyMesh(starMesh);
 
             // --- LAYER 1: RED ENERGY CORE ---
             const innerSphere = BABYLON.MeshBuilder.CreateSphere("innerSphere", { diameter: 1.98, segments: 64 }, scene);
             const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
             coreMat.alpha = 0.3; 
             coreMat.disableLighting = true; 
-            coreMat.emissiveFresnelParameters = new BABYLON.FresnelParameters(); // TYPO FIXED!
+            coreMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
             coreMat.emissiveFresnelParameters.bias = 0.1;
             coreMat.emissiveFresnelParameters.power = 4;
             coreMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(1.0, 0.2, 0.0); 
@@ -382,7 +390,6 @@
             landMat.albedoColor = new BABYLON.Color3(0.05, 0.15, 0.25); 
             landMat.emissiveColor = new BABYLON.Color3(0.01, 0.05, 0.1); 
 
-            // Corrected texture settings (deployed vercel fix)
             const maskTexture = new BABYLON.Texture("globe.png", scene);
             maskTexture.getAlphaFromRGB = true; 
             maskTexture.vScale = -1; 
@@ -407,15 +414,12 @@
             outerSphere.material = landMat;
             outerSphere.parent = earthRoot;
 
-           // --- ATMOSPHERIC HALO ---
+            // --- ATMOSPHERIC HALO ---
             const atmosSphere = BABYLON.MeshBuilder.CreateSphere("atmosSphere", { diameter: 2.15, segments: 64 }, scene);
             const atmosMat = new BABYLON.StandardMaterial("atmosMat", scene);
             atmosMat.emissiveColor = new BABYLON.Color3(0.0, 0.5, 1.0); 
             atmosMat.alpha = 0.05; 
-            
-            // THE FINAL TYPO FIX!
             atmosMat.emissiveFresnelParameters = new BABYLON.FresnelParameters(); 
-            
             atmosMat.emissiveFresnelParameters.bias = 0.1;
             atmosMat.emissiveFresnelParameters.power = 5; 
             atmosMat.emissiveFresnelParameters.leftColor = BABYLON.Color3.White();
@@ -424,6 +428,7 @@
             atmosSphere.material = atmosMat;
             atmosSphere.parent = earthRoot;
 
+            // --- LAYER 3: SEMANTIC PARTICLE NETWORK ---
             const particleMesh = BABYLON.MeshBuilder.CreateSphere("particle", { diameter: 0.008, segments: 4 }, scene);
             const particleMat = new BABYLON.StandardMaterial("particleMat", scene);
             particleMat.disableLighting = true;
@@ -584,54 +589,9 @@
                 }
             }
 
-            // --- LAYER 5: INTERSECTING DATA ORBITS ---
-            /*
-            const animatedOrbits = [];
-            const createComplexOrbit = (name, diameter, tiltX, tiltZ, color) => {
-                const ring = BABYLON.MeshBuilder.CreateTorus(name, { diameter: diameter, thickness: 0.003, tessellation: 128 }, scene);
-                const mat = new BABYLON.StandardMaterial(name + "Mat", scene);
-                mat.emissiveColor = color;
-                mat.disableLighting = true;
-                ring.material = mat;
-                ring.parent = earthRoot;
-                ring.rotation.x = tiltX;
-                ring.rotation.z = tiltZ;
-                glowLayer.addIncludedOnlyMesh(ring);
-
-                animatedOrbits.push(ring); 
-
-                for(let i = 0; i < 3; i++){
-                    packetAnimations.push({
-                        mesh: createPacket(new BABYLON.Color3(1.0, 1.0, 1.0), 0.02),
-                        radius: diameter / 2,
-                        angle: (i / 3) * 2 * Math.PI,
-                        speed: 0.002 + (Math.random() * 0.002),
-                        tiltX: tiltX,
-                        tiltZ: tiltZ,
-                        isIntersectingOrbit: true
-                    });
-                }
-                return ring;
-            };
-
-            createComplexOrbit("orbit1", 2.6, Math.PI / 4, Math.PI / 6, new BABYLON.Color3(0.0, 0.5, 1.0)); 
-            createComplexOrbit("orbit2", 2.8, -Math.PI / 8, -Math.PI / 3, new BABYLON.Color3(1.0, 0.3, 0.6)); 
-            createComplexOrbit("orbit3", 2.4, Math.PI / 2.1, Math.PI / 8, new BABYLON.Color3(0.0, 0.8, 1.0)); 
-            */
-
             scene.onBeforeRenderObservable.add(() => {
-                // Spin the globe
                 earthRoot.rotation.y += 0.0008; 
-                
-                // Spin the vast background starfield incredibly slowly for cinematic depth
                 starRoot.rotation.y += 0.0002;
-
-                /*
-                // Spin the outer data cage orbits! (Uncomment if using Layer 5)
-                animatedOrbits.forEach((orbit, index) => {
-                    orbit.rotation.y += (index % 2 === 0 ? 0.002 : -0.0015);
-                });
-                */
 
                 for(let animation of packetAnimations) {
                     if (animation.isIntersectingOrbit) {
