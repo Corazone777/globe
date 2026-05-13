@@ -53,7 +53,7 @@
             background: linear-gradient(180deg, rgba(8, 12, 20, 0.9) 0%, rgba(8, 12, 20, 0.3) 100%);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 204, 0.15);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.15); 
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
             z-index: 100;
         }
@@ -76,7 +76,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #ffffff, #00ffcc);
+            background: linear-gradient(90deg, #ffffff, #00ffcc); 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -88,7 +88,7 @@
         }
 
         .desktop-nav a, .mobile-menu a {
-            color: #8fa3b0;
+            color: #b0bfc9;
             text-decoration: none;
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.05rem;
@@ -101,7 +101,7 @@
 
         .desktop-nav a:hover, .mobile-menu a:hover {
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
 
         .desktop-nav a:not(.roi-btn)::after {
@@ -111,9 +111,9 @@
             height: 2px;
             bottom: -6px;
             left: 0;
-            background-color: #00ffcc;
+            background-color: #ffb319;
             transition: width 0.3s ease;
-            box-shadow: 0 0 8px #00ffcc;
+            box-shadow: 0 0 8px #ffb319;
         }
 
         .desktop-nav a:hover::after { width: 100%; }
@@ -149,15 +149,14 @@
         .hamburger span {
             width: 100%;
             height: 3px;
-            background-color: #00ffcc;
+            background-color: #ffb319;
             border-radius: 10px;
-            transition: all 0.3s linear;
-            transform-origin: 1px;
+            transition: all 0.3s ease-in-out;
         }
 
-        .hamburger.open span:nth-child(1) { transform: rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(20px); }
-        .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
+        .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
         .mobile-menu {
             position: absolute;
@@ -189,7 +188,7 @@
         /* --- HERO FOOTER TYPOGRAPHY --- */
         .hero-footer {
             position: absolute;
-            bottom: 8%; /* Sits nicely above the bottom edge */
+            bottom: 8%; 
             left: 0;
             width: 100%;
             display: flex;
@@ -197,7 +196,7 @@
             align-items: center;
             gap: 8px;
             z-index: 50;
-            pointer-events: none; /* Let clicks pass through to the globe */
+            pointer-events: none; 
         }
 
         .hero-title {
@@ -208,7 +207,6 @@
             letter-spacing: 6px;
             text-transform: uppercase;
             color: #ffffff;
-            /* Cinematic text shadow ensures it remains readable over bright background lines */
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 2px 5px rgba(0, 0, 0, 0.8);
         }
 
@@ -219,7 +217,7 @@
             font-weight: 400;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: #00ffcc; /* Matches the vibrant Teal dots */
+            color: #00ffcc; 
             text-shadow: 0 0 15px rgba(0, 255, 204, 0.5), 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
@@ -302,11 +300,7 @@
             scene.clearColor = new BABYLON.Color4(0.05, 0.06, 0.09, 1);
 
             camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 4.5, BABYLON.Vector3.Zero(), scene);
-            
-            // THE FIX: Move the camera target slightly down. This pushes the globe UP on the screen, 
-            // making perfect room for the new title at the bottom!
             camera.target = new BABYLON.Vector3(0, -0.2, 0);
-
             camera.attachControl(canvas, true);
             camera.wheelPrecision = 50;
             camera.lowerRadiusLimit = 2.5;
@@ -327,18 +321,20 @@
             const glowLayer = new BABYLON.GlowLayer("glow", scene);
             glowLayer.intensity = 0.9; 
 
+            // --- LAYER 1: RED ENERGY CORE ---
             const innerSphere = BABYLON.MeshBuilder.CreateSphere("innerSphere", { diameter: 1.98, segments: 64 }, scene);
             const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
-            coreMat.alpha = 0.2; 
+            coreMat.alpha = 0.3; 
             coreMat.disableLighting = true; 
             coreMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
-            coreMat.emissiveFresnelParameters.bias = 0.15;
-            coreMat.emissiveFresnelParameters.power = 3;
-            coreMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(0.0, 0.5, 1.0); 
+            coreMat.emissiveFresnelParameters.bias = 0.1;
+            coreMat.emissiveFresnelParameters.power = 4;
+            coreMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(1.0, 0.2, 0.0); 
             coreMat.emissiveFresnelParameters.rightColor = BABYLON.Color3.Black(); 
             innerSphere.material = coreMat;
             innerSphere.parent = earthRoot;
 
+            // --- LAYER 2: DEEP HOLOGRAPHIC LANDMASS ---
             const outerSphere = BABYLON.MeshBuilder.CreateSphere("outerSphere", { diameter: 2.005, segments: 64 }, scene);
             const landMat = new BABYLON.PBRMaterial("landMat", scene);
             landMat.metallic = 0.8;
@@ -350,18 +346,27 @@
             maskTexture.getAlphaFromRGB = true; 
             maskTexture.vScale = -1; 
             maskTexture.uScale = -1; 
+            maskTexture.vOffset = 1; 
+            maskTexture.uOffset = 1; 
+            maskTexture.wrapU = BABYLON.Texture.CLAMP_ADDRESSMODE;
+            maskTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
             landMat.opacityTexture = maskTexture;
             landMat.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHABLEND;
 
             const normalTexture = new BABYLON.Texture("normal.png", scene);
             normalTexture.vScale = -1; 
             normalTexture.uScale = -1; 
+            normalTexture.vOffset = 1; 
+            normalTexture.uOffset = 1; 
             normalTexture.level = 5.0; 
+            normalTexture.wrapU = BABYLON.Texture.CLAMP_ADDRESSMODE;
+            normalTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
             landMat.bumpTexture = normalTexture;
             
             outerSphere.material = landMat;
             outerSphere.parent = earthRoot;
 
+            // --- ATMOSPHERIC HALO ---
             const atmosSphere = BABYLON.MeshBuilder.CreateSphere("atmosSphere", { diameter: 2.15, segments: 64 }, scene);
             const atmosMat = new BABYLON.StandardMaterial("atmosMat", scene);
             atmosMat.emissiveColor = new BABYLON.Color3(0.0, 0.5, 1.0); 
@@ -375,6 +380,7 @@
             atmosSphere.material = atmosMat;
             atmosSphere.parent = earthRoot;
 
+            // --- LAYER 3: SEMANTIC PARTICLE NETWORK ---
             const particleMesh = BABYLON.MeshBuilder.CreateSphere("particle", { diameter: 0.008, segments: 4 }, scene);
             const particleMat = new BABYLON.StandardMaterial("particleMat", scene);
             particleMat.disableLighting = true;
@@ -411,19 +417,10 @@
             const landPoints = []; 
             const hubPoints = [];  
 
+            // Removed the geometric torus markers. Hub coordinates are still stored for the network arcs.
             techHubs.forEach(hub => {
                 const pos = getCoordsFromLatLon(hub.lat, hub.lon, 1.02); 
                 hubPoints.push(pos);
-
-                const marker = BABYLON.MeshBuilder.CreateTorus("hub_" + hub.name, {diameter: 0.04, thickness: 0.005, tessellation: 16}, scene);
-                marker.position = pos;
-                marker.lookAt(BABYLON.Vector3.Zero()); 
-                const markerMat = new BABYLON.StandardMaterial("markerMat", scene);
-                markerMat.emissiveColor = new BABYLON.Color3(1.0, 0.7, 0.1); 
-                markerMat.disableLighting = true;
-                marker.material = markerMat;
-                marker.parent = dataRoot;
-                glowLayer.addIncludedOnlyMesh(marker);
             });
 
             img.onload = () => {
@@ -439,8 +436,12 @@
                     const colorData = []; 
                     
                     const radius = 1.025; 
+                    const topExclusion = tempCanvas.height * 0.05;
+                    const bottomExclusion = tempCanvas.height * 0.88;
 
                     for (let y = 0; y < tempCanvas.height; y++) {
+                        if (y < topExclusion || y > bottomExclusion) continue;
+
                         for (let x = 0; x < tempCanvas.width; x++) {
                             const index = (y * tempCanvas.width + x) * 4;
                             if (imgData[index] > 128 && imgData[index + 3] > 10) { 
@@ -466,14 +467,12 @@
                                 matrix.copyToArray(matricesData, matricesData.length);
                                 
                                 const randColor = Math.random();
-                                let r = 0.0, g = 1.0, b = 0.8, a = 0.9;
+                                let r = 0.0, g = 0.8, b = 1.0, a = 0.9; 
 
-                                if (randColor > 0.98) {
-                                    r = 1.0; g = 0.7; b = 0.1; a = 1.0;
-                                } else if (randColor > 0.90) {
-                                    r = 1.0; g = 1.0; b = 1.0; a = 0.9;
-                                } else if (randColor > 0.70) {
-                                    r = 0.0; g = 0.5; b = 1.0; a = 0.7;
+                                if (randColor > 0.96) {
+                                    r = 1.0; g = 0.3; b = 0.6; a = 1.0; 
+                                } else if (randColor > 0.85) {
+                                    r = 0.0; g = 0.5; b = 1.0; a = 0.7; 
                                 }
 
                                 colorData.push(r, g, b, a); 
@@ -543,20 +542,71 @@
                 }
             }
 
+            // --- LAYER 5: INTERSECTING DATA ORBITS ---
+            /*
+            const animatedOrbits = [];
+            const createComplexOrbit = (name, diameter, tiltX, tiltZ, color) => {
+                const ring = BABYLON.MeshBuilder.CreateTorus(name, { diameter: diameter, thickness: 0.003, tessellation: 128 }, scene);
+                const mat = new BABYLON.StandardMaterial(name + "Mat", scene);
+                mat.emissiveColor = color;
+                mat.disableLighting = true;
+                ring.material = mat;
+                ring.parent = earthRoot;
+                ring.rotation.x = tiltX;
+                ring.rotation.z = tiltZ;
+                glowLayer.addIncludedOnlyMesh(ring);
+
+                animatedOrbits.push(ring); 
+
+                for(let i = 0; i < 3; i++){
+                    packetAnimations.push({
+                        mesh: createPacket(new BABYLON.Color3(1.0, 1.0, 1.0), 0.02),
+                        radius: diameter / 2,
+                        angle: (i / 3) * 2 * Math.PI,
+                        speed: 0.002 + (Math.random() * 0.002),
+                        tiltX: tiltX,
+                        tiltZ: tiltZ,
+                        isIntersectingOrbit: true
+                    });
+                }
+                return ring;
+            };
+
+            createComplexOrbit("orbit1", 2.6, Math.PI / 4, Math.PI / 6, new BABYLON.Color3(0.0, 0.5, 1.0)); 
+            createComplexOrbit("orbit2", 2.8, -Math.PI / 8, -Math.PI / 3, new BABYLON.Color3(1.0, 0.3, 0.6)); 
+            createComplexOrbit("orbit3", 2.4, Math.PI / 2.1, Math.PI / 8, new BABYLON.Color3(0.0, 0.8, 1.0)); 
+            */
+
             scene.onBeforeRenderObservable.add(() => {
                 earthRoot.rotation.y += 0.0008; 
 
+                /*
+                // Spin the outer data cage orbits! (Uncomment if using Layer 5)
+                animatedOrbits.forEach((orbit, index) => {
+                    orbit.rotation.y += (index % 2 === 0 ? 0.002 : -0.0015);
+                });
+                */
+
                 for(let animation of packetAnimations) {
-                    animation.alpha += animation.speed;
-                    if(animation.alpha > 1.0) animation.alpha = 0.0; 
-                    
-                    const maxIdx = animation.path.length - 1;
-                    const exactIdx = animation.alpha * maxIdx;
-                    const pointIndex = Math.floor(exactIdx);
-                    const nextPointIndex = Math.min(Math.ceil(exactIdx), maxIdx); 
-                    const interPointAlpha = exactIdx - pointIndex;
-                    
-                    animation.mesh.position = BABYLON.Vector3.Lerp(animation.path[pointIndex], animation.path[nextPointIndex], interPointAlpha);
+                    if (animation.isIntersectingOrbit) {
+                        animation.angle += animation.speed;
+                        const x = animation.radius * Math.cos(animation.angle);
+                        const z = animation.radius * Math.sin(animation.angle);
+                        const pos = new BABYLON.Vector3(x, 0, z);
+                        const rotationMatrix = BABYLON.Matrix.RotationYawPitchRoll(0, animation.tiltX, animation.tiltZ);
+                        animation.mesh.position = BABYLON.Vector3.TransformCoordinates(pos, rotationMatrix);
+                    } else {
+                        animation.alpha += animation.speed;
+                        if(animation.alpha > 1.0) animation.alpha = 0.0; 
+                        
+                        const maxIdx = animation.path.length - 1;
+                        const exactIdx = animation.alpha * maxIdx;
+                        const pointIndex = Math.floor(exactIdx);
+                        const nextPointIndex = Math.min(Math.ceil(exactIdx), maxIdx); 
+                        const interPointAlpha = exactIdx - pointIndex;
+                        
+                        animation.mesh.position = BABYLON.Vector3.Lerp(animation.path[pointIndex], animation.path[nextPointIndex], interPointAlpha);
+                    }
                 }
             });
 
@@ -568,11 +618,11 @@
         const updateCameraZoom = () => {
             if (!camera) return;
             if (window.innerWidth <= 768) {
-                camera.radius = 6.5; 
+                camera.radius = 6.8; 
             } else if (window.innerWidth <= 1024) {
-                camera.radius = 5.5; 
+                camera.radius = 5.6; 
             } else {
-                camera.radius = 4.5; 
+                camera.radius = 4.6; 
             }
         };
 
