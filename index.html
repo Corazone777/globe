@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +9,16 @@
     <style>
         /* --- GLOBAL RESET & FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rajdhani:wght@500;600;700;800&display=swap');
-        
-        html, body {
+
+        html,
+        body {
             overflow: hidden;
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #000103; /* Deep space void */
+            background-color: #000103;
+            /* Deep space void */
             font-family: 'Inter', sans-serif;
             color: white;
         }
@@ -28,7 +31,7 @@
             height: 100%;
             touch-action: none;
             outline: none;
-            z-index: 1; 
+            z-index: 1;
         }
 
         #ui-layer {
@@ -37,15 +40,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 10; 
-            pointer-events: none; 
+            z-index: 10;
+            pointer-events: none;
             display: flex;
             flex-direction: column;
         }
 
         /* --- NAVBAR HEADER --- */
         header {
-            pointer-events: auto; 
+            pointer-events: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,7 +56,7 @@
             background: linear-gradient(180deg, rgba(0, 1, 3, 0.95) 0%, rgba(0, 1, 3, 0.3) 100%);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 204, 0.15); 
+            border-bottom: 1px solid rgba(0, 255, 204, 0.15);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
             z-index: 100;
         }
@@ -67,9 +70,9 @@
 
         .logo {
             height: 35px;
-            max-width: 150px; 
+            max-width: 150px;
             /* Forces SVG to pure white with a subtle shadow */
-            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
         }
 
         .brand-text {
@@ -78,7 +81,7 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #ffffff, #00ffcc); 
+            background: linear-gradient(90deg, #ffffff, #00ffcc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -89,7 +92,8 @@
             align-items: center;
         }
 
-        .desktop-nav a, .mobile-menu a {
+        .desktop-nav a,
+        .mobile-menu a {
             color: #b0bfc9;
             text-decoration: none;
             font-family: 'Rajdhani', sans-serif;
@@ -101,7 +105,8 @@
             position: relative;
         }
 
-        .desktop-nav a:hover, .mobile-menu a:hover {
+        .desktop-nav a:hover,
+        .mobile-menu a:hover {
             color: #ffffff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
@@ -113,19 +118,23 @@
             height: 2px;
             bottom: -6px;
             left: 0;
-            background-color: #00ffcc; /* TEAL UNDERLINE RESTORED */
+            background-color: #00ffcc;
+            /* TEAL UNDERLINE RESTORED */
             transition: width 0.3s ease;
             box-shadow: 0 0 8px #00ffcc;
         }
 
-        .desktop-nav a:hover::after { width: 100%; }
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
 
         .roi-btn {
             background: rgba(0, 255, 204, 0.1);
             border: 1px solid rgba(0, 255, 204, 0.5);
             padding: 8px 20px;
             border-radius: 4px;
-            color: #00ffcc !important; /* TEAL BUTTON RESTORED */
+            color: #00ffcc !important;
+            /* TEAL BUTTON RESTORED */
         }
 
         .roi-btn:hover {
@@ -145,20 +154,29 @@
             border: none;
             cursor: pointer;
             padding: 0;
-            z-index: 101; 
+            z-index: 101;
         }
 
         .hamburger span {
             width: 100%;
             height: 3px;
-            background-color: #00ffcc; /* Mobile icon changed to Teal */
+            background-color: #00ffcc;
+            /* Mobile icon changed to Teal */
             border-radius: 10px;
             transition: all 0.3s ease-in-out;
         }
 
-        .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
 
         .mobile-menu {
             position: absolute;
@@ -174,7 +192,7 @@
             justify-content: center;
             align-items: center;
             gap: 2rem;
-            z-index: 90; 
+            z-index: 90;
             opacity: 0;
             transform: translateY(-100%);
             transition: all 0.4s ease-in-out;
@@ -184,13 +202,13 @@
         .mobile-menu.open {
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto; 
+            pointer-events: auto;
         }
 
         /* --- HERO CENTER TYPOGRAPHY --- */
         .hero-center {
             position: absolute;
-            top: 50%; 
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 100%;
@@ -199,7 +217,7 @@
             align-items: center;
             gap: 10px;
             z-index: 50;
-            pointer-events: none; 
+            pointer-events: none;
             text-align: center;
         }
 
@@ -214,14 +232,16 @@
             font-weight: 800;
             letter-spacing: 6px;
             text-transform: uppercase;
-            color: #00ffcc; 
+            color: #00ffcc;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 2px 5px rgba(0, 0, 0, 0.8);
         }
+
         .hero-logo {
-            height: 80px; 
+            height: 80px;
             /* Forces SVG to pure white with a heavier shadow for 3D depth */
-            filter: brightness(0) invert(1) drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+            filter: brightness(0) invert(1) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
         }
+
         .hero-subtitle {
             margin-bottom: 10px;
             font-family: 'Inter', sans-serif;
@@ -229,34 +249,74 @@
             font-weight: 400;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: #00ffcc; 
+            color: #00ffcc;
             text-shadow: 0 0 15px rgba(0, 255, 204, 0.5), 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
         /* --- RESPONSIVE BREAKPOINTS --- */
         @media (max-width: 1024px) {
-            .hero-title { font-size: 2.8rem; letter-spacing: 4px; }
-            .hero-logo { height: 48px; }
-            .hero-subtitle { font-size: 1rem; letter-spacing: 3px; }
+            .hero-title {
+                font-size: 2.8rem;
+                letter-spacing: 4px;
+            }
+
+            .hero-logo {
+                height: 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
         }
 
         @media (max-width: 900px) {
-            header { padding: 1.2rem 2rem; }
-            .desktop-nav { gap: 1.5rem; }
+            header {
+                padding: 1.2rem 2rem;
+            }
+
+            .desktop-nav {
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .desktop-nav { display: none; } 
-            .hamburger { display: flex; }   
-            .brand-text { display: none; } /* Hide text next to top-left logo to save mobile space */
-            
+            .desktop-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .brand-text {
+                display: none;
+            }
+
+            /* Hide text next to top-left logo to save mobile space */
+
             /* Stack logo and title on mobile */
-            .hero-title { flex-direction: column; gap: 10px; font-size: 1.8rem; letter-spacing: 2px; padding: 0 10px; }
-            .hero-logo { height: 40px; }
-            .hero-subtitle { font-size: 0.8rem; letter-spacing: 2px; padding: 0 10px; }
+            .hero-title {
+                flex-direction: column;
+                gap: 10px;
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                padding: 0 10px;
+            }
+
+            .hero-logo {
+                height: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+                padding: 0 10px;
+            }
         }
     </style>
 </head>
+
 <body>
     <canvas id="renderCanvas"></canvas>
 
@@ -264,9 +324,9 @@
         <header>
             <a href="#" class="brand-container">
                 <img src="IBEXlogo.svg" alt="IBEX" class="logo" onerror="this.style.display='none'">
-                <div class="brand-text">IBEX Staffing</div>
+                <div class="brand-text">IBEX STAFFING SOLUTIONS</div>
             </a>
-            
+
             <nav class="desktop-nav">
                 <a href="#">About Ibex</a>
                 <a href="#">Talent Solutions</a>
@@ -281,7 +341,7 @@
                 <span></span>
             </button>
         </header>
-        
+
         <div class="mobile-menu" id="mobile-menu">
             <a href="#">About Ibex</a>
             <a href="#">Talent Solutions</a>
@@ -290,7 +350,7 @@
             <a href="#" class="roi-btn">ROI Calculator</a>
         </div>
 
-       <div class="hero-center">
+        <div class="hero-center">
             <h1 class="hero-title">
                 <span>WITH</span>
                 <img src="IBEXlogo.svg" alt="IBEX Logo" class="hero-logo" onerror="this.style.display='none'">
@@ -311,11 +371,11 @@
     <script>
         const canvas = document.getElementById("renderCanvas");
         const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
-        let camera; 
+        let camera;
 
         const createScene = function () {
             const scene = new BABYLON.Scene(engine);
-            
+
             scene.clearColor = new BABYLON.Color4(0.00, 0.00, 0.00, 1);
 
             camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 4.5, BABYLON.Vector3.Zero(), scene);
@@ -328,7 +388,7 @@
             camera.panningSensibility = 0;
 
             const hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
-            hemLight.intensity = 1.8; 
+            hemLight.intensity = 1.8;
             // Removes the glowing reflection dot from the globe
             hemLight.specular = new BABYLON.Color3(0, 0, 0);
 
@@ -336,7 +396,7 @@
             const starRoot = new BABYLON.TransformNode("starRoot", scene);
             const starMesh = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.08, segments: 4 }, scene);
             const starMat = new BABYLON.StandardMaterial("starMat", scene);
-            starMat.emissiveColor = new BABYLON.Color3(0.8, 0.9, 1.0); 
+            starMat.emissiveColor = new BABYLON.Color3(0.8, 0.9, 1.0);
             starMat.disableLighting = true;
             starMesh.material = starMat;
             starMesh.parent = starRoot;
@@ -346,17 +406,17 @@
                 const r = 40 + Math.random() * 60;
                 const theta = Math.random() * 2 * Math.PI;
                 const phi = Math.acos(2 * Math.random() - 1);
-                
+
                 const x = r * Math.sin(phi) * Math.cos(theta);
                 const y = r * Math.sin(phi) * Math.sin(theta);
                 const z = r * Math.cos(phi);
-                
+
                 const matrix = BABYLON.Matrix.Translation(x, y, z);
-                
-                const scale = 0.6 + Math.random() * 0.6; 
+
+                const scale = 0.6 + Math.random() * 0.6;
                 const scaleMatrix = BABYLON.Matrix.Scaling(scale, scale, scale);
                 scaleMatrix.multiplyToRef(matrix, matrix);
-                
+
                 matrix.copyToArray(starMatrices, starMatrices.length);
             }
             starMesh.thinInstanceSetBuffer("matrix", new Float32Array(starMatrices), 16);
@@ -364,21 +424,21 @@
             const earthRoot = new BABYLON.TransformNode("earthRoot", scene);
             const dataRoot = new BABYLON.TransformNode("dataRoot", scene);
             dataRoot.parent = earthRoot;
-            dataRoot.rotation.y = Math.PI; 
+            dataRoot.rotation.y = Math.PI;
 
             const glowLayer = new BABYLON.GlowLayer("glow", scene);
-            glowLayer.intensity = 0.9; 
+            glowLayer.intensity = 0.9;
 
             // --- LAYER 1: RED ENERGY CORE ---
             const innerSphere = BABYLON.MeshBuilder.CreateSphere("innerSphere", { diameter: 1.98, segments: 64 }, scene);
             const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
-            coreMat.alpha = 0.3; 
-            coreMat.disableLighting = true; 
+            coreMat.alpha = 0.3;
+            coreMat.disableLighting = true;
             coreMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
             coreMat.emissiveFresnelParameters.bias = 0.1;
             coreMat.emissiveFresnelParameters.power = 4;
-            coreMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(1.0, 0.2, 0.0); 
-            coreMat.emissiveFresnelParameters.rightColor = BABYLON.Color3.Black(); 
+            coreMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(1.0, 0.2, 0.0);
+            coreMat.emissiveFresnelParameters.rightColor = BABYLON.Color3.Black();
             innerSphere.material = coreMat;
             innerSphere.parent = earthRoot;
 
@@ -386,42 +446,42 @@
             const outerSphere = BABYLON.MeshBuilder.CreateSphere("outerSphere", { diameter: 2.005, segments: 64 }, scene);
             const landMat = new BABYLON.PBRMaterial("landMat", scene);
             landMat.metallic = 0.8;
-            landMat.roughness = 0.4; 
-            landMat.albedoColor = new BABYLON.Color3(0.05, 0.15, 0.25); 
-            landMat.emissiveColor = new BABYLON.Color3(0.01, 0.05, 0.1); 
+            landMat.roughness = 0.4;
+            landMat.albedoColor = new BABYLON.Color3(0.05, 0.15, 0.25);
+            landMat.emissiveColor = new BABYLON.Color3(0.01, 0.05, 0.1);
 
             const maskTexture = new BABYLON.Texture("globe.png", scene);
-            maskTexture.getAlphaFromRGB = true; 
-            maskTexture.vScale = -1; 
-            maskTexture.uScale = -1; 
-            maskTexture.vOffset = 1; 
-            maskTexture.uOffset = 1; 
+            maskTexture.getAlphaFromRGB = true;
+            maskTexture.vScale = -1;
+            maskTexture.uScale = -1;
+            maskTexture.vOffset = 1;
+            maskTexture.uOffset = 1;
             maskTexture.wrapU = BABYLON.Texture.CLAMP_ADDRESSMODE;
             maskTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
             landMat.opacityTexture = maskTexture;
             landMat.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHABLEND;
 
             const normalTexture = new BABYLON.Texture("normal.png", scene);
-            normalTexture.vScale = -1; 
-            normalTexture.uScale = -1; 
-            normalTexture.vOffset = 1; 
-            normalTexture.uOffset = 1; 
-            normalTexture.level = 5.0; 
+            normalTexture.vScale = -1;
+            normalTexture.uScale = -1;
+            normalTexture.vOffset = 1;
+            normalTexture.uOffset = 1;
+            normalTexture.level = 5.0;
             normalTexture.wrapU = BABYLON.Texture.CLAMP_ADDRESSMODE;
             normalTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
             landMat.bumpTexture = normalTexture;
-            
+
             outerSphere.material = landMat;
             outerSphere.parent = earthRoot;
 
             // --- ATMOSPHERIC HALO ---
             const atmosSphere = BABYLON.MeshBuilder.CreateSphere("atmosSphere", { diameter: 2.15, segments: 64 }, scene);
             const atmosMat = new BABYLON.StandardMaterial("atmosMat", scene);
-            atmosMat.emissiveColor = new BABYLON.Color3(0.0, 0.5, 1.0); 
-            atmosMat.alpha = 0.05; 
-            atmosMat.emissiveFresnelParameters = new BABYLON.FresnelParameters(); 
+            atmosMat.emissiveColor = new BABYLON.Color3(0.0, 0.5, 1.0);
+            atmosMat.alpha = 0.05;
+            atmosMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
             atmosMat.emissiveFresnelParameters.bias = 0.1;
-            atmosMat.emissiveFresnelParameters.power = 5; 
+            atmosMat.emissiveFresnelParameters.power = 5;
             atmosMat.emissiveFresnelParameters.leftColor = BABYLON.Color3.White();
             atmosMat.emissiveFresnelParameters.rightColor = BABYLON.Color3.Black();
             atmosMat.disableLighting = true;
@@ -432,9 +492,9 @@
             const particleMesh = BABYLON.MeshBuilder.CreateSphere("particle", { diameter: 0.008, segments: 4 }, scene);
             const particleMat = new BABYLON.StandardMaterial("particleMat", scene);
             particleMat.disableLighting = true;
-            particleMat.emissiveColor = BABYLON.Color3.White(); 
+            particleMat.emissiveColor = BABYLON.Color3.White();
             particleMesh.material = particleMat;
-            particleMesh.parent = dataRoot; 
+            particleMesh.parent = dataRoot;
             glowLayer.addIncludedOnlyMesh(particleMesh);
 
             const techHubs = [
@@ -461,28 +521,28 @@
 
             const img = new Image();
             img.src = "globe.png";
-            
-            const landPoints = []; 
-            const hubPoints = [];  
+
+            const landPoints = [];
+            const hubPoints = [];
 
             techHubs.forEach(hub => {
-                const pos = getCoordsFromLatLon(hub.lat, hub.lon, 1.02); 
+                const pos = getCoordsFromLatLon(hub.lat, hub.lon, 1.02);
                 hubPoints.push(pos);
             });
 
             img.onload = () => {
                 try {
                     const tempCanvas = document.createElement("canvas");
-                    tempCanvas.width = 200; 
-                    tempCanvas.height = 100; 
+                    tempCanvas.width = 200;
+                    tempCanvas.height = 100;
                     const ctx = tempCanvas.getContext("2d", { willReadFrequently: true });
                     ctx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
-                    
+
                     const imgData = ctx.getImageData(0, 0, tempCanvas.width, tempCanvas.height).data;
                     const matricesData = [];
-                    const colorData = []; 
-                    
-                    const radius = 1.025; 
+                    const colorData = [];
+
+                    const radius = 1.025;
                     const topExclusion = tempCanvas.height * 0.05;
                     const bottomExclusion = tempCanvas.height * 0.88;
 
@@ -491,12 +551,12 @@
 
                         for (let x = 0; x < tempCanvas.width; x++) {
                             const index = (y * tempCanvas.width + x) * 4;
-                            if (imgData[index] > 128 && imgData[index + 3] > 10) { 
+                            if (imgData[index] > 128 && imgData[index + 3] > 10) {
                                 let u = x / tempCanvas.width;
                                 let v = y / tempCanvas.height;
-                                
+
                                 const theta = u * 2 * Math.PI - Math.PI;
-                                const phi = v * Math.PI;                 
+                                const phi = v * Math.PI;
 
                                 const px = radius * Math.sin(phi) * Math.cos(theta);
                                 const py = radius * Math.cos(phi);
@@ -505,24 +565,24 @@
                                 const pos = new BABYLON.Vector3(px, py, pz);
                                 landPoints.push(pos);
 
-                                const pointScale = 0.5 + (Math.random() * 0.4); 
+                                const pointScale = 0.5 + (Math.random() * 0.4);
                                 const matrix = BABYLON.Matrix.Compose(
                                     new BABYLON.Vector3(pointScale, pointScale, pointScale),
                                     BABYLON.Quaternion.Identity(),
                                     pos
                                 );
                                 matrix.copyToArray(matricesData, matricesData.length);
-                                
+
                                 const randColor = Math.random();
-                                let r = 0.0, g = 0.8, b = 1.0, a = 0.9; 
+                                let r = 0.0, g = 0.8, b = 1.0, a = 0.9;
 
                                 if (randColor > 0.96) {
-                                    r = 1.0; g = 0.3; b = 0.6; a = 1.0; 
+                                    r = 1.0; g = 0.3; b = 0.6; a = 1.0;
                                 } else if (randColor > 0.85) {
-                                    r = 0.0; g = 0.5; b = 1.0; a = 0.7; 
+                                    r = 0.0; g = 0.5; b = 1.0; a = 0.7;
                                 }
 
-                                colorData.push(r, g, b, a); 
+                                colorData.push(r, g, b, a);
                             }
                         }
                     }
@@ -530,7 +590,7 @@
                     if (matricesData.length > 0) {
                         particleMesh.thinInstanceSetBuffer("matrix", new Float32Array(matricesData), 16);
                         particleMesh.thinInstanceSetBuffer("color", new Float32Array(colorData), 4);
-                        
+
                         generateFlawlessSemanticArcs(landPoints, hubPoints);
                     }
                 } catch (e) { console.error("Canvas read error.", e); }
@@ -539,7 +599,7 @@
             const movingPacketsParent = new BABYLON.TransformNode("movingPackets", scene);
             movingPacketsParent.parent = dataRoot;
             const packetAnimations = [];
-            
+
             function createPacket(color, size) {
                 const packet = BABYLON.MeshBuilder.CreateSphere("packet", { diameter: size, segments: 4 }, scene);
                 const mat = new BABYLON.StandardMaterial("packetMat", scene);
@@ -554,14 +614,14 @@
             function generateFlawlessSemanticArcs(allDots, hubs) {
                 const createArc = (p1, p2, color, thickness, packetSize) => {
                     const distance = BABYLON.Vector3.Distance(p1, p2);
-                    const heightFactor = 1.0 + (distance * 0.4); 
+                    const heightFactor = 1.0 + (distance * 0.4);
                     const cp1 = p1.scale(heightFactor);
                     const cp2 = p2.scale(heightFactor);
 
                     const curvePoints = BABYLON.Curve3.CreateCubicBezier(p1, cp1, cp2, p2, 40).getPoints();
-                    const arcLine = BABYLON.MeshBuilder.CreateLines("arc", {points: curvePoints}, scene);
+                    const arcLine = BABYLON.MeshBuilder.CreateLines("arc", { points: curvePoints }, scene);
                     arcLine.color = color;
-                    arcLine.alpha = thickness; 
+                    arcLine.alpha = thickness;
                     arcLine.parent = dataRoot;
                     glowLayer.addIncludedOnlyMesh(arcLine);
 
@@ -579,21 +639,21 @@
                             createArc(hubs[i], hubs[j], new BABYLON.Color3(1.0, 0.7, 0.1), 0.7, 0.02);
                         }
                     }
-                    
+
                     for (let k = 0; k < 5; k++) {
                         let randomLandNode = allDots[Math.floor(Math.random() * allDots.length)];
                         if (BABYLON.Vector3.Distance(hubs[i], randomLandNode) < 1.2) {
-                             createArc(hubs[i], randomLandNode, new BABYLON.Color3(0.0, 0.8, 1.0), 0.2, 0.01);
+                            createArc(hubs[i], randomLandNode, new BABYLON.Color3(0.0, 0.8, 1.0), 0.2, 0.01);
                         }
                     }
                 }
             }
 
             scene.onBeforeRenderObservable.add(() => {
-                earthRoot.rotation.y += 0.0008; 
+                earthRoot.rotation.y += 0.0008;
                 starRoot.rotation.y += 0.0002;
 
-                for(let animation of packetAnimations) {
+                for (let animation of packetAnimations) {
                     if (animation.isIntersectingOrbit) {
                         animation.angle += animation.speed;
                         const x = animation.radius * Math.cos(animation.angle);
@@ -603,14 +663,14 @@
                         animation.mesh.position = BABYLON.Vector3.TransformCoordinates(pos, rotationMatrix);
                     } else {
                         animation.alpha += animation.speed;
-                        if(animation.alpha > 1.0) animation.alpha = 0.0; 
-                        
+                        if (animation.alpha > 1.0) animation.alpha = 0.0;
+
                         const maxIdx = animation.path.length - 1;
                         const exactIdx = animation.alpha * maxIdx;
                         const pointIndex = Math.floor(exactIdx);
-                        const nextPointIndex = Math.min(Math.ceil(exactIdx), maxIdx); 
+                        const nextPointIndex = Math.min(Math.ceil(exactIdx), maxIdx);
                         const interPointAlpha = exactIdx - pointIndex;
-                        
+
                         animation.mesh.position = BABYLON.Vector3.Lerp(animation.path[pointIndex], animation.path[nextPointIndex], interPointAlpha);
                     }
                 }
@@ -621,26 +681,27 @@
 
         const scene = createScene();
 
-        const updateCameraZoom = () => {
+       const updateCameraZoom = () => {
             if (!camera) return;
             if (window.innerWidth <= 768) {
-                camera.radius = 6.8; 
+                camera.radius = 5.5; // Mobile zoom (was 6.8)
             } else if (window.innerWidth <= 1024) {
-                camera.radius = 5.6; 
+                camera.radius = 4.5; // Tablet zoom (was 5.6)
             } else {
-                camera.radius = 4.6; 
+                camera.radius = 3.5; // Desktop zoom (was 4.6)
             }
         };
 
-        engine.runRenderLoop(function () { 
-            scene.render(); 
+        engine.runRenderLoop(function () {
+            scene.render();
         });
 
         updateCameraZoom();
-        window.addEventListener("resize", function () { 
-            engine.resize(); 
+        window.addEventListener("resize", function () {
+            engine.resize();
             updateCameraZoom();
         });
     </script>
 </body>
+
 </html>
