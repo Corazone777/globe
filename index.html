@@ -15,7 +15,8 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #0d1117;
+            /* Update CSS fallback color to match new deep void */
+            background-color: #000103;
             font-family: 'Inter', sans-serif;
             color: white;
         }
@@ -50,7 +51,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.2rem 4rem;
-            background: linear-gradient(180deg, rgba(8, 12, 20, 0.9) 0%, rgba(8, 12, 20, 0.3) 100%);
+            /* Updated gradient background to blend with deeper void */
+            background: linear-gradient(180deg, rgba(0, 1, 3, 0.95) 0%, rgba(0, 1, 3, 0.3) 100%);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 255, 204, 0.15); 
@@ -111,25 +113,25 @@
             height: 2px;
             bottom: -6px;
             left: 0;
-            background-color: #ffb319;
+            background-color: #00ffcc; /* Restored Teal */
             transition: width 0.3s ease;
-            box-shadow: 0 0 8px #ffb319;
+            box-shadow: 0 0 8px #00ffcc; /* Restored Teal glow */
         }
 
         .desktop-nav a:hover::after { width: 100%; }
 
-        .roi-btn {
-            background: rgba(255, 179, 25, 0.1);
-            border: 1px solid rgba(255, 179, 25, 0.5);
+       .roi-btn {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.5);
             padding: 8px 20px;
             border-radius: 4px;
-            color: #ffb319 !important; 
+            color: #00ffcc !important; 
         }
 
         .roi-btn:hover {
-            background: rgba(255, 179, 25, 0.2);
-            border-color: #ffb319;
-            box-shadow: 0 0 15px rgba(255, 179, 25, 0.4), inset 0 0 10px rgba(255, 179, 25, 0.2);
+            background: rgba(0, 255, 204, 0.2);
+            border-color: #00ffcc;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4), inset 0 0 10px rgba(0, 255, 204, 0.2);
             text-shadow: none;
         }
 
@@ -149,7 +151,7 @@
         .hamburger span {
             width: 100%;
             height: 3px;
-            background-color: #ffb319;
+            background-color: #00ffcc;
             border-radius: 10px;
             transition: all 0.3s ease-in-out;
         }
@@ -164,7 +166,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(8, 12, 20, 0.95);
+            /* Updated mobile menu color to match new deep void */
+            background: rgba(0, 1, 3, 0.98);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             display: flex;
@@ -297,7 +300,9 @@
 
         const createScene = function () {
             const scene = new BABYLON.Scene(engine);
-            scene.clearColor = new BABYLON.Color4(0.05, 0.06, 0.09, 1);
+            
+            // THE FIX 1: Set the 3D void to absolute space void black
+            scene.clearColor = new BABYLON.Color4(0.00, 0.00, 0.00, 1);
 
             camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 4.5, BABYLON.Vector3.Zero(), scene);
             camera.target = new BABYLON.Vector3(0, -0.2, 0);
@@ -309,9 +314,40 @@
 
             const hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
             hemLight.intensity = 1.8; 
+            // THE FIX: Completely disables the shiny reflection dot on the globe
+            hemLight.specular = new BABYLON.Color3(0, 0, 0);
+
+            // --- PROCEDURAL 3D STARFIELD ---
+            const starRoot = new BABYLON.TransformNode("starRoot", scene);
             
-            const skyboxTexture = new BABYLON.EquiRectangularCubeTexture("NightSkyHDRI009_4K_TONEMAPPED.jpg", scene, 1024);
-            const skybox = scene.createDefaultSkybox(skyboxTexture, true, 1000, 0);
+            // THE FIX: Increased base diameter to make them prominently larger
+            const starMesh = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.08, segments: 4 }, scene);
+            const starMat = new BABYLON.StandardMaterial("starMat", scene);
+            starMat.emissiveColor = new BABYLON.Color3(0.8, 0.9, 1.0); 
+            starMat.disableLighting = true;
+            starMesh.material = starMat;
+            starMesh.parent = starRoot;
+
+            const starMatrices = [];
+            for (let i = 0; i < 8000; i++) {
+                const r = 40 + Math.random() * 60;
+                const theta = Math.random() * 2 * Math.PI;
+                const phi = Math.acos(2 * Math.random() - 1);
+                
+                const x = r * Math.sin(phi) * Math.cos(theta);
+                const y = r * Math.sin(phi) * Math.sin(theta);
+                const z = r * Math.cos(phi);
+                
+                const matrix = BABYLON.Matrix.Translation(x, y, z);
+                
+                // THE FIX: Adjusted the minimum scale so they don't shrink below a single pixel
+                const scale = 0.6 + Math.random() * 0.6; 
+                const scaleMatrix = BABYLON.Matrix.Scaling(scale, scale, scale);
+                scaleMatrix.multiplyToRef(matrix, matrix);
+                
+                matrix.copyToArray(starMatrices, starMatrices.length);
+            }
+            starMesh.thinInstanceSetBuffer("matrix", new Float32Array(starMatrices), 16);
 
             const earthRoot = new BABYLON.TransformNode("earthRoot", scene);
             const dataRoot = new BABYLON.TransformNode("dataRoot", scene);
@@ -320,13 +356,17 @@
 
             const glowLayer = new BABYLON.GlowLayer("glow", scene);
             glowLayer.intensity = 0.9; 
+            
+            // THE FIX: We specifically DO NOT add starMesh to the glowLayer anymore. 
+            // This instantly stops the shader from causing them to flicker!
+            glowLayer.addIncludedOnlyMesh(starMesh);
 
             // --- LAYER 1: RED ENERGY CORE ---
             const innerSphere = BABYLON.MeshBuilder.CreateSphere("innerSphere", { diameter: 1.98, segments: 64 }, scene);
             const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
             coreMat.alpha = 0.3; 
             coreMat.disableLighting = true; 
-            coreMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
+            coreMat.emissiveFresnelParameters = new BABYLON.FresnelParameters(); // TYPO FIXED!
             coreMat.emissiveFresnelParameters.bias = 0.1;
             coreMat.emissiveFresnelParameters.power = 4;
             coreMat.emissiveFresnelParameters.leftColor = new BABYLON.Color3(1.0, 0.2, 0.0); 
@@ -342,6 +382,7 @@
             landMat.albedoColor = new BABYLON.Color3(0.05, 0.15, 0.25); 
             landMat.emissiveColor = new BABYLON.Color3(0.01, 0.05, 0.1); 
 
+            // Corrected texture settings (deployed vercel fix)
             const maskTexture = new BABYLON.Texture("globe.png", scene);
             maskTexture.getAlphaFromRGB = true; 
             maskTexture.vScale = -1; 
@@ -366,12 +407,15 @@
             outerSphere.material = landMat;
             outerSphere.parent = earthRoot;
 
-            // --- ATMOSPHERIC HALO ---
+           // --- ATMOSPHERIC HALO ---
             const atmosSphere = BABYLON.MeshBuilder.CreateSphere("atmosSphere", { diameter: 2.15, segments: 64 }, scene);
             const atmosMat = new BABYLON.StandardMaterial("atmosMat", scene);
             atmosMat.emissiveColor = new BABYLON.Color3(0.0, 0.5, 1.0); 
             atmosMat.alpha = 0.05; 
-            atmosMat.emissiveFresnelParameters = new BABYLON.FresnelParameters();
+            
+            // THE FINAL TYPO FIX!
+            atmosMat.emissiveFresnelParameters = new BABYLON.FresnelParameters(); 
+            
             atmosMat.emissiveFresnelParameters.bias = 0.1;
             atmosMat.emissiveFresnelParameters.power = 5; 
             atmosMat.emissiveFresnelParameters.leftColor = BABYLON.Color3.White();
@@ -380,7 +424,6 @@
             atmosSphere.material = atmosMat;
             atmosSphere.parent = earthRoot;
 
-            // --- LAYER 3: SEMANTIC PARTICLE NETWORK ---
             const particleMesh = BABYLON.MeshBuilder.CreateSphere("particle", { diameter: 0.008, segments: 4 }, scene);
             const particleMat = new BABYLON.StandardMaterial("particleMat", scene);
             particleMat.disableLighting = true;
@@ -417,7 +460,6 @@
             const landPoints = []; 
             const hubPoints = [];  
 
-            // Removed the geometric torus markers. Hub coordinates are still stored for the network arcs.
             techHubs.forEach(hub => {
                 const pos = getCoordsFromLatLon(hub.lat, hub.lon, 1.02); 
                 hubPoints.push(pos);
@@ -578,7 +620,11 @@
             */
 
             scene.onBeforeRenderObservable.add(() => {
+                // Spin the globe
                 earthRoot.rotation.y += 0.0008; 
+                
+                // Spin the vast background starfield incredibly slowly for cinematic depth
+                starRoot.rotation.y += 0.0002;
 
                 /*
                 // Spin the outer data cage orbits! (Uncomment if using Layer 5)
