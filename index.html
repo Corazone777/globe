@@ -250,7 +250,7 @@
     <div id="ui-layer">
         <header>
             <a href="#" class="brand-container">
-                <img src="/public/IBEXlogo.svg" alt="" class="logo" onerror="this.style.display='none'">
+                <img src="IBEXlogo.svg" alt="" class="logo" onerror="this.style.display='none'">
                 <div class="brand-text">IBEX Staffing</div>
             </a>
             
@@ -316,7 +316,7 @@
             const hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
             hemLight.intensity = 1.8; 
             
-            const skyboxTexture = new BABYLON.EquiRectangularCubeTexture("/public/NightSkyHDRI009_4K_TONEMAPPED.jpg", scene, 1024);
+            const skyboxTexture = new BABYLON.EquiRectangularCubeTexture("NightSkyHDRI009_4K_TONEMAPPED.jpg", scene, 1024);
             const skybox = scene.createDefaultSkybox(skyboxTexture, true, 1000, 0);
 
             const earthRoot = new BABYLON.TransformNode("earthRoot", scene);
@@ -346,14 +346,14 @@
             landMat.albedoColor = new BABYLON.Color3(0.05, 0.15, 0.25); 
             landMat.emissiveColor = new BABYLON.Color3(0.01, 0.05, 0.1); 
 
-            const maskTexture = new BABYLON.Texture("/public/globe.png", scene);
+            const maskTexture = new BABYLON.Texture("globe.png", scene);
             maskTexture.getAlphaFromRGB = true; 
             maskTexture.vScale = -1; 
             maskTexture.uScale = -1; 
             landMat.opacityTexture = maskTexture;
             landMat.transparencyMode = BABYLON.PBRMaterial.PBRMATERIAL_ALPHABLEND;
 
-            const normalTexture = new BABYLON.Texture("/public/normal.png", scene);
+            const normalTexture = new BABYLON.Texture("normal.png", scene);
             normalTexture.vScale = -1; 
             normalTexture.uScale = -1; 
             normalTexture.level = 5.0; 
@@ -406,7 +406,7 @@
             }
 
             const img = new Image();
-            img.src = "/public/globe.png";
+            img.src = "globe.png";
             
             const landPoints = []; 
             const hubPoints = [];  
