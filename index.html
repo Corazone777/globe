@@ -179,9 +179,20 @@
         }
 
         @keyframes pulseDot {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .roi-btn:hover {
@@ -336,15 +347,18 @@
         /* --- HERO SUBTITLE UPGRADE --- */
         .hero-subtitle {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.1rem, 2vw, 1.3rem); /* Scales smoothly on mobile */
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            /* Scales smoothly on mobile */
             font-weight: 300;
             line-height: 1.8;
-            color: rgba(255, 255, 255, 0.75); /* Soft, premium frosted white */
+            color: rgba(255, 255, 255, 0.75);
+            /* Soft, premium frosted white */
             max-width: 750px;
             margin: 25px auto 0 auto;
             letter-spacing: 0.5px;
             text-transform: none;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Ensures it pops off the 3D globe */
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            /* Ensures it pops off the 3D globe */
         }
 
         .highlight-text {
@@ -1024,12 +1038,21 @@
 
         /* --- HERO TEXT UPGRADES (ANIMATED METALLIC) --- */
         .hero-pill {
-            display: inline-block; padding: 8px 20px; 
-            background: rgba(255, 255, 255, 0.03); /* Removed teal background */
-            border: 1px solid rgba(255, 255, 255, 0.15); /* Silver border */
-            border-radius: 50px; color: #b0bfc9; /* Slate text */
-            font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700;
-            letter-spacing: 3px; margin-bottom: 25px; text-transform: uppercase;
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            /* Removed teal background */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            /* Silver border */
+            border-radius: 50px;
+            color: #b0bfc9;
+            /* Slate text */
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
             backdrop-filter: blur(5px);
         }
 
@@ -1041,7 +1064,7 @@
             text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
-       .text-gradient {
+        .text-gradient {
             /* Shifted from aggressive Teal to a high-end Ice Silver sweep */
             background: linear-gradient(to right, #ffffff, #739bb0, #ffffff);
             background-size: 200% auto;
@@ -1060,17 +1083,21 @@
 
         /* --- MICRO-UI ELEMENTS --- */
         .node-label {
-            font-family: 'Rajdhani', monospace; 
-            color: #8fa3b0; /* Muted Slate instead of Cyan */
+            font-family: 'Rajdhani', monospace;
+            color: #8fa3b0;
+            /* Muted Slate instead of Cyan */
             font-size: 0.9rem;
-            letter-spacing: 3px; margin-bottom: 15px; 
+            letter-spacing: 3px;
+            margin-bottom: 15px;
             border-bottom: 1px solid rgba(143, 163, 176, 0.2);
-            display: inline-block; padding-bottom: 5px;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         /* Adds a tiny cyan accent just to the slashes */
         .node-label::after {
-            content: ''; /* We'll let the HTML handle the text, this just cools it down */
+            content: '';
+            /* We'll let the HTML handle the text, this just cools it down */
         }
 
         .tech-tag-container {
@@ -1182,12 +1209,13 @@
 
         /* --- LEGIBILITY GLOW --- */
         .teal-glow-text {
-            color: #ffffff; /* Keep the core text white for readability */
+            color: #ffffff;
+            /* Keep the core text white for readability */
             font-weight: 700;
             /* Layer 1: Dark drop shadow for contrast. Layer 2 & 3: Teal ambient glow */
-            text-shadow: 
-                0 4px 10px rgba(0, 0, 0, 0.9), 
-                0 0 20px rgba(0, 255, 204, 0.5), 
+            text-shadow:
+                0 4px 10px rgba(0, 0, 0, 0.9),
+                0 0 20px rgba(0, 255, 204, 0.5),
                 0 0 40px rgba(0, 255, 204, 0.2);
         }
     </style>
@@ -1254,9 +1282,11 @@
                         <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR
                             BUDGET.</span>
                     </h1>
-                   <p class="hero-subtitle">
-                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around the globe, providing the dedicated resources you need to <span class="highlight-text">build faster, scale smarter,</span> and stay ahead of the curve.
-                    </p> 
+                    <p class="hero-subtitle">
+                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around
+                        the globe, providing the dedicated resources you need to <span class="highlight-text">build
+                            faster, scale smarter,</span> and stay ahead of the curve.
+                    </p>
                 </div>
             </section>
 
@@ -1485,8 +1515,9 @@
 
                 matrix.copyToArray(starMatrices, starMatrices.length);
             }
-            starMesh.thinInstanceSetBuffer("matrix", new Float32Array(starMatrices), 16);
-
+            // Save the typed array globally so our snow engine can mutate it
+            window.starMatrixBuffer = new Float32Array(starMatrices);
+            starMesh.thinInstanceSetBuffer("matrix", window.starMatrixBuffer, 16);
             earthRoot = new BABYLON.TransformNode("earthRoot", scene);
             dataRoot = new BABYLON.TransformNode("dataRoot", scene);
             dataRoot.parent = earthRoot;
@@ -1898,12 +1929,18 @@
             // UNIFIED ANIMATION LOOP
             // ==========================================
             scene.onBeforeRenderObservable.add(() => {
+                //Always rotate the stars, no matter what mode we are in!
+                if (starRoot) {
+                    starRoot.rotation.x -= 0.00035; // Slow, cinematic drift
+                }
+
                 if (isGlobeMode) {
-                    // GLOBE ANIMATIONS (From your pristine code)
+                    // GLOBE ANIMATIONS 
                     earthRoot.rotation.y += 0.0008;
                     starRoot.rotation.y += 0.0002;
 
                     for (let animation of packetAnimations) {
+                        // ... (keep your packet animation logic exactly the same) ...
                         if (animation.isIntersectingOrbit) {
                             animation.angle += animation.speed;
                             const x = animation.radius * Math.cos(animation.angle); const z = animation.radius * Math.sin(animation.angle);
@@ -1923,21 +1960,23 @@
                     // MOUNTAIN ANIMATIONS
                     if (window.babylonMountain) window.babylonMountain.scaling.y += (window.targetMountainScaleY - window.babylonMountain.scaling.y) * 0.05;
 
-                    figWaveTimer += 0.016; if (figWaveTimer >= figWaveInterval) { figWaveTimer = 0; figWaveTime = 0; figWaveInterval = 4 + Math.random() * 4; }
-                    figWaveTime += 0.016; const waveFront = figWaveTime * 20;
-
-                    if (!fadingOut) {
-                        const target = window.fteTarget || 0;
-                        if (figSprites.length < target && figSprites.length < 100) {
-                            const r = Math.sqrt(Math.random()) * 30, ang = Math.random() * Math.PI * 2;
-                            const pick = scene.pickWithRay(new BABYLON.Ray(new BABYLON.Vector3(Math.cos(ang) * r, 100, Math.sin(ang) * r), new BABYLON.Vector3(0, -1, 0), 200), m => m === window.babylonMountain);
-                            if (pick.hit && pick.pickedPoint.y > 1.0) {
-                                const s = new BABYLON.Sprite("fig", figManager); s.position.copyFrom(pick.pickedPoint); s.position.y += 0.8; s.width = 0.8; s.height = 1.6; s.color = new BABYLON.Color4(0, 1, 1, 0);
-                                figSprites.push({ sprite: s, op: 0, opTarget: 1.0, bp: 0, bt: 0, d: Math.sqrt(s.position.x ** 2 + s.position.z ** 2) });
+                    //THE NEW 3D SNOW ENGINE ❄️
+                    if (starMesh && window.starMatrixBuffer) {
+                        // Loop through all 8,000 flakes
+                        for (let i = 0; i < 8000; i++) {
+                            // In a 4x4 matrix, index 13 is the Y-axis position
+                            let yIndex = i * 16 + 13; 
+                            
+                            // Make it fall! (Adjust this number to change snow speed)
+                            window.starMatrixBuffer[yIndex] -= 0.15; 
+                            
+                            // If the snowflake falls below the ground (-20), wrap it back up to the sky
+                            if (window.starMatrixBuffer[yIndex] < -20) {
+                                window.starMatrixBuffer[yIndex] += 120; 
                             }
-                        } else if (figSprites.length > target) {
-                            const f = figSprites.pop(); f.sprite.dispose();
                         }
+                        // Tell Babylon to push our updated array to the GPU
+                        starMesh.thinInstanceBufferUpdated("matrix");
                     }
 
                     for (let i = figSprites.length - 1; i >= 0; i--) {
@@ -2053,7 +2092,7 @@
                 isGlobeMode = false;
 
                 // Hide Globe, Show Mountain
-                earthRoot.setEnabled(false); starRoot.setEnabled(false); hemLight.setEnabled(false);
+                earthRoot.setEnabled(false); hemLight.setEnabled(false);
                 if (mountainRoot) { mountainRoot.setEnabled(true); dirL1.setEnabled(true); dirL2.setEnabled(true); }
                 if (window.mAmbient) window.mAmbient.setEnabled(true);
 
