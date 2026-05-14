@@ -874,6 +874,68 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+      /* --- HERO TEXT UPGRADES (ANIMATED METALLIC) --- */
+        .hero-pill {
+            display: inline-block; padding: 8px 20px; background: rgba(0, 255, 204, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 50px; color: #00ffcc;
+            font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700;
+            letter-spacing: 3px; margin-bottom: 25px; text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.1); backdrop-filter: blur(5px);
+        }
+
+        .text-silver {
+            /* Gives the white text a 3D volumetric feel */
+            background: linear-gradient(180deg, #ffffff 0%, #8fa3b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .text-gradient {
+            /* Animated Teal-to-Blue Sheen */
+            background: linear-gradient(to right, #00ffcc, #0077ff, #00ffcc);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0, 255, 204, 0.3);
+            display: inline-block;
+            animation: textShine 4s linear infinite;
+        }
+
+        @keyframes textShine {
+            to { background-position: 200% center; }
+        }
+
+        /* --- MICRO-UI ELEMENTS --- */
+        .node-label {
+            font-family: 'Rajdhani', monospace; color: #00ffcc; font-size: 0.9rem;
+            letter-spacing: 3px; margin-bottom: 15px; border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            display: inline-block; padding-bottom: 5px;
+        }
+
+        .tech-tag-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+        .tech-tag {
+            padding: 8px 18px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px; color: #b0bfc9; font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 1.5px; transition: all 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .tech-tag:hover { background: rgba(0, 255, 204, 0.1); border-color: #00ffcc; color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2); }
+
+        /* --- PROCESS GRID --- */
+        .process-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; width: 100%; margin-top: 40px;
+        }
+        .process-step {
+            background: rgba(5, 15, 25, 0.4); border-top: 2px solid #00ffcc;
+            padding: 30px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            text-align: left;
+        }
+        .step-num { font-family: 'Rajdhani', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(0, 255, 204, 0.2); line-height: 1; margin-bottom: 15px; }
+        .step-title { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: #fff; margin: 0 0 15px 0; letter-spacing: 1px;}
+        .step-body { font-size: 0.95rem; line-height: 1.7; color: #8fa3b0; margin: 0; } 
+
     </style>
 </head>
 
@@ -927,46 +989,90 @@
             <a href="#" class="roi-btn">ROI Calculator</a>
         </div>
 
-        <main class="premium-scroll-container">
-
-            <section class="viewport-section center-align">
+      <main class="premium-scroll-container">
+            
+            <section class="viewport-section center-align" style="min-height: 90vh;">
                 <div class="reveal-up hero-center">
-                    <h1 class="hero-title" style="flex-direction: column; gap: 10px;">
-                        <span style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
-                            GOALS,</span>
-                        <span class="text-teal" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR
-                            BUDGET.</span>
+                    <div class="hero-pill">/// Intelligent Staffing Node</div>
+                    <h1 class="hero-title" style="flex-direction: column; gap: 5px;">
+                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS GOALS,</span>
+                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR BUDGET.</span>
                     </h1>
-                    <p class="hero-subtitle"
-                        style="text-transform: none; letter-spacing: 1px; max-width: 800px; margin: 20px auto 0 auto;">
-                        Ibex recruits the best technical talent from around the globe, providing the
-                        resources you need to stay ahead of the curve.
+                    <p class="hero-subtitle" style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 25px auto 0 auto; line-height: 1.7;">
+                        Ibex recruits the absolute best technical talent from around the globe, providing the dedicated resources you need to build faster, scale smarter, and stay ahead of the curve.
                     </p>
                 </div>
             </section>
 
             <section class="viewport-section left-align">
                 <div class="editorial-card reveal-up">
+                    <div class="node-label">01 // GLOBAL WORKFORCE</div>
                     <h2 class="section-heading">Future-Forward.</h2>
-                    <p class="section-body">Enable a truly global workforce. Tap into the world’s best
-                        talent from our 700k+ talent database. We are not a traditional outsourcer – you
-                        directly manage your dedicated full-time employees, while we enable seamless
-                        employment and co-invest with you in parallel to get great results.</p>
+                    <p class="section-body">Enable a truly global workforce. Tap into the world’s best talent from our 700k+ talent database. We are not a traditional outsourcer – you directly manage your dedicated full-time employees, while we enable seamless employment and co-invest with you in parallel to get great results.</p>
                     <a href="#" class="premium-btn trigger-roi">Conquer Your Goals &rarr;</a>
+                </div>
+            </section>
+
+            <section class="viewport-section left-align" style="align-items: flex-end;">
+                <div class="editorial-card reveal-up" style="border-left: none; border-right: 2px solid #00ffcc;">
+                    <div class="node-label">02 // DOMAIN EXPERTISE</div>
+                    <h2 class="section-heading">Elite Engineering.</h2>
+                    <p class="section-body">We don't just find developers; we help you build high-performing engineering pods. From AI/ML specialists and Cloud Architects to Full-Stack engineers, our rigorous technical vetting ensures you only speak with the top 1% of global applicants.</p>
+                    
+                    <div class="tech-tag-container">
+                        <span class="tech-tag">Software Engineering</span>
+                        <span class="tech-tag">Data Science & AI</span>
+                        <span class="tech-tag">Cloud Infrastructure</span>
+                        <span class="tech-tag">Cybersecurity</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="viewport-section center-align">
+                <div class="reveal-up w-100">
+                    <div class="node-label">03 // DEPLOYMENT PROTOCOL</div>
+                    <h2 class="section-heading">How we scale your team.</h2>
+                    <p class="section-body max-w-800">Bypass the bureaucratic red tape. We have optimized the hiring pipeline to deploy elite talent directly into your ecosystem in record time.</p>
+                    
+                    <div class="process-grid">
+                        <div class="process-step">
+                            <div class="step-num">01</div>
+                            <h3 class="step-title">Calibration</h3>
+                            <p class="step-body">We integrate with your engineering leadership to deeply understand your tech stack, product roadmap, and exact technical requirements.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num">02</div>
+                            <h3 class="step-title">Curation</h3>
+                            <p class="step-body">Our proprietary matching engine and senior technical interviewers filter thousands of candidates to present only the absolute best fits within 48 hours.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num">03</div>
+                            <h3 class="step-title">Integration</h3>
+                            <p class="step-body">Your new hires integrate seamlessly into your Slack, Jira, and daily standups. We handle all global payroll, HR compliance, and benefits.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="viewport-section left-align">
+                <div class="editorial-card reveal-up">
+                    <div class="node-label">04 // INFRASTRUCTURE</div>
+                    <h2 class="section-heading">Enterprise-Grade Security.</h2>
+                    <p class="section-body">When you are building proprietary technology, trust is everything. We ensure that every remote node in your workforce is fully compliant with international IP laws, NDA protections, and enterprise data security protocols. Your code remains yours.</p>
                 </div>
             </section>
 
             <section class="viewport-section center-align">
                 <div class="reveal-up">
+                    <div class="node-label">05 // PERFORMANCE DATA</div>
                     <h2 class="section-heading">Our Metrics Tell the Story</h2>
-                    <p class="section-body max-w-800">Our metrics component gives you the inside scoop on
-                        your success and helps you stay on top of your game in style.</p>
-
+                    <p class="section-body max-w-800">Our real-time metrics give you the inside scoop on your success and help you stay on top of your game in style.</p>
+                    
                     <div class="premium-metrics-grid">
                         <div class="metric-item">
-                            <div class="metric-num"><span class="counter" data-target="55000">0</span>+
-                            </div>
-                            <div class="metric-lbl">Total Work Hours Saved</div>
+                            <div class="metric-num"><span class="counter" data-target="55000">0</span>+</div>
+                            <div class="metric-lbl">Work Hours Saved</div>
                         </div>
                         <div class="metric-item">
                             <div class="metric-num"><span class="counter" data-target="107">0</span></div>
@@ -983,17 +1089,16 @@
                     </div>
                 </div>
             </section>
-
+            
             <section class="viewport-section center-align" style="min-height: 50vh;">
                 <div class="reveal-up">
-                    <h2 class="section-heading" style="font-size: 2.5rem;">Ready to build your team?</h2>
-                    <p class="section-body max-w-800">Book a time with our team to discuss your technology
-                        talent needs today.</p>
+                    <h2 class="section-heading" style="font-size: clamp(2rem, 5vw, 3rem);">Ready to build your team?</h2>
+                    <p class="section-body max-w-800">Book a time with our team to discuss your technology talent needs today.</p>
                     <a href="mailto:info@goibex.it" class="premium-btn">info@goibex.it</a>
                 </div>
             </section>
 
-        </main>
+        </main> 
 
         <div id="holo-panel" class="holo-panel">
             <button class="close-btn" id="close-roi-btn">✕</button>
