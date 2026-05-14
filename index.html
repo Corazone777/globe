@@ -1221,25 +1221,41 @@
                 0 0 40px rgba(0, 255, 204, 0.2);
         }
 
-        /* --- MOBILE GPU HARDWARE ACCELERATION FIX --- */
+      /* --- 🚨 WEBKIT GPU CRASH FIX (MOBILE ONLY) 🚨 --- */
         @media (max-width: 768px) {
-            /* Forces iOS/Android GPU to render the panel over the 3D canvas */
+            /* Kill the blur and scale transitions so the phone GPU doesn't stroke out */
+            .holo-panel {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: #050f19 !important; /* Solid premium dark blue/black */
+                border: 1px solid rgba(0, 255, 204, 0.4) !important;
+                
+                /* Hardcode the transform so it doesn't try to animate the scale */
+                -webkit-transform: translate(-50%, -50%) !important;
+                transform: translate(-50%, -50%) !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.9) !important;
+            }
+
             .holo-panel.visible {
-                -webkit-transform: translate3d(-50%, -50%, 0) scale(1) !important;
-                transform: translate3d(-50%, -50%, 0) scale(1) !important;
-                will-change: transform, opacity;
+                -webkit-transform: translate(-50%, -50%) !important;
+                transform: translate(-50%, -50%) !important;
+                opacity: 1 !important;
                 z-index: 99999 !important;
             }
 
-            /* Forces iOS/Android GPU to render the HUD buttons */
-            .back-btn.visible, 
-            .reopen-btn.visible {
-                -webkit-transform: translateX(-50%) translate3d(0, 0, 0) !important;
-                transform: translateX(-50%) translate3d(0, 0, 0) !important;
-                will-change: transform, opacity;
+            /* Do the exact same thing for the buttons */
+            .back-btn, .reopen-btn {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: #050f19 !important; /* Solid premium dark blue/black */
+                border: 1px solid rgba(0, 255, 204, 0.4) !important;
+            }
+            
+            .back-btn.visible, .reopen-btn.visible {
+                opacity: 1 !important;
                 z-index: 99999 !important;
             }
-        }
+        } 
     </style>
 </head>
 
