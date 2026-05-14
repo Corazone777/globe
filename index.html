@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IBEX Staffing Solutions</title>
+
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+
     <style>
         /* --- GLOBAL RESET & FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rajdhani:wght@500;600;700;800&display=swap');
@@ -32,6 +36,8 @@
             touch-action: none;
             outline: none;
             z-index: 1;
+            z-index: 10; 
+            background: transparent !important;
         }
 
         #ui-layer {
@@ -314,14 +320,536 @@
                 padding: 0 10px;
             }
         }
+
+        /* MOUNTAIN PART */
+        #stars-canvas {
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none;
+        }
+
+        #birds-canvas {
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none;
+        }
+
+        /* --- CLOUD TRANSITION OVERLAY --- */
+        #cloud-transition {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(200, 230, 255, 1) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 80;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+
+        /* --- RETURN TO ORBIT BUTTON (Floating Bottom Center, Teal Glow) --- */
+        /* --- RETURN TO ORBIT BUTTON --- */
+        .back-btn {
+            position: absolute;
+            top: 130px;
+            /* Safely below the header */
+            left: 40px;
+            /* Symmetrical to the reopen button */
+            transform: none;
+            /* Removes the old centering trick */
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.5);
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #00ffcc;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 105;
+            /* Floats above everything safely */
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 255, 204, 0.2);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            text-shadow: 0 0 8px #00ffcc;
+            transform: translateY(-3px);
+            /* Subtle lift on hover */
+        }
+
+        .back-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- RESTORED TEAL GLASSMORPHIC UI --- */
+        .holo-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%;
+            max-width: 440px;
+            box-sizing: border-box;
+            /* Responsive! */
+            padding: 30px;
+            background: rgba(5, 15, 25, 0.85);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 255, 204, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 85;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .holo-panel.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
+            color: #00ffcc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+
+        .holo-title {
+            margin: 0 0 20px 0;
+            color: #fff;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .landscape-slider {
+            display: flex;
+            position: relative;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 4px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .slider-indicator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 33.333%;
+            left: 33.333%;
+            /* FIXED: Starts on Medium now */
+            background: rgba(0, 255, 204, 0.2);
+            border-bottom: 2px solid #00ffcc;
+            transition: left 0.3s ease;
+            z-index: 1;
+        }
+
+        .slider-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            color: #8fa3b0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+
+        .slider-option.active {
+            color: #fff;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+
+        .fte-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .fte-col {
+            flex: 1;
+        }
+
+        .fte-label {
+            display: block;
+            color: #8fa3b0;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fte-input {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #00ffcc;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            outline: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .fte-input:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .budget-wrap {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .budget-wrap input {
+            padding-left: 25px;
+            padding-right: 40px;
+            text-align: left;
+        }
+
+        .currency-prefix {
+            position: absolute;
+            left: 10px;
+            color: #00ffcc;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .currency-suffix {
+            position: absolute;
+            right: 10px;
+            color: #8fa3b0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .roi-panel-h {
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+            padding-top: 20px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .roi-panel-h.visible {
+            opacity: 1;
+        }
+
+        .roi-title {
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .roi-grid {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .roi-stat {
+            text-align: center;
+            flex: 1;
+            min-width: 0;
+            /* FIXED: Prevents flex children from blowing out container */
+        }
+
+        .roi-stat-value {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            /* FIXED: Scales down on long numbers */
+            color: #fff;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* Truncates safely */
+        }
+
+        .roi-stat-label {
+            font-size: 0.8rem;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .glitching {
+            font-family: 'Rajdhani', monospace;
+            color: #ffffff;
+            /* Crisp white instead of error red */
+            text-shadow: 2px 0 #00ffcc, -2px 0 #0055ff;
+            /* Cyan and deep blue split */
+        }
+
+        @media (max-width: 768px) {
+            /* Your existing mobile nav/hero CSS is here... */
+
+            /* ROI Panel Mobile Adjustments */
+            .holo-panel {
+                padding: 20px;
+            }
+
+            .holo-title {
+                font-size: 1.5rem;
+            }
+
+            /* Stack the FTE and Budget inputs vertically */
+            .fte-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            /* Scale down the big projected impact numbers */
+            .roi-stat-value {
+                font-size: 1.4rem;
+            }
+
+            .roi-stat-label {
+                font-size: 0.7rem;
+            }
+
+            .reopen-btn {
+                top: 120px;
+                /* FIXED: Clears tall mobile headers */
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 8px 16px;
+                font-size: 0.9rem;
+                width: max-content;
+                background: rgba(0, 1, 3, 0.85);
+            }
+
+            /* Return to Orbit remains at Bottom Center */
+            .back-btn {
+                top: auto;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                width: max-content;
+                background: rgba(0, 1, 3, 0.85);
+            }
+
+            .back-btn:hover {
+                transform: translateX(-50%) translateY(-3px);
+            }
+
+            .reopen-btn:hover {
+                transform: translateX(-50%) translateY(-3px);
+            }
+
+            .holo-panel {
+                padding: 20px;
+            }
+
+            .fte-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .roi-stat-value {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Extreme Small Screen Safety (e.g., iPhone SE) */
+        @media (max-width: 380px) {
+            .roi-grid {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* --- REOPEN CALCULATOR BUTTON --- */
+        .reopen-btn {
+            position: absolute;
+            top: 130px;
+            /* FIXED: Safe clearance for wrapped nav text */
+            right: 63px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.5);
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #00ffcc;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 90;
+            /* FIXED: Floats above everything */
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .reopen-btn:hover {
+            background: rgba(0, 255, 204, 0.2);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+        }
+
+        .reopen-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+
+
+        /* --- RESTORED RETRO SKY BACKGROUND ELEMENTS --- */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center bottom;
+        }
+
+        .sun-container {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .retro-sun {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #00f3ff 0%, #0066ff 50%, #1a0040 100%);
+            box-shadow: 0 0 150px #0088ff, 0 0 300px #0044aa;
+            mask-image: repeating-linear-gradient(to bottom, #000 0%, #000 3%, transparent 3%, transparent 4%);
+            -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0%, #000 3%, transparent 3%, transparent 4%);
+        }
+
+        .logo-glow-wrap {
+            position: absolute;
+            bottom: calc(30% + 42vw);
+            left: 40%;
+            transform: translateX(-50%);
+            width: 25vw;
+            max-width: 350px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .ibex-logo {
+            position: relative;
+            width: 100%;
+            pointer-events: none;
+            opacity: 0.95;
+            filter: brightness(0) invert(1) drop-shadow(-2px -2px 0 rgba(0, 243, 255, 0.9));
+        }
+
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(0, 100, 255, 0.04), rgba(0, 255, 255, 0.02), rgba(0, 50, 255, 0.04));
+            background-size: 100% 4px, 6px 100%;
+            z-index: 10;
+            pointer-events: none;
+            animation: scanlineScroll 8s linear infinite;
+        }
+
+        @keyframes scanlineScroll {
+            0% {
+                background-position: 0 0, 0 0;
+            }
+
+            100% {
+                background-position: 0 800px, 0 0;
+            }
+        }
+
+        .grid-bg, .sun-container, .birds-canvas, .logo-glow-wrap, .scanlines {
+            z-index: 5; /* Set these effects to Lower Layer (behind canvas) */
+            pointer-events: none; /* Crucial: clicks must pass through them to the 3D world */
+        }
+
+        #ui-layer {
+            z-index: 105; /* Standard Nav, Buttons, Panel stay top */
+        }
     </style>
 </head>
 
 <body>
+    <div id="retro-bg-elements"
+        style="opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+        <div class="grid-bg"></div>
+    </div>
+
     <canvas id="renderCanvas"></canvas>
+    <canvas id="stars-canvas" class="layer-2d"></canvas>
+    <canvas id="birds-canvas" class="layer-2d"></canvas>
 
     <div id="ui-layer">
+        <div id="cloud-transition"></div>
+
+        <button id="back-to-globe-btn" class="back-btn">
+            &larr; Return to Orbit
+        </button>
+        <button id="reopen-roi-btn" class="reopen-btn">
+            &#9776; Calculator
+        </button>
         <header>
+
             <a href="#" class="brand-container">
                 <img src="IBEXlogo.svg" alt="IBEX" class="logo" onerror="this.style.display='none'">
                 <div class="brand-text">IBEX STAFFING SOLUTIONS</div>
@@ -357,6 +885,53 @@
             </h1>
             <h2 class="hero-subtitle">The whole world is your office building</h2>
         </div>
+
+        <div id="holo-panel" class="holo-panel">
+            <button class="close-btn" id="close-roi-btn">✕</button>
+            <div class="holo-title">ROI Estimator</div>
+
+            <div class="landscape-slider">
+                <div id="slider-indicator" class="slider-indicator"></div>
+                <div class="slider-option" data-value="small">Small</div>
+                <div class="slider-option active" data-value="medium">Medium</div>
+                <div class="slider-option" data-value="large">Large</div>
+            </div>
+
+            <div class="fte-row">
+                <div class="fte-col">
+                    <div class="fte-label">Team Size (FTE)</div>
+                    <input type="number" id="fte-input" class="fte-input" placeholder="e.g. 10">
+                </div>
+                <div class="fte-col">
+                    <div class="fte-label">Budget</div>
+                    <div class="budget-wrap">
+                        <span class="currency-prefix">$</span>
+                        <input type="text" id="budget-input" class="fte-input" placeholder="50,000">
+                        <span class="currency-suffix">USD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="roi-panel-h" class="roi-panel-h">
+                <div class="roi-title">Projected Impact</div>
+                <div class="roi-grid">
+                    <div class="roi-stat">
+                        <div id="roi-savings" class="roi-stat-value">$0</div>
+                        <div class="roi-stat-label">Savings</div>
+                    </div>
+                    <div class="roi-stat">
+                        <div id="roi-hires" class="roi-stat-value">0</div>
+                        <div class="roi-stat-label">Extra Hires</div>
+                        <div id="res-hires-visual" class="roi-visual-stack"></div>
+                    </div>
+                    <div class="roi-stat">
+                        <div id="roi-hours" class="roi-stat-value">0</div>
+                        <div class="roi-stat-label">Hours Saved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -370,13 +945,16 @@
 
     <script>
         const canvas = document.getElementById("renderCanvas");
-        const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
-        let camera;
+        const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true, alpha: true });
+        let camera, earthRoot, starRoot, hemLight, dataRoot;
+        let mountainRoot, dirL1, dirL2, pipeline;
+        let isGlobeMode = true;
+        let startFadeOut;
 
-        const createScene = function () {
+        createScene = function () {
             const scene = new BABYLON.Scene(engine);
 
-            scene.clearColor = new BABYLON.Color4(0.00, 0.00, 0.00, 1);
+            scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
             camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 4.5, BABYLON.Vector3.Zero(), scene);
             // Reset target to perfect center so the globe sits exactly behind the text
@@ -387,21 +965,21 @@
             camera.upperRadiusLimit = 15;
             camera.panningSensibility = 0;
 
-            const hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
+            hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
             hemLight.intensity = 1.8;
             // Removes the glowing reflection dot from the globe
             hemLight.specular = new BABYLON.Color3(0, 0, 0);
 
             // --- PROCEDURAL 3D STARFIELD ---
-            const starRoot = new BABYLON.TransformNode("starRoot", scene);
-            const starMesh = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.08, segments: 4 }, scene);
-            const starMat = new BABYLON.StandardMaterial("starMat", scene);
+            starRoot = new BABYLON.TransformNode("starRoot", scene);
+            starMesh = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.08, segments: 4 }, scene);
+            starMat = new BABYLON.StandardMaterial("starMat", scene);
             starMat.emissiveColor = new BABYLON.Color3(0.8, 0.9, 1.0);
             starMat.disableLighting = true;
             starMesh.material = starMat;
             starMesh.parent = starRoot;
 
-            const starMatrices = [];
+            starMatrices = [];
             for (let i = 0; i < 8000; i++) {
                 const r = 40 + Math.random() * 60;
                 const theta = Math.random() * 2 * Math.PI;
@@ -421,8 +999,8 @@
             }
             starMesh.thinInstanceSetBuffer("matrix", new Float32Array(starMatrices), 16);
 
-            const earthRoot = new BABYLON.TransformNode("earthRoot", scene);
-            const dataRoot = new BABYLON.TransformNode("dataRoot", scene);
+            earthRoot = new BABYLON.TransformNode("earthRoot", scene);
+            dataRoot = new BABYLON.TransformNode("dataRoot", scene);
             dataRoot.parent = earthRoot;
             dataRoot.rotation.y = Math.PI;
 
@@ -649,29 +1227,250 @@
                 }
             }
 
+            // ==========================================
+            // RESTORED 80s RETRO NEON MOUNTAIN
+            // ==========================================
+            mountainRoot = new BABYLON.TransformNode("mountainRoot", scene);
+
+            
+            const auraMesh = BABYLON.MeshBuilder.CreatePlane("sunAura", { size: 550 }, scene);
+            auraMesh.parent = mountainRoot;
+            auraMesh.position = new BABYLON.Vector3(0, 40, 255); // Tucked just behind the sun
+
+            const auraTex = new BABYLON.DynamicTexture("auraTex", { width: 512, height: 512 }, scene, true);
+            const aCtx = auraTex.getContext();
+            
+            // Paint a massive radial halo: Hot Magenta -> Neon Purple -> Deep Violet -> Transparent
+            const aGrad = aCtx.createRadialGradient(256, 256, 0, 256, 256, 256);
+            aGrad.addColorStop(0.0, "rgba(255, 0, 255, 1.0)");   // Hot burning magenta center
+            aGrad.addColorStop(0.3, "rgba(180, 0, 255, 0.6)");   // Intense neon purple mid-ring
+            aGrad.addColorStop(0.6, "rgba(70, 0, 150, 0.3)");    // Deep dark violet outer ring
+            aGrad.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");       // Fade to black void
+            aCtx.fillStyle = aGrad;
+            aCtx.fillRect(0, 0, 512, 512);
+            auraTex.update();
+
+            const auraMat = new BABYLON.StandardMaterial("auraMat", scene);
+            auraMat.emissiveTexture = auraTex;
+            auraMat.opacityTexture = auraTex; 
+            auraMat.disableLighting = true;
+            auraMat.alphaMode = BABYLON.Engine.ALPHA_ADD; 
+            auraMesh.material = auraMat;
+
+
+            // 2. THE CRISP, BURNING SUN
+            const sunMesh = BABYLON.MeshBuilder.CreatePlane("retroSun2D", { size: 260 }, scene);
+            sunMesh.parent = mountainRoot;
+            sunMesh.position = new BABYLON.Vector3(0, 40, 250); 
+            
+            const texSize = 2048;
+            const sunTex = new BABYLON.DynamicTexture("sunTex", {width: texSize, height: texSize}, scene, true);
+            const ctx = sunTex.getContext();
+
+            // PERFECTED PURPLE/NEON GRADIENT
+            const grad = ctx.createLinearGradient(0, 0, 0, texSize);
+            grad.addColorStop(0.00, "#00f3ff"); // Bright Cyan top
+            grad.addColorStop(0.35, "#b400ff"); // Searing Neon Purple
+            grad.addColorStop(0.70, "#ff00a0"); // Hot Magenta/Pink
+            grad.addColorStop(1.00, "#1a0040"); // Deep dark violet base
+            
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(texSize / 2, texSize / 2, texSize / 2 - 10, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Perspective cutouts
+            ctx.globalCompositeOperation = "destination-out"; 
+            ctx.fillStyle = "rgba(0,0,0,1)";
+            
+            let currentY = texSize / 2 + 50; 
+            let gap = 12;   
+            let band = 80;  
+            
+            while (currentY < texSize) {
+                ctx.fillRect(0, currentY, texSize, gap);
+                currentY += gap + band;
+                gap *= 1.4;  
+                band *= 0.85; 
+            }
+            
+            ctx.globalCompositeOperation = "source-over";
+            sunTex.update();
+
+            const sunMat = new BABYLON.StandardMaterial("sunMat", scene);
+            sunTex.hasAlpha = true; 
+            sunMat.diffuseTexture = sunTex;
+            sunMat.emissiveTexture = sunTex; 
+            sunMat.emissiveColor = new BABYLON.Color3(1.5, 1.5, 1.5); 
+            sunMat.useAlphaFromDiffuseTexture = true; 
+            sunMat.disableLighting = true; 
+            sunMesh.material = sunMat;
+
+
+            // 3. NEON AMBIENT WASH ON MOUNTAIN
+          // 3. NEON PURPLE AMBIENT WASH ON MOUNTAIN
+            const sunGlowLight = new BABYLON.DirectionalLight("sunGlow", new BABYLON.Vector3(0, -0.1, -1), scene);
+            sunGlowLight.diffuse = new BABYLON.Color3(0.8, 0.0, 1.0);  // Deep Neon Purple wash
+            sunGlowLight.specular = new BABYLON.Color3(1.0, 0.0, 1.0); // Hot Pink/Magenta reflections
+            sunGlowLight.intensity = 2.5;
+            sunGlowLight.parent = mountainRoot;
+            
+            // Original Lighting
+            dirL1 = new BABYLON.DirectionalLight("leftLight", new BABYLON.Vector3(1, -0.3, 0.5), scene);
+            dirL1.diffuse = new BABYLON.Color3(0.1, 0.8, 0.9);
+            dirL1.intensity = 1.6;
+            dirL1.setEnabled(false);
+
+            dirL2 = new BABYLON.DirectionalLight("rightLight", new BABYLON.Vector3(-1, -0.3, 0.5), scene);
+            dirL2.diffuse = new BABYLON.Color3(0.02, 0.08, 0.25);
+            dirL2.intensity = 1.8;
+            dirL2.setEnabled(false);
+
+            window.mAmbient = new BABYLON.HemisphericLight("ambient", new BABYLON.Vector3(0, 1, 0), scene);
+            window.mAmbient.diffuse = new BABYLON.Color3(0.05, 0.1, 0.2);
+            window.mAmbient.intensity = 0.3;
+            window.mAmbient.setEnabled(false);
+
+            // Infinite Grid Floor
+            const floor = BABYLON.MeshBuilder.CreateGround("infiniteGridFloor", { width: 500, height: 500 }, scene);
+            floor.position.y = -0.1; floor.parent = mountainRoot;
+            const gridMat = new BABYLON.GridMaterial("gridMat", scene);
+            gridMat.mainColor = new BABYLON.Color3(0, 0, 0);
+            gridMat.lineColor = new BABYLON.Color3(0, 1, 1); // Cyan
+            gridMat.majorUnitFrequency = 10;
+            gridMat.minorUnitVisibility = 0.5;
+            gridMat.opacity = 0.9;
+            gridMat.backFaceCulling = false;
+            floor.material = gridMat;
+
+            // Mountain Surface
+            const mMat = new BABYLON.StandardMaterial("mountainMat", scene);
+            mMat.specularColor = new BABYLON.Color3(0, 0, 0);
+            mMat.diffuseColor = new BABYLON.Color3(0.65, 0.65, 0.65);
+
+            window.targetMountainScaleY = 1.0;
+            window.babylonMountain = BABYLON.MeshBuilder.CreateGround("mountain", { width: 70, height: 70, subdivisions: 45 }, scene);
+            window.babylonMountain.parent = mountainRoot;
+
+            const mPos = window.babylonMountain.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+            const maxDist = 35;
+            for (let i = 0; i < mPos.length; i += 3) {
+                const x = mPos[i], z = mPos[i + 2], distance = Math.sqrt(x * x + z * z); let y = 0;
+                if (distance < maxDist) {
+                    let normalizedDist = 1.0 - (distance / maxDist);
+                    y = Math.pow(normalizedDist, 2.5) * 28;
+                    let macroNoise = Math.sin(x * 0.2) * Math.cos(z * 0.2) * 5.0;
+                    let sharpRidges = Math.abs(Math.sin(x * 0.4 + z * 0.3)) * 3.5;
+                    let detailNoise = (Math.sin(x * 0.8 - z * 0.7) + Math.cos(x * 0.7 + z * 0.8)) * 1.5;
+                    y += (macroNoise + sharpRidges + detailNoise) * Math.pow(normalizedDist, 1.2);
+                    let peakDist = Math.sqrt((x - 1.5) * (x - 1.5) + (z + 1.0) * (z + 1.0));
+                    let peakInfluence = Math.max(0, 1.0 - (peakDist / 12));
+                    y += Math.pow(peakInfluence, 2.0) * 6;
+                }
+                mPos[i + 1] = Math.round(Math.max(0, y) * 1.0) / 1.0;
+            }
+            window.babylonMountain.setVerticesData(BABYLON.VertexBuffer.PositionKind, mPos);
+            window.babylonMountain.convertToFlatShadedMesh();
+            window.babylonMountain.material = mMat;
+
+            // Neon Edges
+            window.babylonMountain.enableEdgesRendering(0.94);
+            window.babylonMountain.edgesWidth = 16.0;
+            window.babylonMountain.edgesColor = new BABYLON.Color4(0, 1.0, 1.0, 1.0);
+
+            const baseLine = BABYLON.MeshBuilder.CreateLines("baseLine", { points: [new BABYLON.Vector3(-250, 0.05, 0), new BABYLON.Vector3(250, 0.05, 0)] }, scene);
+            baseLine.parent = mountainRoot; baseLine.color = new BABYLON.Color3(0, 1.0, 1.0);
+            for (let i = 1; i <= 3; i++) {
+                let t1 = baseLine.clone("bl1" + i); t1.position.z += i * .08; t1.parent = mountainRoot;
+                let t2 = baseLine.clone("bl2" + i); t2.position.z -= i * .08; t2.parent = mountainRoot;
+            }
+
+            // Glowing Energy Stag (Using your old anim setting)
+            let stagModel = null, stagTimer = 0, isStagRunning = true, stagAngle = 0; const stagAnims = [];
+            BABYLON.SceneLoader.ImportMesh("", "./", "stag_test.glb", scene, (meshes, ps, skel, anims) => {
+                stagModel = meshes[0]; stagModel.scaling = new BABYLON.Vector3(1, 1, 1); stagModel.parent = mountainRoot;
+                const wireMat = new BABYLON.StandardMaterial("wireMat", scene);
+                wireMat.wireframe = true; wireMat.emissiveColor = new BABYLON.Color3(0, 1.0, 1.0); wireMat.disableLighting = true;
+                meshes.forEach(m => { if (m.getTotalVertices() > 0) m.material = wireMat; });
+                stagAnims.push(...anims); if (stagAnims[4]) stagAnims[4].play(true);
+            });
+
+            // 6. Figure Sprites (For ROI Glitch Output)
+            const fC = document.createElement('canvas'); fC.width = 32; fC.height = 64; const fCtx = fC.getContext('2d');
+            fCtx.strokeStyle = '#ffffff'; fCtx.lineWidth = 3; fCtx.lineCap = 'round'; fCtx.beginPath(); fCtx.arc(16, 8, 5, 0, Math.PI * 2); fCtx.stroke(); fCtx.beginPath(); fCtx.moveTo(16, 13); fCtx.lineTo(16, 38); fCtx.stroke(); fCtx.beginPath(); fCtx.moveTo(6, 24); fCtx.lineTo(16, 20); fCtx.lineTo(26, 24); fCtx.stroke(); fCtx.beginPath(); fCtx.moveTo(8, 56); fCtx.lineTo(16, 38); fCtx.lineTo(24, 56); fCtx.stroke();
+            const figManager = new BABYLON.SpriteManager("fm", fC.toDataURL(), 1000, { width: 32, height: 64 }, scene);
+
+            const figSprites = []; let figWaveTime = 0, figWaveTimer = 0, figWaveInterval = 4;
+            let fadingOut = false;
+            startFadeOut = function () { fadingOut = true; figSprites.forEach(f => f.opTarget = 0); };
+
+            mountainRoot.setEnabled(false); // Hidden by default
+
+            // ==========================================
+            // UNIFIED ANIMATION LOOP
+            // ==========================================
             scene.onBeforeRenderObservable.add(() => {
-                earthRoot.rotation.y += 0.0008;
-                starRoot.rotation.y += 0.0002;
+                if (isGlobeMode) {
+                    // GLOBE ANIMATIONS (From your pristine code)
+                    earthRoot.rotation.y += 0.0008;
+                    starRoot.rotation.y += 0.0002;
 
-                for (let animation of packetAnimations) {
-                    if (animation.isIntersectingOrbit) {
-                        animation.angle += animation.speed;
-                        const x = animation.radius * Math.cos(animation.angle);
-                        const z = animation.radius * Math.sin(animation.angle);
-                        const pos = new BABYLON.Vector3(x, 0, z);
-                        const rotationMatrix = BABYLON.Matrix.RotationYawPitchRoll(0, animation.tiltX, animation.tiltZ);
-                        animation.mesh.position = BABYLON.Vector3.TransformCoordinates(pos, rotationMatrix);
-                    } else {
-                        animation.alpha += animation.speed;
-                        if (animation.alpha > 1.0) animation.alpha = 0.0;
+                    for (let animation of packetAnimations) {
+                        if (animation.isIntersectingOrbit) {
+                            animation.angle += animation.speed;
+                            const x = animation.radius * Math.cos(animation.angle); const z = animation.radius * Math.sin(animation.angle);
+                            const pos = new BABYLON.Vector3(x, 0, z);
+                            const rotationMatrix = BABYLON.Matrix.RotationYawPitchRoll(0, animation.tiltX, animation.tiltZ);
+                            animation.mesh.position = BABYLON.Vector3.TransformCoordinates(pos, rotationMatrix);
+                        } else {
+                            animation.alpha += animation.speed;
+                            if (animation.alpha > 1.0) animation.alpha = 0.0;
+                            const maxIdx = animation.path.length - 1; const exactIdx = animation.alpha * maxIdx;
+                            const pointIndex = Math.floor(exactIdx); const nextPointIndex = Math.min(Math.ceil(exactIdx), maxIdx);
+                            const interPointAlpha = exactIdx - pointIndex;
+                            animation.mesh.position = BABYLON.Vector3.Lerp(animation.path[pointIndex], animation.path[nextPointIndex], interPointAlpha);
+                        }
+                    }
+                } else {
+                    // MOUNTAIN ANIMATIONS
+                    if (window.babylonMountain) window.babylonMountain.scaling.y += (window.targetMountainScaleY - window.babylonMountain.scaling.y) * 0.05;
 
-                        const maxIdx = animation.path.length - 1;
-                        const exactIdx = animation.alpha * maxIdx;
-                        const pointIndex = Math.floor(exactIdx);
-                        const nextPointIndex = Math.min(Math.ceil(exactIdx), maxIdx);
-                        const interPointAlpha = exactIdx - pointIndex;
+                    figWaveTimer += 0.016; if (figWaveTimer >= figWaveInterval) { figWaveTimer = 0; figWaveTime = 0; figWaveInterval = 4 + Math.random() * 4; }
+                    figWaveTime += 0.016; const waveFront = figWaveTime * 20;
 
-                        animation.mesh.position = BABYLON.Vector3.Lerp(animation.path[pointIndex], animation.path[nextPointIndex], interPointAlpha);
+                    if (!fadingOut) {
+                        const target = window.fteTarget || 0;
+                        if (figSprites.length < target && figSprites.length < 100) {
+                            const r = Math.sqrt(Math.random()) * 30, ang = Math.random() * Math.PI * 2;
+                            const pick = scene.pickWithRay(new BABYLON.Ray(new BABYLON.Vector3(Math.cos(ang) * r, 100, Math.sin(ang) * r), new BABYLON.Vector3(0, -1, 0), 200), m => m === window.babylonMountain);
+                            if (pick.hit && pick.pickedPoint.y > 1.0) {
+                                const s = new BABYLON.Sprite("fig", figManager); s.position.copyFrom(pick.pickedPoint); s.position.y += 0.8; s.width = 0.8; s.height = 1.6; s.color = new BABYLON.Color4(0, 1, 1, 0);
+                                figSprites.push({ sprite: s, op: 0, opTarget: 1.0, bp: 0, bt: 0, d: Math.sqrt(s.position.x ** 2 + s.position.z ** 2) });
+                            }
+                        } else if (figSprites.length > target) {
+                            const f = figSprites.pop(); f.sprite.dispose();
+                        }
+                    }
+
+                    for (let i = figSprites.length - 1; i >= 0; i--) {
+                        let f = figSprites[i]; f.op += (f.opTarget - f.op) * 0.08;
+                        if (!fadingOut && waveFront >= f.d && waveFront < f.d + 8 && f.bp === 0) { f.bp = 1; f.bt = 0; }
+                        if (f.bp === 1) { f.bt += 0.16; if (f.bt >= 1) { f.bt = 1; f.bp = 2; } }
+                        if (f.bp === 2) { f.bt -= 0.005; if (f.bt <= 0) { f.bt = 0; f.bp = 0; } }
+                        f.sprite.color.r = f.bt; f.sprite.color.a = f.op;
+                        if (fadingOut && f.op < 0.01) { f.sprite.dispose(); figSprites.splice(i, 1); }
+                    }
+                    if (fadingOut && figSprites.length === 0) fadingOut = false;
+
+                    if (stagModel) {
+                        stagTimer += scene.getEngine().getDeltaTime();
+                        if (isStagRunning && stagTimer >= 4000) { isStagRunning = false; stagTimer = 0; if (stagAnims[4]) stagAnims[4].stop(); if (stagAnims[0]) stagAnims[0].play(true); }
+                        else if (!isStagRunning && stagTimer >= 2000) { isStagRunning = true; stagTimer = 0; if (stagAnims[0]) stagAnims[0].stop(); if (stagAnims[4]) stagAnims[4].play(true); }
+                        if (isStagRunning) {
+                            stagAngle += 0.009; const r = 18; const sx = Math.cos(stagAngle) * r, sz = Math.sin(stagAngle) * r;
+                            const p = scene.pickWithRay(new BABYLON.Ray(new BABYLON.Vector3(sx, 50, sz), new BABYLON.Vector3(0, -1, 0), 100), m => m === window.babylonMountain);
+                            if (p.hit) { stagModel.position.set(sx, p.pickedPoint.y, sz); const np = scene.pickWithRay(new BABYLON.Ray(new BABYLON.Vector3(Math.cos(stagAngle + .05) * r, 50, Math.sin(stagAngle + .05) * r), new BABYLON.Vector3(0, -1, 0), 100), m => m === window.babylonMountain); if (np.hit) stagModel.lookAt(np.pickedPoint); }
+                        }
                     }
                 }
             });
@@ -681,7 +1480,7 @@
 
         const scene = createScene();
 
-       const updateCameraZoom = () => {
+        const updateCameraZoom = () => {
             if (!camera) return;
             if (window.innerWidth <= 768) {
                 camera.radius = 5.5; // Mobile zoom (was 6.8)
@@ -692,6 +1491,206 @@
             }
         };
 
+        // --- CINEMATIC TRANSITIONS ---
+        const cloudOverlay = document.getElementById('cloud-transition');
+        const heroCenter = document.querySelector('.hero-center');
+        const holoPanel = document.getElementById('holo-panel');
+        const sCanvas = document.getElementById('stars-canvas');
+        const bCanvas = document.getElementById('birds-canvas');
+
+        // Add class "trigger-roi" to your ROI Nav buttons in HTML so this picks them up
+        document.querySelectorAll('.trigger-roi, .roi-btn').forEach(btn =>
+            btn.addEventListener('click', (e) => { e.preventDefault(); diveToROI(); })
+        );
+
+        // Ensure your close button in the Holo Panel has id="close-roi-btn"
+        // X button only hides the panel now
+        // Close the panel and show the Reopen button
+        document.getElementById('close-roi-btn').addEventListener('click', () => {
+            const holoPanel = document.getElementById('holo-panel');
+            if (holoPanel) holoPanel.classList.remove('visible');
+            document.getElementById('reopen-roi-btn').classList.add('visible');
+        });
+
+        // Click the Reopen button to bring the panel back
+        document.getElementById('reopen-roi-btn').addEventListener('click', () => {
+            const holoPanel = document.getElementById('holo-panel');
+            if (holoPanel) holoPanel.classList.add('visible');
+            document.getElementById('reopen-roi-btn').classList.remove('visible');
+        });
+
+        // Helper to force-close the mobile menu
+        function closeMobileMenu() {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (hamburgerBtn) hamburgerBtn.classList.remove('open');
+            if (mobileMenu) mobileMenu.classList.remove('open');
+        }
+
+        // The new Back arrow triggers the return transition
+        document.getElementById('back-to-globe-btn').addEventListener('click', returnToGlobe);
+
+        function diveToROI() {
+            closeMobileMenu();
+            if (!isGlobeMode) return;
+            camera.detachControl();
+
+            // Allow camera to dive deep into the surface
+            camera.lowerRadiusLimit = 0.5;
+
+            const diveAnim = new BABYLON.Animation("dive", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+            diveAnim.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: 0.8 }]);
+            scene.beginDirectAnimation(camera, [diveAnim], 0, 60, false, 1.5);
+
+            setTimeout(() => {
+                cloudOverlay.style.opacity = "1";
+                if (typeof heroCenter !== 'undefined' && heroCenter) heroCenter.style.opacity = "0";
+            }, 300);
+
+            setTimeout(() => {
+                isGlobeMode = false;
+                
+                // Hide Globe
+                earthRoot.setEnabled(false); 
+                starRoot.setEnabled(false); 
+                hemLight.setEnabled(false);
+                
+                // Show Mountain
+                if (mountainRoot) { mountainRoot.setEnabled(true); dirL1.setEnabled(true); dirL2.setEnabled(true); }
+                if (window.mAmbient) window.mAmbient.setEnabled(true);
+
+                // Make canvas transparent so the retro background shows through!
+                scene.clearColor = new BABYLON.Color4(0, 0, 0, 0); 
+
+                // Show Retro Elements (safely targets a wrapper OR the classes directly)
+                const effectsDiv = document.getElementById('retro-effects-elements');
+                if (effectsDiv) {
+                    effectsDiv.style.opacity = "1";
+                    effectsDiv.style.pointerEvents = "none";
+                } else {
+                    document.querySelectorAll('.grid-bg, .sun-container, .logo-glow-wrap, .scanlines').forEach(el => {
+                        el.style.opacity = "1";
+                        el.style.pointerEvents = "none";
+                        el.style.transition = "opacity 1s ease-in-out";
+                    });
+                }
+
+                // Show UI
+                const holoPanel = document.getElementById('holo-panel');
+                if (holoPanel) holoPanel.classList.add('visible');
+                
+                const backBtn = document.getElementById('back-to-globe-btn');
+                if (backBtn) backBtn.classList.add('visible');
+
+                if (typeof sCanvas !== 'undefined' && sCanvas) sCanvas.style.opacity = "1"; 
+                if (typeof bCanvas !== 'undefined' && bCanvas) bCanvas.style.opacity = "1";
+
+                // Setup Mountain Camera Limits
+                camera.lowerRadiusLimit = null; camera.upperRadiusLimit = null;
+                camera.target = new BABYLON.Vector3(0, 7, 0);
+                camera.radius = 85;
+                camera.lowerRadiusLimit = 40; camera.upperRadiusLimit = 150; 
+                camera.alpha = -Math.PI / 2; camera.beta = Math.PI / 2.5;
+                camera.lowerBetaLimit = 0.1; camera.upperBetaLimit = Math.PI / 2.1; 
+
+                if (typeof pipeline !== 'undefined' && pipeline) pipeline.bloomEnabled = true;
+
+                cloudOverlay.style.opacity = "0"; 
+                camera.attachControl(canvas, true);
+            }, 1000);
+        }
+
+        function returnToGlobe() {
+            closeMobileMenu();
+            if (isGlobeMode) return;
+
+            // Trigger stick figure fade out & reset calculator
+            window.fteTarget = 0;
+            const fteInput = document.getElementById('fte-input');
+            const budgetInput = document.getElementById('budget-input');
+            const roiPanel = document.getElementById('roi-panel-h') || document.getElementById('roi-panel');
+            if (fteInput) fteInput.value = '';
+            if (budgetInput) budgetInput.value = '';
+            if (roiPanel) roiPanel.classList.remove('visible');
+            if (typeof startFadeOut === 'function') startFadeOut();
+
+            camera.detachControl();
+
+            // UI Cleanup
+            const holoPanel = document.getElementById('holo-panel');
+            if (holoPanel) holoPanel.classList.remove('visible');
+            
+            const backBtn = document.getElementById('back-to-globe-btn');
+            if (backBtn) backBtn.classList.remove('visible');
+
+            const reopenBtn = document.getElementById('reopen-roi-btn');
+            if (reopenBtn) reopenBtn.classList.remove('visible');
+
+            if (typeof sCanvas !== 'undefined' && sCanvas) sCanvas.style.opacity = "0"; 
+            if (typeof bCanvas !== 'undefined' && bCanvas) bCanvas.style.opacity = "0";
+
+            // Hide Retro Elements
+            const effectsDiv = document.getElementById('retro-effects-elements');
+            if (effectsDiv) {
+                effectsDiv.style.opacity = "0"; 
+            } else {
+                document.querySelectorAll('.grid-bg, .sun-container, .logo-glow-wrap, .scanlines').forEach(el => {
+                    el.style.opacity = "0";
+                });
+            }
+
+            // Restore solid black canvas for the Globe!
+            scene.clearColor = new BABYLON.Color4(0.00, 0.00, 0.00, 1); 
+
+            // 1. Animate camera pulling back away from the mountain
+            const pullBackAnim = new BABYLON.Animation("pullBack", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+            pullBackAnim.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: camera.radius + 60 }]);
+            scene.beginDirectAnimation(camera, [pullBackAnim], 0, 60, false, 1.5);
+
+            // 2. Clouds roll in during the pull-back
+            setTimeout(() => {
+                cloudOverlay.style.opacity = "1";
+            }, 300);
+
+            // 3. Swap scenes and reverse the dive out of the globe
+            setTimeout(() => {
+                isGlobeMode = true;
+                
+                if (mountainRoot) { mountainRoot.setEnabled(false); dirL1.setEnabled(false); dirL2.setEnabled(false); }
+                if (window.mAmbient) window.mAmbient.setEnabled(false);
+                
+                earthRoot.setEnabled(true); starRoot.setEnabled(true); hemLight.setEnabled(true);
+
+                // Set globe camera limits temporarily loose
+                camera.lowerRadiusLimit = null; camera.upperRadiusLimit = null;
+                camera.target = new BABYLON.Vector3(0, 0, 0);
+                camera.alpha = -Math.PI / 2; camera.beta = Math.PI / 2.5;
+
+                if (typeof pipeline !== 'undefined' && pipeline) pipeline.bloomEnabled = false;
+
+                // Determine where the camera should stop based on screen size
+                let targetRadius = 3.5;
+                if (window.innerWidth <= 768) targetRadius = 5.5;
+                else if (window.innerWidth <= 1024) targetRadius = 4.5;
+
+                // 4. Animate zooming OUT from the surface of the globe
+                const reverseDive = new BABYLON.Animation("reverseDive", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+                reverseDive.setKeys([{ frame: 0, value: 0.8 }, { frame: 60, value: targetRadius }]);
+                scene.beginDirectAnimation(camera, [reverseDive], 0, 60, false, 1.2);
+
+                if (typeof heroCenter !== 'undefined' && heroCenter) heroCenter.style.opacity = "1";
+                cloudOverlay.style.opacity = "0";
+
+                // Re-lock the globe camera limits once animation finishes
+                setTimeout(() => {
+                    camera.lowerRadiusLimit = 2.5; camera.upperRadiusLimit = 15;
+                    camera.lowerBetaLimit = 0.01; camera.upperBetaLimit = Math.PI - 0.01;
+                    camera.attachControl(canvas, true);
+                }, 800);
+
+            }, 1000);
+        }
+
         engine.runRenderLoop(function () {
             scene.render();
         });
@@ -701,7 +1700,83 @@
             engine.resize();
             updateCameraZoom();
         });
+
+        // --- ROI LOGIC & GLITCH EFFECTS ---
+        const sliderOptions = document.querySelectorAll('.slider-option');
+        const sliderIndicator = document.getElementById('slider-indicator');
+        let selectedLandscape = 'medium';
+
+        function selectLandscape(value) {
+            if (selectedLandscape === value) return;
+            selectedLandscape = value;
+            sliderOptions.forEach(opt => opt.classList.toggle('active', opt.dataset.value === value));
+            const positions = { small: '0%', medium: '33.333%', large: '66.666%' };
+            if (sliderIndicator) sliderIndicator.style.left = positions[value];
+            if (value === 'small') window.targetMountainScaleY = 0.4;
+            if (value === 'medium') window.targetMountainScaleY = 1.0;
+            if (value === 'large') window.targetMountainScaleY = 1.6;
+            if (typeof startFadeOut === 'function') startFadeOut();
+        }
+        sliderOptions.forEach(opt => opt.addEventListener('click', () => selectLandscape(opt.dataset.value)));
+
+        const fteInput = document.getElementById('fte-input');
+        const budgetInput = document.getElementById('budget-input');
+        const roiPanelH = document.getElementById('roi-panel-h');
+        const roiSavings = document.getElementById('roi-savings');
+        const roiHires = document.getElementById('roi-hires');
+        const roiHours = document.getElementById('roi-hours');
+
+        function formatCurrency(n) { if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M'; if (n >= 1000) return '$' + (n / 1000).toFixed(1) + 'K'; return '$' + n.toFixed(0); }
+        function formatCompact(n) { if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M'; if (n >= 1000) return (n / 1000).toFixed(1) + 'K'; return n.toLocaleString('en-US'); }
+        function parseBudget(str) { return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0; }
+        function formatBudgetDisplay(val) { return Math.min(Math.max(0, Math.round(val)), 50000000000).toLocaleString('en-US'); }
+
+        const glitchTimers = new Map();
+        function glitchTo(el, finalText) {
+            if (!el) return;
+            if (glitchTimers.has(el)) { clearInterval(glitchTimers.get(el).iv); clearTimeout(glitchTimers.get(el).to); }
+            if (el.textContent === finalText) return;
+            el.classList.remove('glitch-settle'); el.classList.add('glitching');
+            const chars = finalText.split(''); const steps = 12; let step = 0;
+            const iv = setInterval(() => {
+                step++; const locked = Math.floor((step / steps) * chars.length); let scrambled = '';
+                for (let i = 0; i < chars.length; i++) {
+                    if (i < locked) scrambled += chars[i];
+                    else if (/[0-9]/.test(chars[i])) scrambled += Math.floor(Math.random() * 10);
+                    else scrambled += chars[i];
+                }
+                el.textContent = scrambled;
+                if (step >= steps) { clearInterval(iv); el.textContent = finalText; el.classList.remove('glitching'); el.classList.add('glitch-settle'); glitchTimers.delete(el); }
+            }, 52);
+            glitchTimers.set(el, { iv, to: setTimeout(() => { }, 0) });
+        }
+
+        function updateHoloROI() {
+            if (!fteInput || !budgetInput) return;
+            const fte = Math.max(0, parseInt(fteInput.value, 10) || 0);
+            const budget = Math.min(Math.max(0, parseBudget(budgetInput.value)), 300000);
+            if (fte > 0 && budget > 0) {
+                const savingsPerFTE = budget * 0.70; const totalSavings = savingsPerFTE * fte;
+                const additionalHires = budget > 0 ? Math.floor(totalSavings / budget) : 0;
+                const additionalHours = additionalHires * 174;
+                window.fteTarget = additionalHires;
+                glitchTo(roiSavings, formatCurrency(totalSavings));
+                glitchTo(roiHires, formatCompact(additionalHires) + '+');
+                glitchTo(roiHours, formatCompact(additionalHours) + '+');
+                if (roiPanelH && !roiPanelH.classList.contains('visible')) roiPanelH.classList.add('visible');
+            } else {
+                window.fteTarget = 0;
+                if (roiPanelH && roiPanelH.classList.contains('visible')) roiPanelH.classList.remove('visible');
+            }
+        }
+        if (fteInput) {
+            fteInput.addEventListener('input', updateHoloROI);
+            fteInput.addEventListener('blur', () => { let val = parseInt(fteInput.value, 10); fteInput.value = (isNaN(val) || val < 0) ? '' : val; updateHoloROI(); });
+        }
+        if (budgetInput) budgetInput.addEventListener('input', () => { budgetInput.value = formatBudgetDisplay(parseBudget(budgetInput.value)); updateHoloROI(); });
+
+
+        /* <a href="#" class="roi-btn trigger-roi">ROI Calculator</a>) -> try later on hamburger menu */
     </script>
 </body>
 
-</html>
