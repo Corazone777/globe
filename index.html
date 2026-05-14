@@ -1220,6 +1220,26 @@
                 0 0 20px rgba(0, 255, 204, 0.5),
                 0 0 40px rgba(0, 255, 204, 0.2);
         }
+
+        /* --- MOBILE GPU HARDWARE ACCELERATION FIX --- */
+        @media (max-width: 768px) {
+            /* Forces iOS/Android GPU to render the panel over the 3D canvas */
+            .holo-panel.visible {
+                -webkit-transform: translate3d(-50%, -50%, 0) scale(1) !important;
+                transform: translate3d(-50%, -50%, 0) scale(1) !important;
+                will-change: transform, opacity;
+                z-index: 99999 !important;
+            }
+
+            /* Forces iOS/Android GPU to render the HUD buttons */
+            .back-btn.visible, 
+            .reopen-btn.visible {
+                -webkit-transform: translateX(-50%) translate3d(0, 0, 0) !important;
+                transform: translateX(-50%) translate3d(0, 0, 0) !important;
+                will-change: transform, opacity;
+                z-index: 99999 !important;
+            }
+        }
     </style>
 </head>
 
