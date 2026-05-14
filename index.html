@@ -204,10 +204,34 @@
 
         /* Mobile version scaling */
         .mobile-menu .roi-btn {
-            font-size: 1.1rem;
-            padding: 12px 30px;
-            margin-top: 20px;
-            background: rgba(0, 255, 204, 0.08);
+            background: rgba(0, 255, 204, 0.05) !important; /* Forces dark glass */
+            border: 1px solid rgba(0, 255, 204, 0.3) !important;
+            font-family: 'Rajdhani', sans-serif !important;
+            font-size: 1.2rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            padding: 15px 40px !important;
+            border-radius: 50px !important;
+            margin-top: 30px !important;
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.05) !important;
+            display: flex !important; /* Forces layout for the dot */
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 12px !important;
+            text-decoration: none !important;
+        }
+
+        /* Force the glowing dot to render in the mobile menu */
+        .mobile-menu .roi-btn::before {
+            content: '' !important;
+            display: inline-block !important;
+            width: 8px !important; /* Slightly larger for mobile */
+            height: 8px !important;
+            background: #00ffcc !important;
+            border-radius: 50% !important;
+            box-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc !important;
+            animation: pulseDot 2s infinite !important;
         }
 
         /* --- MOBILE NAV ADJUSTMENTS --- */
@@ -492,6 +516,15 @@
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 85;
             font-family: 'Rajdhani', sans-serif;
+
+            max-height: calc(100dvh - 200px) !important; 
+            overflow-y: auto !important; /* Lets you scroll inside the card if it's too tall */
+            overscroll-behavior: contain; /* Stops the background 3D canvas from scrolling */
+
+        }
+
+        #holo-panel::-webkit-scrollbar {
+            display: none;
         }
 
         .holo-panel.visible {
@@ -723,38 +756,25 @@
                 font-size: 0.7rem;
             }
 
-            .reopen-btn {
-                position: fixed;
-                top: 120px;
-                /* FIXED: Clears tall mobile headers */
-                right: auto;
+            .back-btn, .reopen-btn {
                 left: 50%;
-                transform: translateX(-50%);
-                padding: 8px 16px;
-                font-size: 0.9rem;
                 width: max-content;
-                background: rgba(0, 1, 3, 0.85);
-            }
-
-            /* Return to Orbit remains at Bottom Center */
-            .back-btn {
-                position: fixed;
-                top: auto;
-                bottom: 30px;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px 20px;
+                height: 45px;
+                padding: 0 20px;
                 font-size: 0.9rem;
-                width: max-content;
-                background: rgba(0, 1, 3, 0.85);
+                transform: translateX(-50%) translateY(20px); 
+            }
+            
+            .back-btn.visible, .reopen-btn.visible {
+                transform: translateX(-50%) translateY(0); 
             }
 
-            .back-btn:hover {
-                transform: translateX(-50%) translateY(-3px);
-            }
-
-            .reopen-btn:hover {
-                transform: translateX(-50%) translateY(-3px);
+            /* 🔥 THE FIX: Use safe-area-inset so they dodge the physical browser UI */
+            .reopen-btn { 
+                bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important; 
+            } 
+            .back-btn { 
+                bottom: calc(35px + env(safe-area-inset-bottom, 20px)) !important; 
             }
 
             .holo-panel {
@@ -918,16 +938,15 @@
 
         .viewport-section {
             min-height: 100vh;
-            /* Each section takes exactly one screen height */
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 5%;
+            /* 🔥 NEW: 120px top padding guarantees it clears the floating nav! */
+            padding: 120px 5% 60px 5%; 
             pointer-events: auto;
-            /* Re-enable clicks for text and buttons */
             box-sizing: border-box;
         }
 
@@ -1190,23 +1209,6 @@
             transform: scale(1.05);
         }
 
-        /* Make the Mobile ROI button match the desktop CTA style */
-        .mobile-menu .roi-btn {
-            background: #00ffcc;
-            color: #000 !important;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-            transition: all 0.3s ease;
-        }
-
         /* --- LEGIBILITY GLOW --- */
         .teal-glow-text {
             color: #ffffff;
@@ -1275,17 +1277,15 @@
 
             <section class="viewport-section center-align" style="min-height: 90vh;">
                 <div class="reveal-up hero-center">
-                    <div class="hero-pill teal-glow-text">The Planet is your office building</div>
-                    <h1 class="hero-title" style="flex-direction: column; gap: 5px;">
-                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
-                            GOALS,</span>
-                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR
-                            BUDGET.</span>
+                    <div class="hero-pill teal-glow-text" style="margin-bottom: 15px;">The Planet is your office building</div>
+                    
+                    <h1 class="hero-title" style="flex-direction: column; gap: 0px;">
+                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS GOALS,</span>
+                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR BUDGET.</span>
                     </h1>
-                    <p class="hero-subtitle">
-                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around
-                        the globe, providing the dedicated resources you need to <span class="highlight-text">build
-                            faster, scale smarter,</span> and stay ahead of the curve.
+                    
+                    <p class="hero-subtitle" style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 15px auto 0 auto; line-height: 1.7;">
+                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around the globe, providing the dedicated resources you need to <span class="highlight-text">build faster, scale smarter,</span> and stay ahead of the curve.
                     </p>
                 </div>
             </section>
