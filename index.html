@@ -53,43 +53,59 @@
             /* Let clicks pass to the globe */
         }
 
-        /* --- NAVBAR HEADER --- */
-       header {
-            position: fixed !important; /* 🔥 Glues the nav to the top of the screen */
-            top: 0;
-            left: 0;
-            width: 100%;
-            box-sizing: border-box; /* Prevents it from bleeding off the sides */
-            pointer-events: auto;
+        /* --- FLOATING CAPSULE HEADER --- */
+        header {
+            position: fixed !important;
+            top: 20px;
+            /* Floats down from the top */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            height: 70px;
+            /* Fixed height for the pill */
+            border-radius: 100px;
+            /* Makes it a perfect capsule */
+            padding: 0 15px 0 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 4rem;
-            background: linear-gradient(180deg, rgba(0, 1, 3, 0.95) 0%, rgba(0, 1, 3, 0.3) 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 204, 0.15);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(5, 10, 15, 0.45);
+            /* Highly transparent dark glass */
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(0, 255, 204, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             z-index: 100;
+            pointer-events: auto;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Cinematic mode for transitions (turns the capsule solid black) */
+        header.cinematic-mode {
+            background: #000103 !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-color: rgba(0, 255, 204, 0.5) !important;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2) !important;
         }
 
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 35px;
+            gap: 20px;
             text-decoration: none;
         }
 
         .logo {
-            height: 35px;
-            max-width: 150px;
-            /* Forces SVG to pure white with a subtle shadow */
+            height: 28px;
+            /* Slightly smaller to fit the sleek capsule */
             filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
         }
 
         .brand-text {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -98,62 +114,115 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* --- MODERN DESKTOP NAV --- */
         .desktop-nav {
             display: flex;
-            gap: 2.5rem;
+            gap: 0.5rem;
+            /* Tighter gap because we are using padding on the links now */
             align-items: center;
         }
 
-        .desktop-nav a,
-        .mobile-menu a {
-            color: #b0bfc9;
+        .desktop-nav a:not(.roi-btn) {
+            color: #8fa3b0;
             text-decoration: none;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.05rem;
+            font-family: 'Inter', sans-serif;
+            /* Cleaner font for links */
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+            padding: 10px 18px;
+            border-radius: 30px;
+            /* Pill hover effect */
             transition: all 0.3s ease;
-            position: relative;
         }
 
-        .desktop-nav a:hover,
-        .mobile-menu a:hover {
+        .desktop-nav a:not(.roi-btn):hover {
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.05);
+            /* Soft highlight instead of underline */
         }
 
-        .desktop-nav a:not(.roi-btn)::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -6px;
-            left: 0;
-            background-color: #00ffcc;
-            /* TEAL UNDERLINE RESTORED */
-            transition: width 0.3s ease;
-            box-shadow: 0 0 8px #00ffcc;
-        }
-
-        .desktop-nav a:hover::after {
-            width: 100%;
-        }
-
+        /* --- THE PREMIUM "LIVE NODE" ROI BUTTON --- */
         .roi-btn {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.5);
-            padding: 8px 20px;
-            border-radius: 4px;
-            color: #00ffcc !important;
-            /* TEAL BUTTON RESTORED */
+            background: rgba(0, 255, 204, 0.05);
+            /* Dark frosted glass */
+            color: #ffffff !important;
+            /* Crisp white text */
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            margin-left: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.05);
+        }
+
+        /* The glowing cyan status dot */
+        .roi-btn::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #00ffcc;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .roi-btn:hover {
-            background: rgba(0, 255, 204, 0.2);
+            background: rgba(0, 255, 204, 0.15);
             border-color: #00ffcc;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4), inset 0 0 10px rgba(0, 255, 204, 0.2);
-            text-shadow: none;
+            box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 255, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile version scaling */
+        .mobile-menu .roi-btn {
+            font-size: 1.1rem;
+            padding: 12px 30px;
+            margin-top: 20px;
+            background: rgba(0, 255, 204, 0.08);
+        }
+
+        /* --- MOBILE NAV ADJUSTMENTS --- */
+        @media (max-width: 1024px) {
+            header {
+                width: 95%;
+                padding: 0 10px 0 20px;
+                height: 60px;
+            }
+
+            .brand-text {
+                display: none;
+            }
+
+            /* Hide text on smaller screens to save space */
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-right: 10px;
+            }
         }
 
         .hamburger {
@@ -191,7 +260,8 @@
         }
 
         .mobile-menu {
-            position: fixed !important; /* 🔥 Forces menu to cover viewport, not the document */
+            position: fixed !important;
+            /* 🔥 Forces menu to cover viewport, not the document */
             top: 0;
             left: 0;
             width: 100vw;
@@ -204,12 +274,14 @@
             justify-content: center;
             align-items: center;
             gap: 2rem;
-            z-index: 90; /* Sits just below the header */
+            z-index: 90;
+            /* Sits just below the header */
             opacity: 0;
             transform: translateY(-100%);
             transition: all 0.4s ease-in-out;
             pointer-events: none;
         }
+
         @media (max-width: 900px) {
             header {
                 padding: 1.2rem 2rem;
@@ -232,7 +304,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 40px;
             z-index: 50;
             pointer-events: none;
             text-align: center;
@@ -261,15 +333,26 @@
             filter: brightness(0) invert(1) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
         }
 
+        /* --- HERO SUBTITLE UPGRADE --- */
         .hero-subtitle {
-            margin-bottom: 10px;
             font-family: 'Inter', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #00ffcc;
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.5), 0 2px 10px rgba(0, 0, 0, 0.8);
+            font-size: clamp(1.1rem, 2vw, 1.3rem); /* Scales smoothly on mobile */
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.75); /* Soft, premium frosted white */
+            max-width: 750px;
+            margin: 25px auto 0 auto;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Ensures it pops off the 3D globe */
+        }
+
+        .highlight-text {
+            font-weight: 600;
+            background: linear-gradient(90deg, #ffffff 0%, #00ffcc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
         }
 
         /* --- RESPONSIVE BREAKPOINTS --- */
@@ -356,7 +439,7 @@
 
         /* --- CLOUD TRANSITION OVERLAY --- */
         #cloud-transition {
-            position: fixed; 
+            position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
@@ -365,47 +448,13 @@
             background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(200, 230, 255, 0.9) 100%);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            z-index: 80; 
+            z-index: 80;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.6s ease-in-out;
         }
 
-        /* --- RETURN TO ORBIT BUTTON --- */
-        .back-btn {
-            position: fixed !important; /* Forces it to the glass, ignores scrolling */
-            top: 130px;
-            left: 40px;
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.5);
-            padding: 10px 20px;
-            border-radius: 4px;
-            color: #00ffcc;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000 !important; /* Floats above absolutely everything */
-            opacity: 0;
-            pointer-events: none;
-        }
 
-        .back-btn.visible, .reopen-btn.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .back-btn:hover, .reopen-btn:hover {
-            background: rgba(0, 255, 204, 0.2);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
-            text-shadow: 0 0 8px #00ffcc;
-            transform: translateY(-3px);
-        }
 
         /* --- RESTORED TEAL GLASSMORPHIC UI --- */
         .holo-panel {
@@ -716,36 +765,134 @@
             }
         }
 
-        /* --- REOPEN CALCULATOR BUTTON --- */
+        /* --- HUD CONTROL BUTTONS (Mountain View) --- */
+        .back-btn,
         .reopen-btn {
-            position: fixed !important; /* Forces it to the glass, ignores scrolling */
-            top: 130px;
-            right: 63px;
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.5);
-            padding: 10px 20px;
-            border-radius: 4px;
+            position: fixed !important;
+            bottom: 40px;
+            /* Anchored to the bottom now! */
+            top: auto !important;
+            /* Overrides the old top positioning */
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 25px;
+            border-radius: 50px;
+            /* Perfect pill shape to match the nav */
+            background: rgba(5, 10, 15, 0.6);
+            /* Dark frosted glass */
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 255, 204, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             color: #00ffcc;
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            backdrop-filter: blur(10px);
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 80 !important; /* Floats above absolutely everything */
-            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000 !important;
             pointer-events: none;
+
+            /* Start slightly lower and faded out for the entrance animation */
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        @keyframes scanlineScroll {
-            0% {
-                background-position: 0 0, 0 0;
+        /* Desktop Positions: Pushed to the outer bottom corners */
+        .back-btn {
+            left: 40px;
+        }
+
+        .reopen-btn {
+            right: 40px;
+        }
+
+        /* The entrance animation */
+        .back-btn.visible,
+        .reopen-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* High-end hover state */
+        .back-btn:hover,
+        .reopen-btn:hover {
+            background: rgba(0, 255, 204, 0.15);
+            border-color: #00ffcc;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.3);
+            transform: translateY(-5px);
+            /* Lifts up smoothly */
+        }
+
+        @media (max-width: 1024px) {
+            .brand-text {
+                display: none;
             }
 
-            100% {
-                background-position: 0 800px, 0 0;
+            /* Hides text to make room on iPads/tablets */
+        }
+
+        /* --- MOBILE HUD ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+
+            header {
+                /* Mathematically prevents the pill from cutting off on ANY phone */
+                width: calc(100% - 50px) !important;
+                padding: 0 20px !important;
+                height: 60px !important;
+            }
+
+            .logo {
+                height: 24px;
+            }
+
+            /* Scales logo down slightly for small screens */
+            .desktop-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .back-btn,
+            .reopen-btn {
+                left: 50%;
+                width: max-content;
+                height: 45px;
+                padding: 0 20px;
+                font-size: 0.9rem;
+                /* Base state for mobile animation */
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            .back-btn.visible,
+            .reopen-btn.visible {
+                /* Visible state for mobile animation */
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .back-btn:hover,
+            .reopen-btn:hover {
+                /* Hover state for mobile animation */
+                transform: translateX(-50%) translateY(-5px);
+            }
+
+            /* Stack them perfectly in the bottom center on phones */
+            .reopen-btn {
+                bottom: 95px;
+            }
+
+            /* Sits above the back button */
+            .back-btn {
+                bottom: 35px;
             }
         }
 
@@ -875,13 +1022,15 @@
             transform: translateY(0);
         }
 
-      /* --- HERO TEXT UPGRADES (ANIMATED METALLIC) --- */
+        /* --- HERO TEXT UPGRADES (ANIMATED METALLIC) --- */
         .hero-pill {
-            display: inline-block; padding: 8px 20px; background: rgba(0, 255, 204, 0.05);
-            border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 50px; color: #00ffcc;
+            display: inline-block; padding: 8px 20px; 
+            background: rgba(255, 255, 255, 0.03); /* Removed teal background */
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Silver border */
+            border-radius: 50px; color: #b0bfc9; /* Slate text */
             font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 700;
             letter-spacing: 3px; margin-bottom: 25px; text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.1); backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
         }
 
         .text-silver {
@@ -889,53 +1038,147 @@
             background: linear-gradient(180deg, #ffffff 0%, #8fa3b0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
-        .text-gradient {
-            /* Animated Teal-to-Blue Sheen */
-            background: linear-gradient(to right, #00ffcc, #0077ff, #00ffcc);
+       .text-gradient {
+            /* Shifted from aggressive Teal to a high-end Ice Silver sweep */
+            background: linear-gradient(to right, #ffffff, #739bb0, #ffffff);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(0, 255, 204, 0.3);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
             display: inline-block;
             animation: textShine 4s linear infinite;
         }
 
         @keyframes textShine {
-            to { background-position: 200% center; }
+            to {
+                background-position: 200% center;
+            }
         }
 
         /* --- MICRO-UI ELEMENTS --- */
         .node-label {
-            font-family: 'Rajdhani', monospace; color: #00ffcc; font-size: 0.9rem;
-            letter-spacing: 3px; margin-bottom: 15px; border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            font-family: 'Rajdhani', monospace; 
+            color: #8fa3b0; /* Muted Slate instead of Cyan */
+            font-size: 0.9rem;
+            letter-spacing: 3px; margin-bottom: 15px; 
+            border-bottom: 1px solid rgba(143, 163, 176, 0.2);
             display: inline-block; padding-bottom: 5px;
         }
 
-        .tech-tag-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
-        .tech-tag {
-            padding: 8px 18px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px; color: #b0bfc9; font-size: 0.85rem; text-transform: uppercase;
-            letter-spacing: 1.5px; transition: all 0.3s ease; backdrop-filter: blur(5px);
+        /* Adds a tiny cyan accent just to the slashes */
+        .node-label::after {
+            content: ''; /* We'll let the HTML handle the text, this just cools it down */
         }
-        .tech-tag:hover { background: rgba(0, 255, 204, 0.1); border-color: #00ffcc; color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2); }
+
+        .tech-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .tech-tag {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: #b0bfc9;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .tech-tag:hover {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: #00ffcc;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        }
 
         /* --- PROCESS GRID --- */
         .process-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; width: 100%; margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            margin-top: 40px;
         }
+
         .process-step {
-            background: rgba(5, 15, 25, 0.4); border-top: 2px solid #00ffcc;
-            padding: 30px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            background: rgba(5, 15, 25, 0.4);
+            border-top: 2px solid #00ffcc;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             text-align: left;
         }
-        .step-num { font-family: 'Rajdhani', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(0, 255, 204, 0.2); line-height: 1; margin-bottom: 15px; }
-        .step-title { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: #fff; margin: 0 0 15px 0; letter-spacing: 1px;}
-        .step-body { font-size: 0.95rem; line-height: 1.7; color: #8fa3b0; margin: 0; } 
 
+        .step-num {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(0, 255, 204, 0.2);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .step-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 0 15px 0;
+            letter-spacing: 1px;
+        }
+
+        .step-body {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #8fa3b0;
+            margin: 0;
+        }
+
+        /* --- MOBILE MENU LINKS --- */
+        .mobile-menu a:not(.roi-btn) {
+            color: #b0bfc9;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            /* Big, bold, and tappable */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:not(.roi-btn):hover,
+        .mobile-menu a:not(.roi-btn):active {
+            color: #fff;
+            text-shadow: 0 0 15px #00ffcc;
+            transform: scale(1.05);
+        }
+
+        /* Make the Mobile ROI button match the desktop CTA style */
+        .mobile-menu .roi-btn {
+            background: #00ffcc;
+            color: #000 !important;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 
@@ -989,36 +1232,43 @@
             <a href="#" class="roi-btn">ROI Calculator</a>
         </div>
 
-      <main class="premium-scroll-container">
-            
+        <main class="premium-scroll-container">
+
             <section class="viewport-section center-align" style="min-height: 90vh;">
                 <div class="reveal-up hero-center">
-                    <div class="hero-pill">/// Intelligent Staffing Node</div>
+                    <div class="hero-pill">The Planet is your office building</div>
                     <h1 class="hero-title" style="flex-direction: column; gap: 5px;">
-                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS GOALS,</span>
-                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR BUDGET.</span>
+                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
+                            GOALS,</span>
+                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR
+                            BUDGET.</span>
                     </h1>
-                    <p class="hero-subtitle" style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 25px auto 0 auto; line-height: 1.7;">
-                        Ibex recruits the absolute best technical talent from around the globe, providing the dedicated resources you need to build faster, scale smarter, and stay ahead of the curve.
-                    </p>
+                   <p class="hero-subtitle">
+                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around the globe, providing the dedicated resources you need to <span class="highlight-text">build faster, scale smarter,</span> and stay ahead of the curve.
+                    </p> 
                 </div>
             </section>
 
             <section class="viewport-section left-align">
                 <div class="editorial-card reveal-up">
-                    <div class="node-label">01 // GLOBAL WORKFORCE</div>
+                    <div class="node-label">01 <span style="color: #00ffcc;">//</span> GLOBAL WORKFORCE</div>
                     <h2 class="section-heading">Future-Forward.</h2>
-                    <p class="section-body">Enable a truly global workforce. Tap into the world’s best talent from our 700k+ talent database. We are not a traditional outsourcer – you directly manage your dedicated full-time employees, while we enable seamless employment and co-invest with you in parallel to get great results.</p>
+                    <p class="section-body">Enable a truly global workforce. Tap into the world’s best talent from our
+                        700k+ talent database. We are not a traditional outsourcer – you directly manage your dedicated
+                        full-time employees, while we enable seamless employment and co-invest with you in parallel to
+                        get great results.</p>
                     <a href="#" class="premium-btn trigger-roi">Conquer Your Goals &rarr;</a>
                 </div>
             </section>
 
             <section class="viewport-section left-align" style="align-items: flex-end;">
                 <div class="editorial-card reveal-up" style="border-left: none; border-right: 2px solid #00ffcc;">
-                    <div class="node-label">02 // DOMAIN EXPERTISE</div>
+                    <div class="node-label">02 <span style="color: #00ffcc;">//</span> DOMAIN EXPERTISE</div>
                     <h2 class="section-heading">Elite Engineering.</h2>
-                    <p class="section-body">We don't just find developers; we help you build high-performing engineering pods. From AI/ML specialists and Cloud Architects to Full-Stack engineers, our rigorous technical vetting ensures you only speak with the top 1% of global applicants.</p>
-                    
+                    <p class="section-body">We don't just find developers; we help you build high-performing engineering
+                        pods. From AI/ML specialists and Cloud Architects to Full-Stack engineers, our rigorous
+                        technical vetting ensures you only speak with the top 1% of global applicants.</p>
+
                     <div class="tech-tag-container">
                         <span class="tech-tag">Software Engineering</span>
                         <span class="tech-tag">Data Science & AI</span>
@@ -1031,25 +1281,30 @@
 
             <section class="viewport-section center-align">
                 <div class="reveal-up w-100">
-                    <div class="node-label">03 // DEPLOYMENT PROTOCOL</div>
+                    <div class="node-label">03 <span style="color: #00ffcc;">//</span>DEPLOYMENT PROTOCOL</div>
                     <h2 class="section-heading">How we scale your team.</h2>
-                    <p class="section-body max-w-800">Bypass the bureaucratic red tape. We have optimized the hiring pipeline to deploy elite talent directly into your ecosystem in record time.</p>
-                    
+                    <p class="section-body max-w-800">Bypass the bureaucratic red tape. We have optimized the hiring
+                        pipeline to deploy elite talent directly into your ecosystem in record time.</p>
+
                     <div class="process-grid">
                         <div class="process-step">
                             <div class="step-num">01</div>
                             <h3 class="step-title">Calibration</h3>
-                            <p class="step-body">We integrate with your engineering leadership to deeply understand your tech stack, product roadmap, and exact technical requirements.</p>
+                            <p class="step-body">We integrate with your engineering leadership to deeply understand your
+                                tech stack, product roadmap, and exact technical requirements.</p>
                         </div>
                         <div class="process-step">
                             <div class="step-num">02</div>
                             <h3 class="step-title">Curation</h3>
-                            <p class="step-body">Our proprietary matching engine and senior technical interviewers filter thousands of candidates to present only the absolute best fits within 48 hours.</p>
+                            <p class="step-body">Our proprietary matching engine and senior technical interviewers
+                                filter thousands of candidates to present only the absolute best fits within 48 hours.
+                            </p>
                         </div>
                         <div class="process-step">
                             <div class="step-num">03</div>
                             <h3 class="step-title">Integration</h3>
-                            <p class="step-body">Your new hires integrate seamlessly into your Slack, Jira, and daily standups. We handle all global payroll, HR compliance, and benefits.</p>
+                            <p class="step-body">Your new hires integrate seamlessly into your Slack, Jira, and daily
+                                standups. We handle all global payroll, HR compliance, and benefits.</p>
                         </div>
                     </div>
                 </div>
@@ -1057,18 +1312,21 @@
 
             <section class="viewport-section left-align">
                 <div class="editorial-card reveal-up">
-                    <div class="node-label">04 // INFRASTRUCTURE</div>
+                    <div class="node-label">04 <span style="color: #00ffcc;">//</span> INFRASTRUCTURE</div>
                     <h2 class="section-heading">Enterprise-Grade Security.</h2>
-                    <p class="section-body">When you are building proprietary technology, trust is everything. We ensure that every remote node in your workforce is fully compliant with international IP laws, NDA protections, and enterprise data security protocols. Your code remains yours.</p>
+                    <p class="section-body">When you are building proprietary technology, trust is everything. We ensure
+                        that every remote node in your workforce is fully compliant with international IP laws, NDA
+                        protections, and enterprise data security protocols. Your code remains yours.</p>
                 </div>
             </section>
 
             <section class="viewport-section center-align">
                 <div class="reveal-up">
-                    <div class="node-label">05 // PERFORMANCE DATA</div>
+                    <div class="node-label">05 <span style="color: #00ffcc;">//</span> PERFORMANCE DATA </div>
                     <h2 class="section-heading">Our Metrics Tell the Story</h2>
-                    <p class="section-body max-w-800">Our real-time metrics give you the inside scoop on your success and help you stay on top of your game in style.</p>
-                    
+                    <p class="section-body max-w-800">Our real-time metrics give you the inside scoop on your success
+                        and help you stay on top of your game in style.</p>
+
                     <div class="premium-metrics-grid">
                         <div class="metric-item">
                             <div class="metric-num"><span class="counter" data-target="55000">0</span>+</div>
@@ -1089,16 +1347,18 @@
                     </div>
                 </div>
             </section>
-            
+
             <section class="viewport-section center-align" style="min-height: 50vh;">
                 <div class="reveal-up">
-                    <h2 class="section-heading" style="font-size: clamp(2rem, 5vw, 3rem);">Ready to build your team?</h2>
-                    <p class="section-body max-w-800">Book a time with our team to discuss your technology talent needs today.</p>
+                    <h2 class="section-heading" style="font-size: clamp(2rem, 5vw, 3rem);">Ready to build your team?
+                    </h2>
+                    <p class="section-body max-w-800">Book a time with our team to discuss your technology talent needs
+                        today.</p>
                     <a href="mailto:info@goibex.it" class="premium-btn">info@goibex.it</a>
                 </div>
             </section>
 
-        </main> 
+        </main>
 
         <div id="holo-panel" class="holo-panel">
             <button class="close-btn" id="close-roi-btn">✕</button>
@@ -1747,10 +2007,10 @@
         // The new Back arrow triggers the return transition
         document.getElementById('back-to-globe-btn').addEventListener('click', returnToGlobe);
 
-     function diveToROI() {
+        function diveToROI() {
             closeMobileMenu();
             if (!isGlobeMode || window.isTransitioning) return;
-            
+
             window.isTransitioning = true; // Lock scroll logic to prevent stuttering
 
             // 1. Start fading out the text immediately (but leave it on the page so it doesn't snap)
@@ -1778,7 +2038,7 @@
                 if (textContainer) textContainer.style.display = "none";
                 window.scrollTo(0, 0); // Reset scroll math
                 document.body.style.overflow = "hidden"; // Lock the page completely
-                
+
                 isGlobeMode = false;
 
                 // Hide Globe, Show Mountain
@@ -1817,15 +2077,15 @@
                 // 5. Restore the header glass effect after clouds fade out
                 setTimeout(() => document.querySelector('header').classList.remove('cinematic-mode'), 600);
             }, 1000);
-        } 
+        }
 
-     function returnToGlobe() {
+        function returnToGlobe() {
             closeMobileMenu();
             if (isGlobeMode || window.isTransitioning) return;
-            
+
             window.isTransitioning = true;
             window.fteTarget = 0;
-            
+
             // Clean inputs
             const fteInput = document.getElementById('fte-input');
             const budgetInput = document.getElementById('budget-input');
@@ -1861,8 +2121,8 @@
             scene.beginDirectAnimation(camera, [pullBackAnim], 0, 60, false, 1.5);
 
             // 3. Clouds roll in + Header turns solid
-            setTimeout(() => { 
-                cloudOverlay.style.opacity = "1"; 
+            setTimeout(() => {
+                cloudOverlay.style.opacity = "1";
             }, 300);
 
             // 4. Execute swap behind the clouds
@@ -1892,7 +2152,7 @@
                 const textContainer = document.querySelector('.premium-scroll-container');
                 if (textContainer) textContainer.style.display = "block";
                 document.body.style.overflow = "auto"; // Unlock page
-                
+
                 cloudOverlay.style.opacity = "0";
 
                 // 5. Final camera lock, text fade-in, and header glass restore
@@ -1900,14 +2160,14 @@
                     camera.lowerRadiusLimit = 2.5; camera.upperRadiusLimit = 15;
                     camera.lowerBetaLimit = 0.01; camera.upperBetaLimit = Math.PI - 0.01;
                     camera.attachControl(canvas, true);
-                    
+
                     if (textContainer) textContainer.style.opacity = "1"; // Smooth fade back in
                     window.isTransitioning = false;
-                    
+
                 }, 800);
 
             }, 1000);
-        } 
+        }
 
         engine.runRenderLoop(function () {
             scene.render();
