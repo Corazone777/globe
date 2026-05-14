@@ -304,7 +304,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px;
+            gap: 60px;
             z-index: 50;
             pointer-events: none;
             text-align: center;
@@ -1179,6 +1179,17 @@
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
             transition: all 0.3s ease;
         }
+
+        /* --- LEGIBILITY GLOW --- */
+        .teal-glow-text {
+            color: #ffffff; /* Keep the core text white for readability */
+            font-weight: 700;
+            /* Layer 1: Dark drop shadow for contrast. Layer 2 & 3: Teal ambient glow */
+            text-shadow: 
+                0 4px 10px rgba(0, 0, 0, 0.9), 
+                0 0 20px rgba(0, 255, 204, 0.5), 
+                0 0 40px rgba(0, 255, 204, 0.2);
+        }
     </style>
 </head>
 
@@ -1236,7 +1247,7 @@
 
             <section class="viewport-section center-align" style="min-height: 90vh;">
                 <div class="reveal-up hero-center">
-                    <div class="hero-pill">The Planet is your office building</div>
+                    <div class="hero-pill teal-glow-text">The Planet is your office building</div>
                     <h1 class="hero-title" style="flex-direction: column; gap: 5px;">
                         <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
                             GOALS,</span>
