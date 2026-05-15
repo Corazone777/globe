@@ -204,7 +204,8 @@
 
         /* Mobile version scaling */
         .mobile-menu .roi-btn {
-            background: rgba(0, 255, 204, 0.05) !important; /* Forces dark glass */
+            background: rgba(0, 255, 204, 0.05) !important;
+            /* Forces dark glass */
             border: 1px solid rgba(0, 255, 204, 0.3) !important;
             font-family: 'Rajdhani', sans-serif !important;
             font-size: 1.2rem !important;
@@ -215,7 +216,8 @@
             border-radius: 50px !important;
             margin-top: 30px !important;
             box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.05) !important;
-            display: flex !important; /* Forces layout for the dot */
+            display: flex !important;
+            /* Forces layout for the dot */
             align-items: center !important;
             justify-content: center !important;
             gap: 12px !important;
@@ -226,7 +228,8 @@
         .mobile-menu .roi-btn::before {
             content: '' !important;
             display: inline-block !important;
-            width: 8px !important; /* Slightly larger for mobile */
+            width: 8px !important;
+            /* Slightly larger for mobile */
             height: 8px !important;
             background: #00ffcc !important;
             border-radius: 50% !important;
@@ -482,14 +485,14 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            
+
             /* 🔥 Swapped the blinding white gradient for a pure cinematic black void */
-            background: #000000; 
-            
+            background: #000000;
+
             /* Kept a slight blur so the 3D scene loses camera focus as it sinks into the shadows */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            
+
             z-index: 80;
             opacity: 0;
             pointer-events: none;
@@ -521,9 +524,11 @@
             z-index: 85;
             font-family: 'Rajdhani', sans-serif;
 
-            max-height: calc(100dvh - 200px) !important; 
-            overflow-y: auto !important; /* Lets you scroll inside the card if it's too tall */
-            overscroll-behavior: contain; /* Stops the background 3D canvas from scrolling */
+            max-height: calc(100dvh - 200px) !important;
+            overflow-y: auto !important;
+            /* Lets you scroll inside the card if it's too tall */
+            overscroll-behavior: contain;
+            /* Stops the background 3D canvas from scrolling */
 
         }
 
@@ -537,13 +542,15 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-            
+
         /* --- HOLO PANEL HEADER & ALIGNMENT --- */
         .holo-header {
             display: flex;
             justify-content: space-between;
-            align-items: center; /* This guarantees perfect vertical alignment */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Soft silver line across the whole modal */
+            align-items: center;
+            /* This guarantees perfect vertical alignment */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            /* Soft silver line across the whole modal */
             padding-bottom: 15px;
             margin-bottom: 25px;
         }
@@ -551,7 +558,8 @@
         .holo-title {
             margin: 0;
             color: #ffffff;
-            font-size: clamp(1.4rem, 4vw, 1.8rem); /* Automatically scales on mobile */
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            /* Automatically scales on mobile */
             font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
@@ -574,10 +582,12 @@
 
         /* --- PREMIUM CIRCULAR CLOSE BUTTON --- */
         .close-btn {
-            position: relative; /* Kills the old absolute positioning */
+            position: relative;
+            /* Kills the old absolute positioning */
             width: 36px;
             height: 36px;
-            background: rgba(255, 255, 255, 0.05); /* Soft frosted circle */
+            background: rgba(255, 255, 255, 0.05);
+            /* Soft frosted circle */
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: #8fa3b0;
@@ -593,7 +603,8 @@
 
         /* Sleek mechanical rotation and color shift on hover */
         .close-btn:hover {
-            background: rgba(255, 60, 60, 0.15); /* Soft warning red */
+            background: rgba(255, 60, 60, 0.15);
+            /* Soft warning red */
             border-color: #ff3c3c;
             color: #ff3c3c;
             box-shadow: 0 0 15px rgba(255, 60, 60, 0.3);
@@ -796,25 +807,28 @@
                 font-size: 0.7rem;
             }
 
-            .back-btn, .reopen-btn {
+            .back-btn,
+            .reopen-btn {
                 left: 50%;
                 width: max-content;
                 height: 45px;
                 padding: 0 20px;
                 font-size: 0.9rem;
-                transform: translateX(-50%) translateY(20px); 
+                transform: translateX(-50%) translateY(20px);
             }
-            
-            .back-btn.visible, .reopen-btn.visible {
-                transform: translateX(-50%) translateY(0); 
+
+            .back-btn.visible,
+            .reopen-btn.visible {
+                transform: translateX(-50%) translateY(0);
             }
 
             /* 🔥 THE FIX: Use safe-area-inset so they dodge the physical browser UI */
-            .reopen-btn { 
-                bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important; 
-            } 
-            .back-btn { 
-                bottom: calc(35px + env(safe-area-inset-bottom, 20px)) !important; 
+            .reopen-btn {
+                bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important;
+            }
+
+            .back-btn {
+                bottom: calc(35px + env(safe-area-inset-bottom, 20px)) !important;
             }
 
             .holo-panel {
@@ -985,7 +999,7 @@
             flex-direction: column;
             justify-content: center;
             /* 🔥 NEW: 120px top padding guarantees it clears the floating nav! */
-            padding: 120px 5% 60px 5%; 
+            padding: 120px 5% 60px 5%;
             pointer-events: auto;
             box-sizing: border-box;
         }
@@ -1261,60 +1275,123 @@
                 0 0 40px rgba(0, 255, 204, 0.2);
         }
 
-      /* ====================================================
-           🚨 THE NUCLEAR IOS VISIBILITY FIX 🚨
+       /* ====================================================
+           🚨 THE NUCLEAR IOS VISIBILITY + COMPACT UI FIX 🚨
            ==================================================== */
         @media (max-width: 768px) {
-            
+
             /* 1. Stop Safari from deleting the wrapper when the text hides */
             #ui-layer {
                 min-height: 100vh !important;
-                -webkit-transform: translateZ(0); 
+                -webkit-transform: translateZ(0);
             }
 
-            /* 2. Rip the ROI panel completely out of the DOM until needed */
+            /* 2. Rip the ROI panel completely out of the DOM until needed + Compact Spacing */
             .holo-panel {
-                display: none !important; /* Physically removes it from the GPU queue */
-                opacity: 1 !important;    /* Force it to be 100% visible when injected */
+                display: none !important;
+                /* Physically removes it from the GPU queue */
+                opacity: 1 !important;
+                /* Force it to be 100% visible when injected */
                 visibility: visible !important;
-                transition: none !important; /* Kill the physics */
-                
+                transition: none !important;
+                /* Kill the physics */
+
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
-                background: #050f19 !important; /* Solid dark color */
-                
+                background: #050f19 !important;
+                /* Solid dark color */
+
                 /* Bulletproof positioning */
                 position: fixed !important;
                 top: 50% !important;
                 left: 50% !important;
                 -webkit-transform: translate(-50%, -50%) !important;
                 transform: translate(-50%, -50%) !important;
-                
+
                 /* Rock solid height fallback */
-                max-height: 80vh !important; 
+                max-height: 80vh !important;
                 z-index: 80 !important;
+                
+                /* 🔥 COMPACT UI FIXES MERGED HERE 🔥 */
+                padding: 15px 20px !important;
+                width: 95% !important; /* Maximize horizontal width */
             }
 
             /* 3. Violently inject it onto the screen when active */
             .holo-panel.visible {
-                display: block !important; 
+                display: block !important;
             }
 
             /* 4. Do the exact same brutal toggle for the buttons */
-            .back-btn, .reopen-btn {
+            .back-btn,
+            .reopen-btn {
                 display: none !important;
                 opacity: 1 !important;
                 visibility: visible !important;
                 transition: none !important;
-                
+
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background: rgba(5, 15, 25, 0.95) !important;
                 z-index: 80 !important;
             }
 
-            .back-btn.visible, .reopen-btn.visible {
-                display: flex !important; /* Force render */
+            .back-btn.visible,
+            .reopen-btn.visible {
+                display: flex !important;
+                /* Force render */
+            }
+
+            /* ==========================================
+               5. 📱 COMPACT MODE: Un-stack inputs & kill scrollbar 
+               ========================================== */
+            .holo-header {
+                padding-bottom: 10px !important;
+                margin-bottom: 15px !important;
+            }
+
+            /* Forces the FTE and Budget inputs side-by-side to save height */
+            .fte-row {
+                flex-direction: row !important; 
+                gap: 15px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .fte-input {
+                padding: 8px !important;
+                font-size: 1rem !important;
+            }
+
+            .fte-label {
+                font-size: 0.75rem !important;
+                margin-bottom: 3px !important;
+            }
+
+            .landscape-slider {
+                margin-bottom: 15px !important;
+            }
+            
+            .slider-option {
+                padding: 6px 0 !important;
+                font-size: 0.8rem !important;
+            }
+
+            .roi-panel-h {
+                padding-top: 10px !important;
+            }
+
+            .roi-title {
+                margin-bottom: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .roi-stat-value {
+                font-size: 1.2rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            .roi-stat-label {
+                font-size: 0.7rem !important;
             }
         } 
     </style>
@@ -1374,15 +1451,21 @@
 
             <section class="viewport-section center-align" style="min-height: 90vh;">
                 <div class="reveal-up hero-center">
-                    <div class="hero-pill teal-glow-text" style="margin-bottom: 15px;">The Planet is your office building</div>
-                    
+                    <div class="hero-pill teal-glow-text" style="margin-bottom: 15px;">The Planet is your office
+                        building</div>
+
                     <h1 class="hero-title" style="flex-direction: column; gap: 0px;">
-                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS GOALS,</span>
-                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR BUDGET.</span>
+                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
+                            GOALS,</span>
+                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR
+                            BUDGET.</span>
                     </h1>
-                    
-                    <p class="hero-subtitle" style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 15px auto 0 auto; line-height: 1.7;">
-                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around the globe, providing the dedicated resources you need to <span class="highlight-text">build faster, scale smarter,</span> and stay ahead of the curve.
+
+                    <p class="hero-subtitle"
+                        style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 15px auto 0 auto; line-height: 1.7;">
+                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around
+                        the globe, providing the dedicated resources you need to <span class="highlight-text">build
+                            faster, scale smarter,</span> and stay ahead of the curve.
                     </p>
                 </div>
             </section>
@@ -1499,7 +1582,7 @@
         </main>
 
         <div id="holo-panel" class="holo-panel">
-           <div class="holo-header">
+            <div class="holo-header">
                 <div class="holo-title">ROI Estimator</div>
                 <button class="close-btn" id="close-roi-btn">✕</button>
             </div>
@@ -2034,6 +2117,11 @@
                 }
 
                 if (isGlobeMode) {
+                    if (typeof camera !== 'undefined' && !window.isTransitioning) {
+                        // Lerp the camera to the target values calculated by the scroll listener
+                        camera.alpha += (window.targetCameraAlpha - camera.alpha) * 0.08;
+                        camera.radius += (window.targetCameraRadius - camera.radius) * 0.08;
+                    }
                     // GLOBE ANIMATIONS 
                     earthRoot.rotation.y += 0.0008;
                     starRoot.rotation.y += 0.0002;
@@ -2064,14 +2152,14 @@
                         // Loop through all 8,000 flakes
                         for (let i = 0; i < 8000; i++) {
                             // In a 4x4 matrix, index 13 is the Y-axis position
-                            let yIndex = i * 16 + 13; 
-                            
+                            let yIndex = i * 16 + 13;
+
                             // Make it fall! (Adjust this number to change snow speed)
-                            window.starMatrixBuffer[yIndex] -= 0.15; 
-                            
+                            window.starMatrixBuffer[yIndex] -= 0.15;
+
                             // If the snowflake falls below the ground (-20), wrap it back up to the sky
                             if (window.starMatrixBuffer[yIndex] < -20) {
-                                window.starMatrixBuffer[yIndex] += 120; 
+                                window.starMatrixBuffer[yIndex] += 120;
                             }
                         }
                         // Tell Babylon to push our updated array to the GPU
@@ -2450,30 +2538,32 @@
             document.querySelectorAll('.counter').forEach(el => metricsObserver.observe(el));
         });
 
-        // 3. 3D Spatial Scroll Physics (Ties scrollbar to the Globe!)
+        // ==========================================
+        // HIGH-PERFORMANCE SCROLL TRACKER
+        // ==========================================
+        // Setup initial targets so they don't break on load
+        window.targetCameraAlpha = -Math.PI / 2;
+        window.targetCameraRadius = window.innerWidth <= 768 ? 5.5 : (window.innerWidth <= 1024 ? 4.5 : 3.5);
+
         window.addEventListener('scroll', () => {
-            if (!isGlobeMode || typeof camera === 'undefined' || window.isTransitioning) return;
-            const scrollY = window.scrollY;
+            if (!isGlobeMode || window.isTransitioning) return;
+
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
             const maxScroll = document.body.scrollHeight - window.innerHeight;
             if (maxScroll <= 0) return;
 
             const scrollPercent = Math.max(0, Math.min(1, scrollY / maxScroll));
 
-            // Rotate the Earth dynamically based on scroll position!
-            const targetAlpha = (-Math.PI / 2) + (scrollPercent * Math.PI);
+            // Calculate targets, but DO NOT move the camera here!
+            window.targetCameraAlpha = (-Math.PI / 2) + (scrollPercent * Math.PI);
 
-            // Figure out base zoom so mobile doesn't break
             let baseRadius = 3.5;
             if (window.innerWidth <= 768) baseRadius = 5.5;
             else if (window.innerWidth <= 1024) baseRadius = 4.5;
 
-            // Zoom out slightly to give the text more room as they read
-            const targetRadius = baseRadius + (scrollPercent * 5);
+            window.targetCameraRadius = baseRadius + (scrollPercent * 5);
 
-            // Smoothly interpolate camera directly to the scroll targets
-            camera.alpha += (targetAlpha - camera.alpha) * 0.1;
-            camera.radius += (targetRadius - camera.radius) * 0.1;
-        });
+        }, { passive: true }); // 🔥 THIS kills the laptop lag! 
 
         /* <a href="#" class="roi-btn trigger-roi">ROI Calculator</a>) -> try later on hamburger menu */
     </script>
