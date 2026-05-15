@@ -482,10 +482,14 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            /* I slightly softened the pure white to a 0.9 alpha so it glows beautifully through the glass without blowing it out */
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(200, 230, 255, 0.9) 100%);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+            
+            /* 🔥 Swapped the blinding white gradient for a pure cinematic black void */
+            background: #000000; 
+            
+            /* Kept a slight blur so the 3D scene loses camera focus as it sinks into the shadows */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            
             z-index: 80;
             opacity: 0;
             pointer-events: none;
@@ -865,7 +869,7 @@
             letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1000 !important;
+            z-index: 80 !important;
             pointer-events: none;
 
             /* Start slightly lower and faded out for the entrance animation */
@@ -1288,7 +1292,7 @@
                 
                 /* Rock solid height fallback */
                 max-height: 80vh !important; 
-                z-index: 999999 !important;
+                z-index: 80 !important;
             }
 
             /* 3. Violently inject it onto the screen when active */
@@ -1306,7 +1310,7 @@
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background: rgba(5, 15, 25, 0.95) !important;
-                z-index: 999999 !important;
+                z-index: 80 !important;
             }
 
             .back-btn.visible, .reopen-btn.visible {
