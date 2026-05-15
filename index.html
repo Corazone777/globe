@@ -933,7 +933,9 @@
 
             /* --- 🚨 THE NUCLEAR IOS VISIBILITY + COMPACT UI FIX 🚨 --- */
             #ui-layer {
-                min-height: 100vh !important;
+                height: 1px !important;
+                min-height: 1px !important;
+                overflow: visible !important; /* Lets the UI safely break out of the 1px box */
                 -webkit-transform: translateZ(0);
             }
 
