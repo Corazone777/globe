@@ -10,7 +10,6 @@
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
 
-
     <style>
         /* ==========================================================================
            1. GLOBAL RESET & BASE
@@ -84,7 +83,7 @@
         }
 
         /* ==========================================================================
-           2. HEADER & NAVIGATION (DEEP PURPLE & ICE WHITE)
+           2. HEADER & NAVIGATION 
            ========================================================================== */
         header {
             position: fixed !important;
@@ -101,7 +100,6 @@
             align-items: center;
             background: rgba(5, 10, 15, 0.45);
             border: 1px solid rgba(38, 0, 60, 0.8);
-            /* Deep Purple Edge */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(38, 0, 60, 0.3);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
@@ -128,7 +126,6 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            /* Ice White to Silver Gradient */
             background: linear-gradient(90deg, #ffffff, #8fa3b0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -168,7 +165,6 @@
             left: 50%;
             transform: translateX(-50%);
             background-color: #ffffff;
-            /* White Underline */
             transition: width 0.3s ease;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
@@ -177,10 +173,8 @@
             width: 60%;
         }
 
-        /* --- THE PURPLE & WHITE ROI BUTTON --- */
         .roi-btn {
             background: rgba(38, 0, 60, 0.4);
-            /* Deep Purple Base */
             color: #ffffff !important;
             font-family: 'Rajdhani', sans-serif;
             font-size: 0.9rem;
@@ -201,7 +195,6 @@
         .roi-btn:hover {
             background: #26003c;
             border-color: #ffffff;
-            /* White border pops on hover */
             box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
@@ -212,13 +205,11 @@
             width: 6px;
             height: 6px;
             background: #ffffff;
-            /* White status dot */
             border-radius: 50%;
             box-shadow: 0 0 8px #ffffff, 0 0 15px #ffffff;
             animation: pulseDot 2s infinite;
         }
 
-        /* --- MOBILE MENU --- */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -292,7 +283,6 @@
 
         .mobile-menu a:not(.roi-btn):hover {
             color: #ffffff;
-            /* White Hover */
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
             transform: scale(1.05);
         }
@@ -301,6 +291,10 @@
            3. LAYOUT & SECTIONS
            ========================================================================== */
         .premium-scroll-container {
+            position: relative;
+            /* 🔥 FORCES A STACKING CONTEXT */
+            z-index: 20;
+            /* 🔥 LOCKS IT ABOVE THE 3D CANVAS (z-index 10) */
             width: 100%;
             padding-bottom: 10vh;
             background: linear-gradient(180deg, rgba(0, 1, 3, 0) 0%, rgba(0, 1, 3, 0.4) 50%, rgba(0, 1, 3, 0.9) 100%);
@@ -373,7 +367,6 @@
 
         .text-gradient {
             background: linear-gradient(to right, #8fa3b0, #ffffff, #8fa3b0);
-            /* Silver Sweep */
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -425,7 +418,6 @@
         .editorial-card {
             background: rgba(5, 15, 25, 0.4);
             border-left: 3px solid #26003c;
-            /* Deep Purple Border */
             padding: 40px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -471,7 +463,6 @@
         .process-step {
             background: rgba(5, 15, 25, 0.4);
             border-top: 3px solid #8fa3b0;
-            /* Deep Purple Border */
             padding: 30px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -508,13 +499,13 @@
             letter-spacing: 2px;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .premium-btn:hover {
             background: #26003c;
             color: #ffffff;
             border-color: #ffffff;
-            /* White Hover Edge */
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
@@ -539,9 +530,7 @@
 
         .tech-tag:hover {
             background: rgba(38, 0, 60, 0.5);
-            /* Purple Glass Hover */
             border-color: #ffffff;
-            /* White Edge */
             color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
@@ -567,14 +556,13 @@
         .metric-lbl {
             font-size: 0.9rem;
             color: #8fa3b0;
-            /* Silver labels */
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 600;
         }
 
         /* ==========================================================================
-           5. HUD CONTROLS (Back / Reopen Buttons)
+           5. HUD CONTROLS
            ========================================================================== */
         .back-btn,
         .reopen-btn {
@@ -589,7 +577,6 @@
             border-radius: 50px;
             background: rgba(5, 10, 15, 0.6);
             border: 1px solid #26003c;
-            /* Purple borders */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
@@ -626,14 +613,13 @@
         .reopen-btn:hover {
             background: #26003c;
             border-color: #ffffff;
-            /* White interaction */
             color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
         }
 
         /* ==========================================================================
-           6. ROI CALCULATOR PANEL (PURPLE & ICE WHITE ACCENTS)
+           6. ROI CALCULATOR PANEL
            ========================================================================== */
         .holo-panel {
             position: fixed;
@@ -697,7 +683,6 @@
             width: 6px;
             height: 6px;
             background: #ffffff;
-            /* White title dot */
             border-radius: 50%;
             box-shadow: 0 0 8px #ffffff;
         }
@@ -743,9 +728,7 @@
             width: 33.333%;
             left: 33.333%;
             background: rgba(38, 0, 60, 0.8);
-            /* Deep Purple active toggle */
             border-bottom: 2px solid #ffffff;
-            /* White accent line */
             transition: left 0.3s ease;
             z-index: 1;
         }
@@ -816,7 +799,6 @@
         .budget-wrap input {
             padding-left: 25px;
             padding-right: 40px;
-            text-align: left;
         }
 
         .currency-prefix {
@@ -869,7 +851,6 @@
         .roi-stat-value {
             font-size: clamp(1.2rem, 4vw, 1.8rem);
             color: #ffffff;
-            /* White numbers */
             font-weight: 800;
             margin-bottom: 5px;
             white-space: nowrap;
@@ -886,220 +867,8 @@
         }
 
         /* ==========================================================================
-           7. UTILITIES
+           7. TALENT CATALOG UI 
            ========================================================================== */
-        @keyframes textShine {
-            to {
-                background-position: 200% center;
-            }
-        }
-
-        @keyframes pulseDot {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.5;
-                transform: scale(0.8);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-up.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==========================================================================
-           8. RESPONSIVE BREAKPOINTS & MOBILE OVERRIDES
-           ========================================================================== */
-        @media (max-width: 1024px) {
-            header {
-                width: 95%;
-                padding: 0 10px 0 20px;
-                height: 60px;
-            }
-
-            .brand-text {
-                display: none;
-            }
-        }
-
-        @media (max-width: 900px) {
-            header {
-                padding: 1.2rem 2rem;
-            }
-
-            .desktop-nav {
-                gap: 1.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                width: calc(100% - 50px) !important;
-                padding: 0 20px !important;
-                height: 60px !important;
-            }
-
-            .desktop-nav {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-                margin-right: 10px;
-            }
-
-            .hero-title {
-                flex-direction: column;
-                gap: 10px;
-                font-size: 1.8rem;
-                letter-spacing: 2px;
-                padding: 0 10px;
-            }
-
-            .hero-subtitle {
-                font-size: 0.8rem;
-                letter-spacing: 2px;
-                padding: 0 10px;
-            }
-
-            /* --- 🚨 THE NUCLEAR IOS VISIBILITY + COMPACT UI FIX 🚨 --- */
-            #ui-layer {
-                min-height: 100dvh !important;
-                /* FIXED TO PREVENT SCROLLBAR */
-                -webkit-transform: translateZ(0);
-            }
-
-            .holo-panel {
-                display: none !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                transition: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: #050f19 !important;
-                position: fixed !important;
-                top: 50% !important;
-                left: 50% !important;
-                -webkit-transform: translate(-50%, -50%) !important;
-                transform: translate(-50%, -50%) !important;
-                max-height: 80vh !important;
-                z-index: 80 !important;
-                padding: 15px 20px !important;
-                width: 95% !important;
-            }
-
-            .holo-panel.visible {
-                display: block !important;
-            }
-
-            .back-btn,
-            .reopen-btn {
-                display: none !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                transition: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: rgba(5, 15, 25, 0.95) !important;
-                z-index: 80 !important;
-                left: 50%;
-                width: max-content;
-                height: 45px;
-                padding: 0 20px;
-                font-size: 0.9rem;
-                transform: translateX(-50%) translateY(20px);
-            }
-
-            .back-btn.visible,
-            .reopen-btn.visible {
-                display: flex !important;
-                transform: translateX(-50%) translateY(0);
-            }
-
-            .reopen-btn {
-                bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important;
-            }
-
-            .back-btn {
-                bottom: calc(35px + env(safe-area-inset-bottom, 20px)) !important;
-            }
-
-            .holo-header {
-                padding-bottom: 10px !important;
-                margin-bottom: 15px !important;
-            }
-
-            .fte-row {
-                flex-direction: row !important;
-                gap: 15px !important;
-                margin-bottom: 15px !important;
-            }
-
-            .fte-input {
-                padding: 8px !important;
-                font-size: 1rem !important;
-            }
-
-            .fte-label {
-                font-size: 0.75rem !important;
-                margin-bottom: 3px !important;
-            }
-
-            .landscape-slider {
-                margin-bottom: 15px !important;
-            }
-
-            .slider-option {
-                padding: 6px 0 !important;
-                font-size: 0.8rem !important;
-            }
-
-            .roi-panel-h {
-                padding-top: 10px !important;
-            }
-
-            .roi-title {
-                margin-bottom: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .roi-stat-value {
-                font-size: 1.2rem !important;
-                margin-bottom: 2px !important;
-            }
-
-            .roi-stat-label {
-                font-size: 0.7rem !important;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .roi-grid {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* ==========================================================================
-           9. TALENT CATALOG UI (PREMIUM DEEP PURPLE & ICE)
-           ========================================================================== */
-
-        /* --- MAIN OVERLAY & GLOBE TRANSPARENCY --- */
         .talent-catalog-overlay {
             position: fixed;
             top: 0;
@@ -1107,16 +876,16 @@
             width: 100vw;
             height: 100vh;
             background: rgba(0, 1, 3, 0.65);
-            /* 🔥 Highly transparent to see the globe */
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             z-index: 200;
-            /* Sits above everything */
             display: flex;
             flex-direction: column;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            /* Fixes cart drawer expansion */
         }
 
         .talent-catalog-overlay.active {
@@ -1124,7 +893,6 @@
             pointer-events: auto;
         }
 
-        /* --- TOP BAR --- */
         .catalog-top-bar {
             display: flex;
             justify-content: space-between;
@@ -1177,7 +945,6 @@
             transform: rotate(90deg);
         }
 
-        /* --- DEPLOYMENT BRIEF (INTRO TEXT) --- */
         .catalog-intro-banner {
             padding: 30px 40px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -1205,7 +972,6 @@
             min-width: 250px;
             background: rgba(255, 255, 255, 0.02);
             border-left: 2px solid #ffffff;
-            /* Ice White accent */
             padding: 15px 20px;
         }
 
@@ -1234,36 +1000,12 @@
             line-height: 1.5;
         }
 
-        /* --- LAYOUT & CUSTOM SCROLLBARS --- */
         .catalog-layout {
             display: flex;
             flex: 1;
             overflow: hidden;
-            /* Keeps scroll inside the grid/sidebar */
         }
 
-        .catalog-grid::-webkit-scrollbar,
-        .cart-items-container::-webkit-scrollbar,
-        .catalog-sidebar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-            /* For mobile horizontal scroll */
-        }
-
-        .catalog-grid::-webkit-scrollbar-track,
-        .cart-items-container::-webkit-scrollbar-track,
-        .catalog-sidebar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .catalog-grid::-webkit-scrollbar-thumb,
-        .cart-items-container::-webkit-scrollbar-thumb,
-        .catalog-sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        /* --- PREMIUM SIDEBAR FILTERS --- */
         .catalog-sidebar {
             width: 250px;
             padding: 30px 15px;
@@ -1276,7 +1018,6 @@
         .filter-group h3 {
             font-family: 'Rajdhani', sans-serif;
             color: #8fa3b0;
-            /* Soft silver */
             text-transform: uppercase;
             letter-spacing: 3px;
             font-size: 0.85rem;
@@ -1297,7 +1038,6 @@
             background: transparent;
             border: none;
             border-left: 2px solid transparent;
-            /* Hidden by default */
             color: #8fa3b0;
             padding: 12px 20px;
             font-family: 'Rajdhani', sans-serif;
@@ -1307,7 +1047,6 @@
             letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
         }
 
         .filter-btn:hover {
@@ -1323,7 +1062,6 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
         }
 
-        /* --- GRID & JOB CARDS --- */
         .catalog-grid {
             flex: 1;
             padding: 30px 40px;
@@ -1333,6 +1071,26 @@
             gap: 25px;
             align-content: start;
             overscroll-behavior: contain;
+        }
+
+        .catalog-grid::-webkit-scrollbar,
+        .cart-items-container::-webkit-scrollbar,
+        .catalog-sidebar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .catalog-grid::-webkit-scrollbar-track,
+        .cart-items-container::-webkit-scrollbar-track,
+        .catalog-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .catalog-grid::-webkit-scrollbar-thumb,
+        .cart-items-container::-webkit-scrollbar-thumb,
+        .catalog-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
 
         .job-card {
@@ -1423,16 +1181,13 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
-        /* --- PREMIUM CART DRAWER --- */
         .team-cart-drawer {
             position: absolute;
             top: 0;
             right: -450px;
-            /* Hidden off-screen */
             width: 400px;
             height: 100%;
             background: rgba(5, 10, 15, 0.75);
-            /* Frosted Glass Base */
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-left: 1px solid rgba(255, 255, 255, 0.15);
@@ -1472,7 +1227,6 @@
             background: rgba(5, 10, 15, 0.95);
         }
 
-        /* --- CART ITEMS --- */
         .cart-item {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1531,10 +1285,6 @@
             font-size: 0.85rem;
         }
 
-        .cart-select:focus {
-            border-color: #ffffff;
-        }
-
         .cart-input {
             width: 50px;
             background: rgba(0, 0, 0, 0.5);
@@ -1548,115 +1298,381 @@
             font-size: 1rem;
         }
 
-        .cart-input:focus {
-            border-color: #ffffff;
-            outline: none;
+        @keyframes textShine {
+            to {
+                background-position: 200% center;
+            }
         }
 
-        /* --- MOBILE RESPONSIVENESS --- */
-        @media (max-width: 768px) {
-            /* --- HOMEPAGE MOBILE OVERRIDES --- */
-            header { width: calc(100% - 50px) !important; padding: 0 20px !important; height: 60px !important; }
-            .desktop-nav { display: none; }
-            .hamburger { display: flex; margin-right: 10px; }
-            .hero-title { flex-direction: column; gap: 10px; font-size: 1.8rem; letter-spacing: 2px; padding: 0 10px; }
-            .hero-subtitle { font-size: 0.8rem; letter-spacing: 2px; padding: 0 10px; }
-
-            #ui-layer { min-height: 100dvh !important; -webkit-transform: translateZ(0); }
-
-            /* ... (keep your existing ROI calculator mobile fixes here) ... */
-            .holo-panel {
-                display: none !important; opacity: 1 !important; visibility: visible !important;
-                background: #050f19 !important; position: fixed !important; top: 50% !important; left: 50% !important;
-                transform: translate(-50%, -50%) !important; max-height: 80vh !important; z-index: 80 !important;
-                padding: 15px 20px !important; width: 95% !important; 
+        @keyframes pulseDot {
+            0% {
+                opacity: 1;
+                transform: scale(1);
             }
-            .holo-panel.visible { display: block !important; }
-            .back-btn, .reopen-btn {
-                display: none !important; opacity: 1 !important; visibility: visible !important;
-                background: rgba(5, 15, 25, 0.95) !important; z-index: 80 !important; left: 50%;
-                width: max-content; height: 45px; padding: 0 20px; font-size: 0.9rem;
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVE BREAKPOINTS 
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            header {
+                width: 95%;
+                padding: 0 10px 0 20px;
+                height: 60px;
+            }
+
+            .brand-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            header {
+                padding: 1.2rem 2rem;
+            }
+
+            .desktop-nav {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                width: calc(100% - 50px) !important;
+                padding: 0 20px !important;
+                height: 60px !important;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-right: 10px;
+            }
+
+            .hero-title {
+                flex-direction: column;
+                gap: 10px;
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                padding: 0 10px;
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+                padding: 0 10px;
+            }
+
+            #ui-layer {
+                position: absolute !important;
+                top: 0;
+                left: 0;
+                min-height: 0 !important;
+                height: 0 !important;
+            }
+
+            /* ROI Panel Mobile */
+            .holo-panel {
+                display: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                background: #050f19 !important;
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                max-height: 80vh !important;
+                z-index: 80 !important;
+                padding: 15px 20px !important;
+                width: 95% !important;
+            }
+
+            .holo-panel.visible {
+                display: block !important;
+            }
+
+            /* ROI HUD Buttons Fixed */
+            .back-btn,
+            .reopen-btn {
+                display: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                background: rgba(5, 15, 25, 0.95) !important;
+                z-index: 80 !important;
+                left: 50% !important;
+                right: auto !important;
+                width: max-content !important;
+                height: 45px !important;
+                padding: 0 20px !important;
+                font-size: 0.9rem !important;
                 transform: translateX(-50%) translateY(20px);
             }
-            .back-btn.visible, .reopen-btn.visible { display: flex !important; transform: translateX(-50%) translateY(0); }
-            .reopen-btn { bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important; }
-            .back-btn { bottom: calc(35px + env(safe-area-bottom, 20px)) !important; }
 
-
-            /* --- 🔥 TALENT CATALOG MOBILE OVERRIDES 🔥 --- */
-            
-            /* Compact Top Bar */
-            .catalog-top-bar { flex-direction: row; gap: 10px; padding: 15px 20px; align-items: center; }
-            .catalog-heading { font-size: 1.5rem; }
-            .catalog-sub { display: none; } /* Hide to save space */
-            .cart-toggle-btn { padding: 8px 12px; font-size: 0.85rem; }
-            .close-catalog-btn { width: 32px; height: 32px; font-size: 1rem; }
-
-            /* Ruthlessly compact the intro banner */
-            .catalog-intro-banner { padding: 15px 20px; }
-            .intro-main-text { font-size: 0.95rem; margin-bottom: 0; line-height: 1.4; }
-            .intro-pillars { display: none; } /* Hide massive text blocks on mobile */
-            
-            /* Starter Pods */
-            .starter-pods-section { padding: 15px 20px !important; }
-            .starter-pods-section h3 { font-size: 0.9rem !important; margin-bottom: 10px !important; }
-
-            /* Layout & Sidebar */
-            .catalog-layout { flex-direction: column; }
-            .catalog-sidebar { 
-                width: 100%; 
-                border-right: none; 
-                border-bottom: 1px solid rgba(255,255,255,0.1); 
-                padding: 10px 15px; 
-                overflow-y: hidden;
+            .back-btn.visible,
+            .reopen-btn.visible {
+                display: flex !important;
+                transform: translateX(-50%) translateY(0);
             }
-            .filter-group h3 { display: none; } /* Hide "Categories" header */
-            .filter-options { 
-                flex-direction: row; 
-                gap: 5px; 
-                overflow-x: auto; 
-                padding-bottom: 5px;
-                scrollbar-width: none; /* Firefox invisible scroll */
+
+            .reopen-btn {
+                bottom: 95px !important;
             }
-            .filter-options::-webkit-scrollbar { display: none; } /* Chrome invisible scroll */
-            
-            /* Sleek horizontal pills */
-            .filter-btn { 
-                width: auto; 
-                padding: 8px 15px; 
-                font-size: 0.85rem; 
+
+            .back-btn {
+                bottom: 35px !important;
+            }
+
+            .holo-header {
+                padding-bottom: 10px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .fte-row {
+                flex-direction: row !important;
+                gap: 15px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .fte-input {
+                padding: 8px !important;
+                font-size: 1rem !important;
+            }
+
+            .fte-label {
+                font-size: 0.75rem !important;
+                margin-bottom: 3px !important;
+            }
+
+            .landscape-slider {
+                margin-bottom: 15px !important;
+            }
+
+            .slider-option {
+                padding: 6px 0 !important;
+                font-size: 0.8rem !important;
+            }
+
+            .roi-panel-h {
+                padding-top: 10px !important;
+            }
+
+            .roi-title {
+                margin-bottom: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .roi-stat-value {
+                font-size: 1.2rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            .roi-stat-label {
+                font-size: 0.7rem !important;
+            }
+
+            /* Talent Catalog Mobile */
+            .talent-catalog-overlay {
+                height: 100dvh !important;
+                padding-top: env(safe-area-inset-top, 0px);
+            }
+
+            .catalog-top-bar {
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                padding: 15px !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100vw !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+
+            .catalog-title-group {
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
+                padding-right: 10px !important;
+            }
+
+            .catalog-heading {
+                font-size: 1.3rem !important;
                 white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin: 0;
+            }
+
+            .catalog-sub {
+                display: none !important;
+            }
+
+            .catalog-actions {
+                display: flex !important;
+                gap: 10px !important;
+                align-items: center !important;
+                flex: 0 0 auto !important;
+            }
+
+            .cart-toggle-btn {
+                padding: 8px 12px !important;
+                font-size: 0.8rem !important;
+                white-space: nowrap;
+                flex-shrink: 0 !important;
+            }
+
+            .close-catalog-btn {
+                flex: 0 0 32px !important;
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 50% !important;
+                font-size: 1rem !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            .catalog-intro-banner {
+                padding: 15px !important;
+            }
+
+            .intro-main-text {
+                font-size: 0.95rem;
+                margin-bottom: 0;
+                line-height: 1.4;
+            }
+
+            .intro-pillars {
+                display: none !important;
+            }
+
+            .starter-pods-section {
+                padding: 15px !important;
+            }
+
+            .starter-pods-section h3 {
+                font-size: 0.9rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .catalog-layout {
+                flex-direction: column !important;
+            }
+
+            .catalog-sidebar {
+                width: 100% !important;
+                border-right: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+                padding: 10px 15px !important;
+                overflow-y: hidden !important;
+            }
+
+            .filter-group h3 {
+                display: none !important;
+            }
+
+            .filter-options {
+                flex-direction: row !important;
+                gap: 5px !important;
+                overflow-x: auto !important;
+                padding-bottom: 5px !important;
+                scrollbar-width: none;
+            }
+
+            .filter-options::-webkit-scrollbar {
+                display: none;
+            }
+
+            .filter-btn {
+                width: auto !important;
+                padding: 10px 15px !important;
+                font-size: 0.9rem !important;
+                white-space: nowrap !important;
                 border-left: none !important;
-                border-bottom: 2px solid transparent;
+                border-bottom: 2px solid transparent !important;
             }
-            .filter-btn:hover { background: linear-gradient(0deg, rgba(38, 0, 60, 0.3) 0%, rgba(0,0,0,0) 100%); border-bottom-color: rgba(255, 255, 255, 0.2); }
-            .filter-btn.active { background: linear-gradient(0deg, rgba(38, 0, 60, 0.8) 0%, rgba(0,0,0,0) 100%); border-bottom-color: #ffffff; }
 
-            /* Job Grid */
-            .catalog-grid { 
-                padding: 15px; 
-                grid-template-columns: 1fr; /* Force 1 card per row */
-                gap: 15px; 
+            .filter-btn:hover {
+                background: linear-gradient(0deg, rgba(38, 0, 60, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+                border-bottom-color: rgba(255, 255, 255, 0.2);
             }
-            .job-card { padding: 20px; }
-            .job-title { font-size: 1.3rem; }
-            .job-rate { font-size: 1.6rem; }
 
-            /* Cart Drawer */
-            .team-cart-drawer { width: 100%; right: -100%; }
-            .cart-header { padding: 15px 20px; }
-            .cart-items-container { padding: 15px; gap: 15px; }
-            .cart-footer { padding: 20px 15px; }
+            .filter-btn.active {
+                background: linear-gradient(0deg, rgba(38, 0, 60, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+                border-bottom-color: #ffffff;
+            }
+
+            .catalog-grid {
+                padding: 15px !important;
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+
+            .job-card {
+                padding: 20px !important;
+            }
+
+            .job-title {
+                font-size: 1.3rem !important;
+            }
+
+            .job-rate {
+                font-size: 1.6rem !important;
+            }
+
+            .team-cart-drawer {
+                width: 100% !important;
+                right: -100% !important;
+            }
+
+            .team-cart-drawer.open {
+                right: 0 !important;
+            }
+
+            .cart-header {
+                padding: 15px 20px !important;
+            }
+
+            .cart-items-container {
+                padding: 15px !important;
+                gap: 15px !important;
+            }
+
+            .cart-footer {
+                padding: 20px 15px !important;
+            }
         }
     </style>
-
-
 </head>
 
-
 <body>
-    <div id="retro-bg-elements"
-        style="opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+    <div id="retro-bg-elements">
         <div class="grid-bg"></div>
     </div>
 
@@ -1674,242 +1690,17 @@
             &#9776; Calculator
         </button>
 
-        <div id="talent-catalog" class="talent-catalog-overlay">
-            <div class="catalog-top-bar">
-                <div class="starter-pods-section"
-                    style="padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <h3 style="margin-top: 0; color: #fff; font-family: 'Rajdhani', sans-serif;">Starter Pods (One-Click
-                        Setup)</h3>
-                    <div id="starter-pods-container"
-                        style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
-                    </div>
-                </div>
-
-                <div id="team-cart-drawer" class="team-cart-drawer">
-                    <div class="cart-header">
-                        <h3 style="margin:0; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem;">Your Team</h3>
-                        <button class="close-catalog-btn" id="close-cart-btn"
-                            style="width: 30px; height: 30px; font-size: 1rem;">✕</button>
-                    </div>
-
-                    <div id="cart-items-container" class="cart-items-container">
-                        <div style="padding: 20px; color: #8fa3b0; text-align: center;">Your team is empty.</div>
-                    </div>
-
-                    <div class="cart-footer">
-                        <div style="display: flex; justify-content: space-between; color: #8fa3b0; margin-bottom: 5px;">
-                            <span>Monthly Run Rate:</span>
-                            <span id="cart-monthly-total" style="color: #fff; font-weight: bold;">$0</span>
-                        </div>
-                        <div
-                            style="display: flex; justify-content: space-between; color: #8fa3b0; margin-bottom: 15px; font-size: 0.85rem;">
-                            <span>Annualized:</span>
-                            <span id="cart-annual-total">$0</span>
-                        </div>
-                        <button id="submit-cart-btn" class="premium-btn"
-                            style="width: 100%; text-align: center;">Request Calibration</button>
-                    </div>
-                </div>
-                <div class="catalog-title-group">
-                    <h2 class="catalog-heading">Build Your Team</h2>
-                    <span class="catalog-sub">Select roles to configure your deployment</span>
-                </div>
-                <div class="catalog-actions">
-                    <button class="premium-btn cart-toggle-btn" id="open-cart-btn">Your Team (0)</button>
-                    <button class="close-catalog-btn" id="close-catalog-btn">✕</button>
-                </div>
-            </div>
-
-            <div class="catalog-layout">
-                <aside class="catalog-sidebar">
-                    <div class="filter-group">
-                        <h3>Categories</h3>
-                        <div class="filter-options" id="category-filters">
-                        </div>
-                    </div>
-                </aside>
-
-                <main class="catalog-grid" id="catalog-grid">
-                </main>
-            </div>
-        </div>
-
-        <header>
-            <a href="#" class="brand-container">
-                <img src="IBEXlogo.svg" alt="IBEX" class="logo" onerror="this.style.display='none'">
-                <div class="brand-text">IBEX STAFFING SOLUTIONS</div>
-            </a>
-
-            <nav class="desktop-nav">
-                <a href="#">About Ibex</a>
-                <a href="#">Talent Solutions</a>
-                <a href="#">Customer Care</a>
-                <a href="#">Blog</a>
-                <a href="#" class="roi-btn">ROI Calculator</a>
-            </nav>
-
-            <button class="hamburger" id="hamburger-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </header>
-
-        <div class="mobile-menu" id="mobile-menu">
-            <a href="#">About Ibex</a>
-            <a href="#">Talent Solutions</a>
-            <a href="#">Customer Care</a>
-            <a href="#">Blog</a>
-            <a href="#" class="roi-btn">ROI Calculator</a>
-        </div>
-
-        <main class="premium-scroll-container">
-
-            <section class="viewport-section center-align" style="min-height: 90vh;">
-                <div class="reveal-up hero-center">
-                    <div class="hero-pill teal-glow-text" style="margin-bottom: 15px;">The Planet is your office
-                        building</div>
-
-                    <h1 class="hero-title" style="flex-direction: column; gap: 0px;">
-                        <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
-                            GOALS,</span>
-                        <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR
-                            BUDGET.</span>
-                    </h1>
-
-                    <p class="hero-subtitle"
-                        style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 15px auto 0 auto; line-height: 1.7;">
-                        Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around
-                        the globe, providing the dedicated resources you need to <span class="highlight-text">build
-                            faster, scale smarter,</span> and stay ahead of the curve.
-                    </p>
-                </div>
-            </section>
-
-            <section class="viewport-section left-align">
-                <div class="editorial-card reveal-up">
-                    <div class="node-label">01 <span style="color: #8fa3b0;">//</span> GLOBAL WORKFORCE</div>
-                    <h2 class="section-heading">Future-Forward.</h2>
-                    <p class="section-body">Enable a truly global workforce. Tap into the world’s best talent from our
-                        700k+ talent database. We are not a traditional outsourcer – you directly manage your dedicated
-                        full-time employees, while we enable seamless employment and co-invest with you in parallel to
-                        get great results.</p>
-                    <a href="#" class="premium-btn trigger-roi">Conquer Your Goals &rarr;</a>
-                </div>
-            </section>
-
-            <section class="viewport-section left-align" style="align-items: flex-end;">
-                <div class="editorial-card reveal-up" style="border-left: none; border-right: 2px solid #26003ccc;">
-                    <div class="node-label">02 <span style="color: #8fa3b0;">//</span> DOMAIN EXPERTISE</div>
-                    <h2 class="section-heading">Elite Engineering.</h2>
-                    <p class="section-body">We don't just find developers; we help you build high-performing engineering
-                        pods. From AI/ML specialists and Cloud Architects to Full-Stack engineers, our rigorous
-                        technical vetting ensures you only speak with the top 1% of global applicants.</p>
-
-                    <div class="tech-tag-container">
-                        <span class="tech-tag">Software Engineering</span>
-                        <span class="tech-tag">Data Science & AI</span>
-                        <span class="tech-tag">Cloud Infrastructure</span>
-                        <span class="tech-tag">Cybersecurity</span>
-                        <span class="tech-tag">UI/UX Design</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="viewport-section center-align">
-                <div class="reveal-up w-100">
-                    <div class="node-label">03 <span style="color: #8fa3b0;">//</span>DEPLOYMENT PROTOCOL</div>
-                    <h2 class="section-heading">How we scale your team.</h2>
-                    <p class="section-body max-w-800">Bypass the bureaucratic red tape. We have optimized the hiring
-                        pipeline to deploy elite talent directly into your ecosystem in record time.</p>
-
-                    <div class="process-grid">
-                        <div class="process-step">
-                            <div class="step-num">01</div>
-                            <h3 class="step-title">Calibration</h3>
-                            <p class="step-body">We integrate with your engineering leadership to deeply understand your
-                                tech stack, product roadmap, and exact technical requirements.</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-num">02</div>
-                            <h3 class="step-title">Curation</h3>
-                            <p class="step-body">Our proprietary matching engine and senior technical interviewers
-                                filter thousands of candidates to present only the absolute best fits within 48 hours.
-                            </p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-num">03</div>
-                            <h3 class="step-title">Integration</h3>
-                            <p class="step-body">Your new hires integrate seamlessly into your Slack, Jira, and daily
-                                standups. We handle all global payroll, HR compliance, and benefits.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="viewport-section left-align">
-                <div class="editorial-card reveal-up">
-                    <div class="node-label">04 <span style="color: #8fa3b0;">//</span> INFRASTRUCTURE</div>
-                    <h2 class="section-heading">Enterprise-Grade Security.</h2>
-                    <p class="section-body">When you are building proprietary technology, trust is everything. We ensure
-                        that every remote node in your workforce is fully compliant with international IP laws, NDA
-                        protections, and enterprise data security protocols. Your code remains yours.</p>
-                </div>
-            </section>
-
-            <section class="viewport-section center-align">
-                <div class="reveal-up">
-                    <div class="node-label">05 <span style="color: #8fa3b0;">//</span> PERFORMANCE DATA </div>
-                    <h2 class="section-heading">Our Metrics Tell the Story</h2>
-                    <p class="section-body max-w-800">Our real-time metrics give you the inside scoop on your success
-                        and help you stay on top of your game in style.</p>
-
-                    <div class="premium-metrics-grid">
-                        <div class="metric-item">
-                            <div class="metric-num"><span class="counter" data-target="55000">0</span>+</div>
-                            <div class="metric-lbl">Work Hours Saved</div>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-num"><span class="counter" data-target="107">0</span></div>
-                            <div class="metric-lbl">Projects Completed</div>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-num">$<span class="counter" data-target="3">0</span>M</div>
-                            <div class="metric-lbl">Labor Dollars Saved</div>
-                        </div>
-                        <div class="metric-item">
-                            <div class="metric-num"><span class="counter" data-target="107">0</span></div>
-                            <div class="metric-lbl">Deadlines Met</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="viewport-section center-align" style="min-height: 50vh;">
-                <div class="reveal-up">
-                    <h2 class="section-heading" style="font-size: clamp(2rem, 5vw, 3rem);">Ready to build your team?
-                    </h2>
-                    <p class="section-body max-w-800">Book a time with our team to discuss your technology talent needs
-                        today.</p>
-                    <a href="mailto:info@goibex.it" class="premium-btn">info@goibex.it</a>
-                </div>
-            </section>
-
-        </main>
-
         <div id="holo-panel" class="holo-panel">
             <div class="holo-header">
                 <div class="holo-title">ROI Estimator</div>
                 <button class="close-btn" id="close-roi-btn">✕</button>
             </div>
-
             <div class="landscape-slider">
                 <div id="slider-indicator" class="slider-indicator"></div>
                 <div class="slider-option" data-value="small">Small</div>
                 <div class="slider-option active" data-value="medium">Medium</div>
                 <div class="slider-option" data-value="large">Large</div>
             </div>
-
             <div class="fte-row">
                 <div class="fte-col">
                     <div class="fte-label">Team Size (FTE)</div>
@@ -1924,7 +1715,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="roi-panel-h" class="roi-panel-h">
                 <div class="roi-title">Projected Impact</div>
                 <div class="roi-grid">
@@ -1944,8 +1734,216 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <header>
+        <a href="#" class="brand-container">
+            <img src="IBEXlogo.svg" alt="IBEX" class="logo" onerror="this.style.display='none'">
+            <div class="brand-text">IBEX STAFFING SOLUTIONS</div>
+        </a>
+        <nav class="desktop-nav">
+            <a href="#">About Ibex</a>
+            <a href="#">Talent Solutions</a>
+            <a href="#">Customer Care</a>
+            <a href="#">Blog</a>
+            <a href="#" class="roi-btn">ROI Calculator</a>
+        </nav>
+        <button class="hamburger" id="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#">About Ibex</a>
+        <a href="#">Talent Solutions</a>
+        <a href="#">Customer Care</a>
+        <a href="#">Blog</a>
+        <a href="#" class="roi-btn">ROI Calculator</a>
+    </div>
+
+    <main class="premium-scroll-container">
+        <section class="viewport-section center-align" style="min-height: 90vh;">
+            <div class="reveal-up hero-center">
+                <div class="hero-pill teal-glow-text" style="margin-bottom: 15px;">The Planet is your office building
+                </div>
+                <h1 class="hero-title" style="flex-direction: column; gap: 0px;">
+                    <span class="text-silver" style="font-size: clamp(2rem, 4vw, 3.5rem);">EXCEED YOUR BUSINESS
+                        GOALS,</span>
+                    <span class="text-gradient" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">NOT YOUR BUDGET.</span>
+                </h1>
+                <p class="hero-subtitle"
+                    style="text-transform: none; letter-spacing: 1px; max-width: 750px; margin: 15px auto 0 auto; line-height: 1.7;">
+                    Ibex recruits the <span class="highlight-text">absolute best technical talent</span> from around the
+                    globe, providing the dedicated resources you need to <span class="highlight-text">build faster,
+                        scale smarter,</span> and stay ahead of the curve.
+                </p>
+            </div>
+        </section>
+
+        <section class="viewport-section left-align">
+            <div class="editorial-card reveal-up">
+                <div class="node-label">01 <span style="color: #8fa3b0;">//</span> GLOBAL WORKFORCE</div>
+                <h2 class="section-heading">Future-Forward.</h2>
+                <p class="section-body">Enable a truly global workforce. Tap into the world’s best talent from our 700k+
+                    talent database. We are not a traditional outsourcer – you directly manage your dedicated full-time
+                    employees, while we enable seamless employment and co-invest with you in parallel to get great
+                    results.</p>
+                <a href="#" class="premium-btn trigger-roi">Conquer Your Goals &rarr;</a>
+            </div>
+        </section>
+
+        <section class="viewport-section left-align" style="align-items: flex-end;">
+            <div class="editorial-card reveal-up" style="border-left: none; border-right: 2px solid #26003ccc;">
+                <div class="node-label">02 <span style="color: #8fa3b0;">//</span> DOMAIN EXPERTISE</div>
+                <h2 class="section-heading">Elite Engineering.</h2>
+                <p class="section-body">We don't just find developers; we help you build high-performing engineering
+                    pods. From AI/ML specialists and Cloud Architects to Full-Stack engineers, our rigorous technical
+                    vetting ensures you only speak with the top 1% of global applicants.</p>
+                <div class="tech-tag-container">
+                    <span class="tech-tag">Software Engineering</span>
+                    <span class="tech-tag">Data Science & AI</span>
+                    <span class="tech-tag">Cloud Infrastructure</span>
+                    <span class="tech-tag">Cybersecurity</span>
+                    <span class="tech-tag">UI/UX Design</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="viewport-section center-align">
+            <div class="reveal-up w-100">
+                <div class="node-label">03 <span style="color: #8fa3b0;">//</span>DEPLOYMENT PROTOCOL</div>
+                <h2 class="section-heading">How we scale your team.</h2>
+                <p class="section-body max-w-800">Bypass the bureaucratic red tape. We have optimized the hiring
+                    pipeline to deploy elite talent directly into your ecosystem in record time.</p>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-num">01</div>
+                        <h3 class="step-title">Calibration</h3>
+                        <p class="step-body">We integrate with your engineering leadership to deeply understand your
+                            tech stack, product roadmap, and exact technical requirements.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">02</div>
+                        <h3 class="step-title">Curation</h3>
+                        <p class="step-body">Our proprietary matching engine and senior technical interviewers filter
+                            thousands of candidates to present only the absolute best fits within 48 hours.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">03</div>
+                        <h3 class="step-title">Integration</h3>
+                        <p class="step-body">Your new hires integrate seamlessly into your Slack, Jira, and daily
+                            standups. We handle all global payroll, HR compliance, and benefits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="viewport-section left-align">
+            <div class="editorial-card reveal-up">
+                <div class="node-label">04 <span style="color: #8fa3b0;">//</span> INFRASTRUCTURE</div>
+                <h2 class="section-heading">Enterprise-Grade Security.</h2>
+                <p class="section-body">When you are building proprietary technology, trust is everything. We ensure
+                    that every remote node in your workforce is fully compliant with international IP laws, NDA
+                    protections, and enterprise data security protocols. Your code remains yours.</p>
+            </div>
+        </section>
+
+        <section class="viewport-section center-align">
+            <div class="reveal-up">
+                <div class="node-label">05 <span style="color: #8fa3b0;">//</span> PERFORMANCE DATA </div>
+                <h2 class="section-heading">Our Metrics Tell the Story</h2>
+                <p class="section-body max-w-800">Our real-time metrics give you the inside scoop on your success and
+                    help you stay on top of your game in style.</p>
+                <div class="premium-metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-num"><span class="counter" data-target="55000">0</span>+</div>
+                        <div class="metric-lbl">Work Hours Saved</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-num"><span class="counter" data-target="107">0</span></div>
+                        <div class="metric-lbl">Projects Completed</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-num">$<span class="counter" data-target="3">0</span>M</div>
+                        <div class="metric-lbl">Labor Dollars Saved</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-num"><span class="counter" data-target="107">0</span></div>
+                        <div class="metric-lbl">Deadlines Met</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="viewport-section center-align" style="min-height: 50vh;">
+            <div class="reveal-up">
+                <h2 class="section-heading" style="font-size: clamp(2rem, 5vw, 3rem);">Ready to build your team?</h2>
+                <p class="section-body max-w-800">Book a time with our team to discuss your technology talent needs
+                    today.</p>
+                <a href="mailto:info@goibex.it" class="premium-btn">info@goibex.it</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="talent-catalog" class="talent-catalog-overlay">
+        <div class="catalog-top-bar">
+            <div class="catalog-title-group">
+                <h2 class="catalog-heading">Build Your Team</h2>
+                <span class="catalog-sub">Select roles to configure your deployment</span>
+            </div>
+            <div class="catalog-actions">
+                <button class="premium-btn cart-toggle-btn" id="open-cart-btn">Your Team (0)</button>
+                <button class="close-catalog-btn" id="close-catalog-btn">✕</button>
+            </div>
+        </div>
+
+        <div class="starter-pods-section" style="padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <h3 style="margin-top: 0; color: #fff; font-family: 'Rajdhani', sans-serif;">Starter Pods (One-Click Setup)
+            </h3>
+            <div id="starter-pods-container" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
+            </div>
+        </div>
+
+        <div class="catalog-layout">
+            <aside class="catalog-sidebar">
+                <div class="filter-group">
+                    <h3>Categories</h3>
+                    <div class="filter-options" id="category-filters">
+                    </div>
+                </div>
+            </aside>
+
+            <main class="catalog-grid" id="catalog-grid">
+            </main>
+        </div>
+
+        <div id="team-cart-drawer" class="team-cart-drawer">
+            <div class="cart-header">
+                <h3 style="margin:0; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem;">Your Team</h3>
+                <button class="close-catalog-btn" id="close-cart-btn"
+                    style="width: 30px; height: 30px; font-size: 1rem;">✕</button>
+            </div>
+
+            <div id="cart-items-container" class="cart-items-container">
+                <div style="padding: 20px; color: #8fa3b0; text-align: center;">Your team is empty.</div>
+            </div>
+
+            <div class="cart-footer">
+                <div style="display: flex; justify-content: space-between; color: #8fa3b0; margin-bottom: 5px;">
+                    <span>Monthly Run Rate:</span>
+                    <span id="cart-monthly-total" style="color: #fff; font-weight: bold;">$0</span>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; color: #8fa3b0; margin-bottom: 15px; font-size: 0.85rem;">
+                    <span>Annualized:</span>
+                    <span id="cart-annual-total">$0</span>
+                </div>
+                <button id="submit-cart-btn" class="premium-btn" style="width: 100%; text-align: center;">Request
+                    Calibration</button>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -1966,16 +1964,13 @@
 
         createScene = function () {
             const scene = new BABYLON.Scene(engine);
-
             scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
             camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 4.5, BABYLON.Vector3.Zero(), scene);
-            // Reset target to perfect center so the globe sits exactly behind the text
             camera.target = new BABYLON.Vector3(0, 0, 0);
-            camera.attachControl(canvas, true);
 
+            // We intentionally DO NOT attachControl here, so the globe starts completely un-draggable!
             camera.inputs.removeByType("ArcRotateCameraMouseWheelInput");
-
             camera.wheelPrecision = 50;
             camera.lowerRadiusLimit = 2.5;
             camera.upperRadiusLimit = 15;
@@ -1983,10 +1978,8 @@
 
             hemLight = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(0, 1, 0), scene);
             hemLight.intensity = 1.8;
-            // Removes the glowing reflection dot from the globe
             hemLight.specular = new BABYLON.Color3(0, 0, 0);
 
-            // --- PROCEDURAL 3D STARFIELD ---
             starRoot = new BABYLON.TransformNode("starRoot", scene);
             starMesh = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.08, segments: 4 }, scene);
             starMat = new BABYLON.StandardMaterial("starMat", scene);
@@ -2000,20 +1993,15 @@
                 const r = 40 + Math.random() * 60;
                 const theta = Math.random() * 2 * Math.PI;
                 const phi = Math.acos(2 * Math.random() - 1);
-
                 const x = r * Math.sin(phi) * Math.cos(theta);
                 const y = r * Math.sin(phi) * Math.sin(theta);
                 const z = r * Math.cos(phi);
-
                 const matrix = BABYLON.Matrix.Translation(x, y, z);
-
                 const scale = 0.6 + Math.random() * 0.6;
                 const scaleMatrix = BABYLON.Matrix.Scaling(scale, scale, scale);
                 scaleMatrix.multiplyToRef(matrix, matrix);
-
                 matrix.copyToArray(starMatrices, starMatrices.length);
             }
-            // Save the typed array globally so our snow engine can mutate it
             window.starMatrixBuffer = new Float32Array(starMatrices);
             starMesh.thinInstanceSetBuffer("matrix", window.starMatrixBuffer, 16);
             earthRoot = new BABYLON.TransformNode("earthRoot", scene);
@@ -2024,7 +2012,6 @@
             const glowLayer = new BABYLON.GlowLayer("glow", scene);
             glowLayer.intensity = 0.9;
 
-            // --- LAYER 1: RED ENERGY CORE ---
             const innerSphere = BABYLON.MeshBuilder.CreateSphere("innerSphere", { diameter: 1.98, segments: 64 }, scene);
             const coreMat = new BABYLON.StandardMaterial("coreMat", scene);
             coreMat.alpha = 0.3;
@@ -2037,7 +2024,6 @@
             innerSphere.material = coreMat;
             innerSphere.parent = earthRoot;
 
-            // --- LAYER 2: DEEP HOLOGRAPHIC LANDMASS ---
             const outerSphere = BABYLON.MeshBuilder.CreateSphere("outerSphere", { diameter: 2.005, segments: 64 }, scene);
             const landMat = new BABYLON.PBRMaterial("landMat", scene);
             landMat.metallic = 0.8;
@@ -2069,7 +2055,6 @@
             outerSphere.material = landMat;
             outerSphere.parent = earthRoot;
 
-            // --- ATMOSPHERIC HALO ---
             const atmosSphere = BABYLON.MeshBuilder.CreateSphere("atmosSphere", { diameter: 2.15, segments: 64 }, scene);
             const atmosMat = new BABYLON.StandardMaterial("atmosMat", scene);
             atmosMat.emissiveColor = new BABYLON.Color3(0.0, 0.5, 1.0);
@@ -2083,7 +2068,6 @@
             atmosSphere.material = atmosMat;
             atmosSphere.parent = earthRoot;
 
-            // --- LAYER 3: SEMANTIC PARTICLE NETWORK ---
             const particleMesh = BABYLON.MeshBuilder.CreateSphere("particle", { diameter: 0.008, segments: 4 }, scene);
             const particleMat = new BABYLON.StandardMaterial("particleMat", scene);
             particleMat.disableLighting = true;
@@ -2143,20 +2127,16 @@
 
                     for (let y = 0; y < tempCanvas.height; y++) {
                         if (y < topExclusion || y > bottomExclusion) continue;
-
                         for (let x = 0; x < tempCanvas.width; x++) {
                             const index = (y * tempCanvas.width + x) * 4;
                             if (imgData[index] > 128 && imgData[index + 3] > 10) {
                                 let u = x / tempCanvas.width;
                                 let v = y / tempCanvas.height;
-
                                 const theta = u * 2 * Math.PI - Math.PI;
                                 const phi = v * Math.PI;
-
                                 const px = radius * Math.sin(phi) * Math.cos(theta);
                                 const py = radius * Math.cos(phi);
                                 const pz = radius * Math.sin(phi) * Math.sin(theta);
-
                                 const pos = new BABYLON.Vector3(px, py, pz);
                                 landPoints.push(pos);
 
@@ -2170,22 +2150,15 @@
 
                                 const randColor = Math.random();
                                 let r = 0.0, g = 0.8, b = 1.0, a = 0.9;
-
-                                if (randColor > 0.96) {
-                                    r = 1.0; g = 0.3; b = 0.6; a = 1.0;
-                                } else if (randColor > 0.85) {
-                                    r = 0.0; g = 0.5; b = 1.0; a = 0.7;
-                                }
-
+                                if (randColor > 0.96) { r = 1.0; g = 0.3; b = 0.6; a = 1.0; }
+                                else if (randColor > 0.85) { r = 0.0; g = 0.5; b = 1.0; a = 0.7; }
                                 colorData.push(r, g, b, a);
                             }
                         }
                     }
-
                     if (matricesData.length > 0) {
                         particleMesh.thinInstanceSetBuffer("matrix", new Float32Array(matricesData), 16);
                         particleMesh.thinInstanceSetBuffer("color", new Float32Array(colorData), 4);
-
                         generateFlawlessSemanticArcs(landPoints, hubPoints);
                     }
                 } catch (e) { console.error("Canvas read error.", e); }
@@ -2212,7 +2185,6 @@
                     const heightFactor = 1.0 + (distance * 0.4);
                     const cp1 = p1.scale(heightFactor);
                     const cp2 = p2.scale(heightFactor);
-
                     const curvePoints = BABYLON.Curve3.CreateCubicBezier(p1, cp1, cp2, p2, 40).getPoints();
                     const arcLine = BABYLON.MeshBuilder.CreateLines("arc", { points: curvePoints }, scene);
                     arcLine.color = color;
@@ -2230,11 +2202,8 @@
 
                 for (let i = 0; i < hubs.length; i++) {
                     for (let j = i + 1; j < hubs.length; j++) {
-                        if (Math.random() > 0.6) {
-                            createArc(hubs[i], hubs[j], new BABYLON.Color3(1.0, 0.7, 0.1), 0.7, 0.02);
-                        }
+                        if (Math.random() > 0.6) createArc(hubs[i], hubs[j], new BABYLON.Color3(1.0, 0.7, 0.1), 0.7, 0.02);
                     }
-
                     for (let k = 0; k < 5; k++) {
                         let randomLandNode = allDots[Math.floor(Math.random() * allDots.length)];
                         if (BABYLON.Vector3.Distance(hubs[i], randomLandNode) < 1.2) {
@@ -2245,28 +2214,23 @@
             }
 
             // ==========================================
-            // RESTORED 80s RETRO NEON MOUNTAIN
+            // MOUNTAIN
             // ==========================================
             mountainRoot = new BABYLON.TransformNode("mountainRoot", scene);
 
-
             const auraMesh = BABYLON.MeshBuilder.CreatePlane("sunAura", { size: 550 }, scene);
             auraMesh.parent = mountainRoot;
-            auraMesh.position = new BABYLON.Vector3(0, 40, 255); // Tucked just behind the sun
-
+            auraMesh.position = new BABYLON.Vector3(0, 40, 255);
             const auraTex = new BABYLON.DynamicTexture("auraTex", { width: 512, height: 512 }, scene, true);
             const aCtx = auraTex.getContext();
-
-            // Paint a massive radial halo: Hot Magenta -> Neon Purple -> Deep Violet -> Transparent
             const aGrad = aCtx.createRadialGradient(256, 256, 0, 256, 256, 256);
-            aGrad.addColorStop(0.0, "rgba(255, 0, 255, 1.0)");   // Hot burning magenta center
-            aGrad.addColorStop(0.3, "rgba(180, 0, 255, 0.6)");   // Intense neon purple mid-ring
-            aGrad.addColorStop(0.6, "rgba(70, 0, 150, 0.3)");    // Deep dark violet outer ring
-            aGrad.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");       // Fade to black void
+            aGrad.addColorStop(0.0, "rgba(255, 0, 255, 1.0)");
+            aGrad.addColorStop(0.3, "rgba(180, 0, 255, 0.6)");
+            aGrad.addColorStop(0.6, "rgba(70, 0, 150, 0.3)");
+            aGrad.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
             aCtx.fillStyle = aGrad;
             aCtx.fillRect(0, 0, 512, 512);
             auraTex.update();
-
             const auraMat = new BABYLON.StandardMaterial("auraMat", scene);
             auraMat.emissiveTexture = auraTex;
             auraMat.opacityTexture = auraTex;
@@ -2274,46 +2238,30 @@
             auraMat.alphaMode = BABYLON.Engine.ALPHA_ADD;
             auraMesh.material = auraMat;
 
-
-            // 2. THE CRISP, BURNING SUN
             const sunMesh = BABYLON.MeshBuilder.CreatePlane("retroSun2D", { size: 260 }, scene);
             sunMesh.parent = mountainRoot;
             sunMesh.position = new BABYLON.Vector3(0, 40, 250);
-
             const texSize = 2048;
             const sunTex = new BABYLON.DynamicTexture("sunTex", { width: texSize, height: texSize }, scene, true);
             const ctx = sunTex.getContext();
-
-            // PERFECTED PURPLE/NEON GRADIENT
             const grad = ctx.createLinearGradient(0, 0, 0, texSize);
-            grad.addColorStop(0.00, "#00f3ff"); // Bright Cyan top
-            grad.addColorStop(0.35, "#b400ff"); // Searing Neon Purple
-            grad.addColorStop(0.70, "#ff00a0"); // Hot Magenta/Pink
-            grad.addColorStop(1.00, "#1a0040"); // Deep dark violet base
-
+            grad.addColorStop(0.00, "#00f3ff");
+            grad.addColorStop(0.35, "#b400ff");
+            grad.addColorStop(0.70, "#ff00a0");
+            grad.addColorStop(1.00, "#1a0040");
             ctx.fillStyle = grad;
             ctx.beginPath();
             ctx.arc(texSize / 2, texSize / 2, texSize / 2 - 10, 0, Math.PI * 2);
             ctx.fill();
-
-            // Perspective cutouts
             ctx.globalCompositeOperation = "destination-out";
             ctx.fillStyle = "rgba(0,0,0,1)";
-
-            let currentY = texSize / 2 + 50;
-            let gap = 12;
-            let band = 80;
-
+            let currentY = texSize / 2 + 50; let gap = 12; let band = 80;
             while (currentY < texSize) {
                 ctx.fillRect(0, currentY, texSize, gap);
-                currentY += gap + band;
-                gap *= 1.4;
-                band *= 0.85;
+                currentY += gap + band; gap *= 1.4; band *= 0.85;
             }
-
             ctx.globalCompositeOperation = "source-over";
             sunTex.update();
-
             const sunMat = new BABYLON.StandardMaterial("sunMat", scene);
             sunTex.hasAlpha = true;
             sunMat.diffuseTexture = sunTex;
@@ -2323,16 +2271,12 @@
             sunMat.disableLighting = true;
             sunMesh.material = sunMat;
 
-
-            // 3. NEON AMBIENT WASH ON MOUNTAIN
-            // 3. NEON PURPLE AMBIENT WASH ON MOUNTAIN
             const sunGlowLight = new BABYLON.DirectionalLight("sunGlow", new BABYLON.Vector3(0, -0.1, -1), scene);
-            sunGlowLight.diffuse = new BABYLON.Color3(0.8, 0.0, 1.0);  // Deep Neon Purple wash
-            sunGlowLight.specular = new BABYLON.Color3(1.0, 0.0, 1.0); // Hot Pink/Magenta reflections
+            sunGlowLight.diffuse = new BABYLON.Color3(0.8, 0.0, 1.0);
+            sunGlowLight.specular = new BABYLON.Color3(1.0, 0.0, 1.0);
             sunGlowLight.intensity = 2.5;
             sunGlowLight.parent = mountainRoot;
 
-            // Original Lighting
             dirL1 = new BABYLON.DirectionalLight("leftLight", new BABYLON.Vector3(1, -0.3, 0.5), scene);
             dirL1.diffuse = new BABYLON.Color3(0.1, 0.8, 0.9);
             dirL1.intensity = 1.6;
@@ -2348,19 +2292,17 @@
             window.mAmbient.intensity = 0.3;
             window.mAmbient.setEnabled(false);
 
-            // Infinite Grid Floor
             const floor = BABYLON.MeshBuilder.CreateGround("infiniteGridFloor", { width: 500, height: 500 }, scene);
             floor.position.y = -0.1; floor.parent = mountainRoot;
             const gridMat = new BABYLON.GridMaterial("gridMat", scene);
             gridMat.mainColor = new BABYLON.Color3(0, 0, 0);
-            gridMat.lineColor = new BABYLON.Color3(0, 1, 1); // Cyan
+            gridMat.lineColor = new BABYLON.Color3(0, 1, 1);
             gridMat.majorUnitFrequency = 10;
             gridMat.minorUnitVisibility = 0.5;
             gridMat.opacity = 0.9;
             gridMat.backFaceCulling = false;
             floor.material = gridMat;
 
-            // Mountain Surface
             const mMat = new BABYLON.StandardMaterial("mountainMat", scene);
             mMat.specularColor = new BABYLON.Color3(0, 0, 0);
             mMat.diffuseColor = new BABYLON.Color3(0.65, 0.65, 0.65);
@@ -2389,8 +2331,6 @@
             window.babylonMountain.setVerticesData(BABYLON.VertexBuffer.PositionKind, mPos);
             window.babylonMountain.convertToFlatShadedMesh();
             window.babylonMountain.material = mMat;
-
-            // Neon Edges
             window.babylonMountain.enableEdgesRendering(0.94);
             window.babylonMountain.edgesWidth = 16.0;
             window.babylonMountain.edgesColor = new BABYLON.Color4(0, 1.0, 1.0, 1.0);
@@ -2402,7 +2342,6 @@
                 let t2 = baseLine.clone("bl2" + i); t2.position.z -= i * .08; t2.parent = mountainRoot;
             }
 
-            // Glowing Energy Stag (Using your old anim setting)
             let stagModel = null, stagTimer = 0, isStagRunning = true, stagAngle = 0; const stagAnims = [];
             BABYLON.SceneLoader.ImportMesh("", "./", "stag_test.glb", scene, (meshes, ps, skel, anims) => {
                 stagModel = meshes[0]; stagModel.scaling = new BABYLON.Vector3(1, 1, 1); stagModel.parent = mountainRoot;
@@ -2412,38 +2351,29 @@
                 stagAnims.push(...anims); if (stagAnims[4]) stagAnims[4].play(true);
             });
 
-            // 6. Figure Sprites (For ROI Glitch Output)
             const fC = document.createElement('canvas'); fC.width = 32; fC.height = 64; const fCtx = fC.getContext('2d');
             fCtx.strokeStyle = '#ffffff'; fCtx.lineWidth = 3; fCtx.lineCap = 'round'; fCtx.beginPath(); fCtx.arc(16, 8, 5, 0, Math.PI * 2); fCtx.stroke(); fCtx.beginPath(); fCtx.moveTo(16, 13); fCtx.lineTo(16, 38); fCtx.stroke(); fCtx.beginPath(); fCtx.moveTo(6, 24); fCtx.lineTo(16, 20); fCtx.lineTo(26, 24); fCtx.stroke(); fCtx.beginPath(); fCtx.moveTo(8, 56); fCtx.lineTo(16, 38); fCtx.lineTo(24, 56); fCtx.stroke();
             const figManager = new BABYLON.SpriteManager("fm", fC.toDataURL(), 1000, { width: 32, height: 64 }, scene);
 
             const figSprites = []; let figWaveTime = 0, figWaveTimer = 0, figWaveInterval = 4;
             let fadingOut = false;
+            let waveFront = 0; // 🔥 FIXED MISSING VARIABLE
             startFadeOut = function () { fadingOut = true; figSprites.forEach(f => f.opTarget = 0); };
 
-            mountainRoot.setEnabled(false); // Hidden by default
+            mountainRoot.setEnabled(false);
 
-            // ==========================================
-            // UNIFIED ANIMATION LOOP
-            // ==========================================
             scene.onBeforeRenderObservable.add(() => {
-                //Always rotate the stars, no matter what mode we are in!
-                if (starRoot) {
-                    starRoot.rotation.x -= 0.00035; // Slow, cinematic drift
-                }
+                if (starRoot) starRoot.rotation.x -= 0.00035;
 
                 if (isGlobeMode) {
                     if (typeof camera !== 'undefined' && !window.isTransitioning) {
-                        // Lerp the camera to the target values calculated by the scroll listener
                         camera.alpha += (window.targetCameraAlpha - camera.alpha) * 0.08;
                         camera.radius += (window.targetCameraRadius - camera.radius) * 0.08;
                     }
-                    // GLOBE ANIMATIONS 
                     earthRoot.rotation.y += 0.0008;
                     starRoot.rotation.y += 0.0002;
 
                     for (let animation of packetAnimations) {
-                        // ... (keep your packet animation logic exactly the same) ...
                         if (animation.isIntersectingOrbit) {
                             animation.angle += animation.speed;
                             const x = animation.radius * Math.cos(animation.angle); const z = animation.radius * Math.sin(animation.angle);
@@ -2460,36 +2390,67 @@
                         }
                     }
                 } else {
-                    // MOUNTAIN ANIMATIONS
                     if (window.babylonMountain) window.babylonMountain.scaling.y += (window.targetMountainScaleY - window.babylonMountain.scaling.y) * 0.05;
 
-                    //THE NEW 3D SNOW ENGINE ❄️
+                    // 🔥 HOLOGRAPHIC PEOPLE DYNAMIC SPAWNER 🔥
+                    waveFront += 0.2;
+                    if (waveFront > 50) waveFront = -10;
+
+                    // Count exactly how many people are currently "alive" (not fading out)
+                    let aliveCount = figSprites.filter(f => f.opTarget === 1).length;
+
+                    // SPAWNING: If we need more people, organically beam them in one-by-one
+                    if (aliveCount < window.fteTarget && Math.random() > 0.85) {
+                        let s = new BABYLON.Sprite("fig", figManager);
+                        let angle = Math.random() * Math.PI * 2;
+                        let radius = 5 + Math.random() * 20;
+                        s.position = new BABYLON.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+
+                        let p = scene.pickWithRay(new BABYLON.Ray(new BABYLON.Vector3(s.position.x, 50, s.position.z), new BABYLON.Vector3(0, -1, 0), 100), m => m === window.babylonMountain);
+                        if (p.hit) s.position.y = p.pickedPoint.y + 1.2;
+
+                        s.width = 1.2; s.height = 1.9;
+                        s.color = new BABYLON.Color4(0, 0, 0, 0);
+                        figSprites.push({ sprite: s, op: 0, opTarget: 1, bp: 0, bt: 0, d: radius });
+                    }
+
+                    else if (aliveCount > window.fteTarget) {
+                        let spriteToKill = figSprites.find(f => f.opTarget === 1);
+                        if (spriteToKill) spriteToKill.opTarget = 0; // Mark for fade-out immediately
+                    }
+
+                    // THE NEW 3D SNOW ENGINE ❄️
                     if (starMesh && window.starMatrixBuffer) {
-                        // Loop through all 8,000 flakes
                         for (let i = 0; i < 8000; i++) {
-                            // In a 4x4 matrix, index 13 is the Y-axis position
                             let yIndex = i * 16 + 13;
-
-                            // Make it fall! (Adjust this number to change snow speed)
                             window.starMatrixBuffer[yIndex] -= 0.15;
-
-                            // If the snowflake falls below the ground (-20), wrap it back up to the sky
-                            if (window.starMatrixBuffer[yIndex] < -20) {
-                                window.starMatrixBuffer[yIndex] += 120;
-                            }
+                            if (window.starMatrixBuffer[yIndex] < -20) window.starMatrixBuffer[yIndex] += 120;
                         }
-                        // Tell Babylon to push our updated array to the GPU
                         starMesh.thinInstanceBufferUpdated("matrix");
                     }
 
+                    // SPRITE PHYSICS & CLEANUP LOOP
                     for (let i = figSprites.length - 1; i >= 0; i--) {
-                        let f = figSprites[i]; f.op += (f.opTarget - f.op) * 0.08;
+                        let f = figSprites[i];
+
+                        // Smooth fade in/out
+                        f.op += (f.opTarget - f.op) * 0.08;
+
+                        // Radar ping effect
                         if (!fadingOut && waveFront >= f.d && waveFront < f.d + 8 && f.bp === 0) { f.bp = 1; f.bt = 0; }
                         if (f.bp === 1) { f.bt += 0.16; if (f.bt >= 1) { f.bt = 1; f.bp = 2; } }
                         if (f.bp === 2) { f.bt -= 0.005; if (f.bt <= 0) { f.bt = 0; f.bp = 0; } }
-                        f.sprite.color.r = f.bt; f.sprite.color.a = f.op;
-                        if (fadingOut && f.op < 0.01) { f.sprite.dispose(); figSprites.splice(i, 1); }
+
+                        f.sprite.color.r = f.bt;
+                        f.sprite.color.a = f.op;
+
+                        // 🗑️ CLEANUP: If this specific sprite has fully faded out, delete it from memory
+                        if (f.opTarget === 0 && f.op < 0.01) {
+                            f.sprite.dispose();
+                            figSprites.splice(i, 1);
+                        }
                     }
+
                     if (fadingOut && figSprites.length === 0) fadingOut = false;
 
                     if (stagModel) {
@@ -2512,44 +2473,30 @@
 
         const updateCameraZoom = () => {
             if (!camera) return;
-            if (window.innerWidth <= 768) {
-                camera.radius = 5.5; // Mobile zoom (was 6.8)
-            } else if (window.innerWidth <= 1024) {
-                camera.radius = 4.5; // Tablet zoom (was 5.6)
-            } else {
-                camera.radius = 3.5; // Desktop zoom (was 4.6)
-            }
+            if (window.innerWidth <= 768) { camera.radius = 5.5; }
+            else if (window.innerWidth <= 1024) { camera.radius = 4.5; }
+            else { camera.radius = 3.5; }
         };
 
-        // --- CINEMATIC TRANSITIONS ---
         const cloudOverlay = document.getElementById('cloud-transition');
-        const heroCenter = document.querySelector('.hero-center');
-        const holoPanel = document.getElementById('holo-panel');
-        const sCanvas = document.getElementById('stars-canvas');
-        const bCanvas = document.getElementById('birds-canvas');
 
-        // Add class "trigger-roi" to your ROI Nav buttons in HTML so this picks them up
+        // ROI LOGIC
         document.querySelectorAll('.trigger-roi, .roi-btn').forEach(btn =>
             btn.addEventListener('click', (e) => { e.preventDefault(); diveToROI(); })
         );
 
-        // Ensure your close button in the Holo Panel has id="close-roi-btn"
-        // X button only hides the panel now
-        // Close the panel and show the Reopen button
         document.getElementById('close-roi-btn').addEventListener('click', () => {
             const holoPanel = document.getElementById('holo-panel');
             if (holoPanel) holoPanel.classList.remove('visible');
             document.getElementById('reopen-roi-btn').classList.add('visible');
         });
 
-        // Click the Reopen button to bring the panel back
         document.getElementById('reopen-roi-btn').addEventListener('click', () => {
             const holoPanel = document.getElementById('holo-panel');
             if (holoPanel) holoPanel.classList.add('visible');
             document.getElementById('reopen-roi-btn').classList.remove('visible');
         });
 
-        // Helper to force-close the mobile menu
         function closeMobileMenu() {
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -2557,44 +2504,31 @@
             if (mobileMenu) mobileMenu.classList.remove('open');
         }
 
-        // The new Back arrow triggers the return transition
         document.getElementById('back-to-globe-btn').addEventListener('click', returnToGlobe);
 
         function diveToROI() {
             closeMobileMenu();
             if (!isGlobeMode || window.isTransitioning) return;
+            window.isTransitioning = true;
 
-            window.isTransitioning = true; // Lock scroll logic to prevent stuttering
-
-            // 1. Start fading out the text immediately (but leave it on the page so it doesn't snap)
             const textContainer = document.querySelector('.premium-scroll-container');
-            if (textContainer) {
-                textContainer.style.transition = "opacity 0.5s ease-out";
-                textContainer.style.opacity = "0";
-            }
+            if (textContainer) { textContainer.style.transition = "opacity 0.5s ease-out"; textContainer.style.opacity = "0"; }
 
             camera.detachControl();
             camera.lowerRadiusLimit = 0.5;
 
-            // 2. Dive the camera
             const diveAnim = new BABYLON.Animation("dive", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
             diveAnim.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: 0.8 }]);
             scene.beginDirectAnimation(camera, [diveAnim], 0, 60, false, 1.5);
 
-            // 3. Clouds roll in + Header turns solid
-            setTimeout(() => {
-                cloudOverlay.style.opacity = "1";
-            }, 300);
+            setTimeout(() => { cloudOverlay.style.opacity = "1"; }, 300);
 
-            // 4. Perform the DOM Snap while the screen is hidden by clouds
             setTimeout(() => {
                 if (textContainer) textContainer.style.display = "none";
-                window.scrollTo(0, 0); // Reset scroll math
-                document.body.style.overflow = "hidden"; // Lock the page completely
+                window.scrollTo(0, 0);
+                document.body.style.overflow = "hidden";
 
                 isGlobeMode = false;
-
-                // Hide Globe, Show Mountain
                 earthRoot.setEnabled(false); hemLight.setEnabled(false);
                 if (mountainRoot) { mountainRoot.setEnabled(true); dirL1.setEnabled(true); dirL2.setEnabled(true); }
                 if (window.mAmbient) window.mAmbient.setEnabled(true);
@@ -2604,7 +2538,6 @@
                 const effectsDiv = document.getElementById('retro-bg-elements');
                 if (effectsDiv) effectsDiv.style.opacity = "1";
 
-                // Fade UI in
                 const holoPanel = document.getElementById('holo-panel');
                 if (holoPanel) holoPanel.classList.add('visible');
                 const backBtn = document.getElementById('back-to-globe-btn');
@@ -2613,7 +2546,6 @@
                 if (typeof sCanvas !== 'undefined' && sCanvas) sCanvas.style.opacity = "1";
                 if (typeof bCanvas !== 'undefined' && bCanvas) bCanvas.style.opacity = "1";
 
-                // Setup Mountain Camera Limits
                 camera.lowerRadiusLimit = null; camera.upperRadiusLimit = null;
                 camera.target = new BABYLON.Vector3(0, 7, 0);
                 camera.radius = 85;
@@ -2621,25 +2553,18 @@
                 camera.alpha = -Math.PI / 2; camera.beta = Math.PI / 2.5;
                 camera.lowerBetaLimit = 0.1; camera.upperBetaLimit = Math.PI / 2.1;
 
-                if (typeof pipeline !== 'undefined' && pipeline) pipeline.bloomEnabled = true;
-
                 cloudOverlay.style.opacity = "0";
                 camera.attachControl(canvas, true);
-                window.isTransitioning = false; // Unlock system
-
-                // 5. Restore the header glass effect after clouds fade out
-                setTimeout(() => document.querySelector('header').classList.remove('cinematic-mode'), 600);
+                window.isTransitioning = false;
             }, 1000);
         }
 
         function returnToGlobe() {
             closeMobileMenu();
             if (isGlobeMode || window.isTransitioning) return;
-
             window.isTransitioning = true;
             window.fteTarget = 0;
 
-            // Clean inputs
             const fteInput = document.getElementById('fte-input');
             const budgetInput = document.getElementById('budget-input');
             const roiPanel = document.getElementById('roi-panel-h') || document.getElementById('roi-panel');
@@ -2650,48 +2575,35 @@
 
             camera.detachControl();
 
-            // 1. Hide the Fixed UI
             const holoPanel = document.getElementById('holo-panel');
             if (holoPanel) holoPanel.classList.remove('visible');
-
             const backBtn = document.getElementById('back-to-globe-btn');
             if (backBtn) backBtn.classList.remove('visible');
-
             const reopenBtn = document.getElementById('reopen-roi-btn');
             if (reopenBtn) reopenBtn.classList.remove('visible');
 
             if (typeof sCanvas !== 'undefined' && sCanvas) sCanvas.style.opacity = "0";
             if (typeof bCanvas !== 'undefined' && bCanvas) bCanvas.style.opacity = "0";
-
             const effectsDiv = document.getElementById('retro-bg-elements');
             if (effectsDiv) effectsDiv.style.opacity = "0";
 
             scene.clearColor = new BABYLON.Color4(0.00, 0.00, 0.00, 1);
 
-            // 2. Start Pullback
             const pullBackAnim = new BABYLON.Animation("pullBack", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
             pullBackAnim.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: camera.radius + 60 }]);
             scene.beginDirectAnimation(camera, [pullBackAnim], 0, 60, false, 1.5);
 
-            // 3. Clouds roll in + Header turns solid
-            setTimeout(() => {
-                cloudOverlay.style.opacity = "1";
-            }, 300);
+            setTimeout(() => { cloudOverlay.style.opacity = "1"; }, 300);
 
-            // 4. Execute swap behind the clouds
             setTimeout(() => {
                 isGlobeMode = true;
-
                 if (mountainRoot) { mountainRoot.setEnabled(false); dirL1.setEnabled(false); dirL2.setEnabled(false); }
                 if (window.mAmbient) window.mAmbient.setEnabled(false);
-
                 earthRoot.setEnabled(true); starRoot.setEnabled(true); hemLight.setEnabled(true);
 
                 camera.lowerRadiusLimit = null; camera.upperRadiusLimit = null;
                 camera.target = new BABYLON.Vector3(0, 0, 0);
                 camera.alpha = -Math.PI / 2; camera.beta = Math.PI / 2.5;
-
-                if (typeof pipeline !== 'undefined' && pipeline) pipeline.bloomEnabled = false;
 
                 let targetRadius = 3.5;
                 if (window.innerWidth <= 768) targetRadius = 5.5;
@@ -2701,38 +2613,25 @@
                 reverseDive.setKeys([{ frame: 0, value: 0.8 }, { frame: 60, value: targetRadius }]);
                 scene.beginDirectAnimation(camera, [reverseDive], 0, 60, false, 1.2);
 
-                // Restore DOM flow (but keep it invisible for a second)
                 const textContainer = document.querySelector('.premium-scroll-container');
                 if (textContainer) textContainer.style.display = "block";
-                document.body.style.overflow = "auto"; // Unlock page
-
+                document.body.style.overflow = "auto";
                 cloudOverlay.style.opacity = "0";
 
-                // 5. Final camera lock, text fade-in, and header glass restore
                 setTimeout(() => {
                     camera.lowerRadiusLimit = 2.5; camera.upperRadiusLimit = 15;
                     camera.lowerBetaLimit = 0.01; camera.upperBetaLimit = Math.PI - 0.01;
-                    camera.attachControl(canvas, true);
 
-                    if (textContainer) textContainer.style.opacity = "1"; // Smooth fade back in
+                    if (textContainer) textContainer.style.opacity = "1";
                     window.isTransitioning = false;
-
                 }, 800);
-
             }, 1000);
         }
 
-        engine.runRenderLoop(function () {
-            scene.render();
-        });
-
+        engine.runRenderLoop(function () { scene.render(); });
         updateCameraZoom();
-        window.addEventListener("resize", function () {
-            engine.resize();
-            updateCameraZoom();
-        });
+        window.addEventListener("resize", function () { engine.resize(); updateCameraZoom(); });
 
-        // --- ROI LOGIC & GLITCH EFFECTS ---
         const sliderOptions = document.querySelectorAll('.slider-option');
         const sliderIndicator = document.getElementById('slider-indicator');
         let selectedLandscape = 'medium';
@@ -2810,55 +2709,47 @@
         // TALENT SOLUTIONS DATABASE & CATALOG LOGIC
         // ==========================================================================
         const talentDatabase = [
-            // Category 1: Support
             { id: 'R01', cat: 'Support', title: 'Help Desk Technician Tier 1', rate: 2200, skills: ['Active Directory', 'O365', 'Ticketing'] },
             { id: 'R02', cat: 'Support', title: 'Help Desk Technician Tier 2', rate: 3100, skills: ['Escalation', 'Hardware', 'Network Setup'] },
             { id: 'R03', cat: 'Support', title: 'Service Operations Manager', rate: 4500, skills: ['ITIL', 'SLA Management', 'Team Lead'] },
-            // Category 2: Infrastructure
             { id: 'R04', cat: 'Infrastructure', title: 'Systems Administrator', rate: 3800, skills: ['Windows Server', 'VMware', 'Powershell'] },
             { id: 'R05', cat: 'Infrastructure', title: 'Linux Administrator', rate: 4000, skills: ['RHEL', 'Bash', 'Apache/Nginx'] },
             { id: 'R06', cat: 'Infrastructure', title: 'NOC Engineer', rate: 4200, skills: ['Cisco', 'BGP/OSPF', 'Monitoring'] },
             { id: 'R07', cat: 'Infrastructure', title: 'DevOps Engineer', rate: 5500, skills: ['Docker', 'Kubernetes', 'CI/CD'] },
             { id: 'R08', cat: 'Infrastructure', title: 'Cloud Architect', rate: 6800, skills: ['AWS', 'Azure', 'Terraform'] },
-            // Category 3: Cybersecurity
             { id: 'R09', cat: 'Cybersecurity', title: 'Cybersecurity Analyst', rate: 4800, skills: ['SIEM', 'Threat Hunting', 'Splunk'] },
             { id: 'R10', cat: 'Cybersecurity', title: 'Penetration Tester', rate: 6000, skills: ['Kali Linux', 'Metasploit', 'Red Teaming'] },
             { id: 'R11', cat: 'Cybersecurity', title: 'GRC Analyst', rate: 5200, skills: ['ISO 27001', 'SOC2', 'Compliance'] },
             { id: 'R12', cat: 'Cybersecurity', title: 'Digital Forensics', rate: 5800, skills: ['EnCase', 'Malware Analysis', 'Incident Response'] },
             { id: 'R13', cat: 'Cybersecurity', title: 'Vulnerability Researcher', rate: 6500, skills: ['Reverse Engineering', 'C/C++', '0-day'] },
-            // Category 4: Development
             { id: 'R14', cat: 'Development', title: 'Full Stack Developer', rate: 5500, skills: ['React', 'Node.js', 'PostgreSQL'] },
             { id: 'R15', cat: 'Development', title: 'Frontend Developer', rate: 4500, skills: ['Vue.js', 'CSS/SASS', 'TypeScript'] },
-            { id: 'R16', cat: 'Development', title: 'Backend Developer (Python)', rate: 5200, skills: ['Django/FastAPI', 'Microservices', 'Redis'] },
+            { id: 'R16', cat: 'Development', title: 'Backend Developer', rate: 5200, skills: ['Django/FastAPI', 'Microservices', 'Redis'] },
             { id: 'R17', cat: 'Development', title: 'Mobile App Developer', rate: 5000, skills: ['Flutter/React Native', 'Swift', 'Kotlin'] },
             { id: 'R18', cat: 'Development', title: 'Embedded Systems Dev', rate: 5800, skills: ['C++', 'RTOS', 'IoT'] },
             { id: 'R19', cat: 'Development', title: 'Technical Project Manager', rate: 4800, skills: ['Agile/Scrum', 'Jira', 'Stakeholder Mgmt'] },
-            // Category 5: Data & AI
             { id: 'R20', cat: 'Data & AI', title: 'Database Architect', rate: 6200, skills: ['SQL Server', 'MongoDB', 'Query Tuning'] },
             { id: 'R21', cat: 'Data & AI', title: 'Data Engineer', rate: 5600, skills: ['ETL', 'Spark', 'Snowflake'] },
             { id: 'R22', cat: 'Data & AI', title: 'AI/ML Engineer', rate: 7000, skills: ['PyTorch', 'TensorFlow', 'LLMs'] },
             { id: 'R23', cat: 'Data & AI', title: 'Data Scientist', rate: 6000, skills: ['Python', 'Pandas', 'Predictive Modeling'] },
-            // Category 6: Design & Content
             { id: 'R24', cat: 'Design', title: 'UI/UX Designer', rate: 4200, skills: ['Figma', 'Wireframing', 'User Research'] },
             { id: 'R25', cat: 'Design', title: 'Technical Writer', rate: 3200, skills: ['API Documentation', 'Confluence', 'Markdown'] },
-            // Category 7: Marketing
             { id: 'R26', cat: 'Marketing', title: 'Marketing Manager', rate: 3800, skills: ['SEO/SEM', 'HubSpot', 'Campaigns'] },
             { id: 'R27', cat: 'Marketing', title: 'Social Media Manager', rate: 2800, skills: ['Copywriting', 'Analytics', 'Brand Voice'] },
-            // Category 8: Operations
             { id: 'R28', cat: 'Operations', title: 'Executive Assistant', rate: 2200, skills: ['Calendar Mgmt', 'Travel', 'Communication'] },
             { id: 'R29', cat: 'Operations', title: 'Procurement Specialist', rate: 3000, skills: ['Vendor Negotiation', 'Supply Chain', 'Contracts'] },
             { id: 'R30', cat: 'Operations', title: 'Finance Assistant', rate: 2800, skills: ['QuickBooks', 'Invoicing', 'Reconciliation'] }
         ];
+
+        let teamCart = [];
 
         function renderCatalog() {
             const grid = document.getElementById('catalog-grid');
             const filterContainer = document.getElementById('category-filters');
             grid.innerHTML = '';
 
-            // Get unique categories
             const categories = ['All', ...new Set(talentDatabase.map(r => r.cat))];
 
-            // Build Filters (Only build once)
             if (filterContainer.innerHTML.trim() === '') {
                 categories.forEach(c => {
                     const btn = document.createElement('button');
@@ -2869,7 +2760,6 @@
                 });
             }
 
-            // Build Job Cards
             talentDatabase.forEach(role => {
                 const card = document.createElement('div');
                 card.className = 'job-card';
@@ -2891,12 +2781,16 @@
             });
         }
 
-        // ==========================================================================
-        // PHASE 2: CART STATE & MATH ENGINE
-        // ==========================================================================
-        let teamCart = [];
+        function filterCatalog(category, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+            const cards = document.querySelectorAll('.job-card');
+            cards.forEach(card => {
+                if (category === 'All' || card.dataset.category === category) card.style.display = 'flex';
+                else card.style.display = 'none';
+            });
+        }
 
-        // 1. Core Cart Math & Render
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
             const moTotalEl = document.getElementById('cart-monthly-total');
@@ -2915,18 +2809,17 @@
             }
 
             teamCart.forEach((item, index) => {
-                // Math: If Part-Time (25hrs), rate is ~62.5% of the 40hr base rate
                 const itemRate = item.type === 'PT' ? item.baseRate * 0.625 : item.baseRate;
                 const lineTotal = itemRate * item.qty;
                 monthlyTotal += lineTotal;
 
-                const itemHTML = `
+                container.innerHTML += `
                     <div class="cart-item">
                         <div class="cart-item-header">
                             <h4 class="cart-item-title">${item.title}</h4>
                             <button class="cart-item-remove" onclick="removeFromTeam(${index})">×</button>
                         </div>
-                        <div style="color: #00ffcc; margin-bottom: 10px; font-weight: bold;">$${lineTotal.toLocaleString()} / mo</div>
+                        <div style="color: #ffffff; margin-bottom: 10px; font-weight: bold;">$${lineTotal.toLocaleString()} / mo</div>
                         <div class="cart-item-controls">
                             <select class="cart-select" onchange="updateCartItem(${index}, 'type', this.value)">
                                 <option value="FT" ${item.type === 'FT' ? 'selected' : ''}>Full-Time (40h)</option>
@@ -2937,7 +2830,6 @@
                         </div>
                     </div>
                 `;
-                container.innerHTML += itemHTML;
             });
 
             btnCountEl.innerText = `Your Team (${teamCart.length})`;
@@ -2945,41 +2837,26 @@
             annTotalEl.innerText = `$${(monthlyTotal * 12).toLocaleString()}`;
         }
 
-        // 2. Cart Actions
         function addToTeam(roleId) {
             const role = talentDatabase.find(r => r.id === roleId);
             if (!role) return;
-
-            // Check if already in cart
             const existing = teamCart.find(item => item.id === roleId && item.type === 'FT');
-            if (existing) {
-                existing.qty++;
-            } else {
-                teamCart.push({ id: role.id, title: role.title, baseRate: role.rate, type: 'FT', qty: 1 });
-            }
-
+            if (existing) existing.qty++;
+            else teamCart.push({ id: role.id, title: role.title, baseRate: role.rate, type: 'FT', qty: 1 });
             updateCartUI();
-            document.getElementById('team-cart-drawer').classList.add('open'); // Auto-open cart
+            document.getElementById('team-cart-drawer').classList.add('open');
         }
 
-        function removeFromTeam(index) {
-            teamCart.splice(index, 1);
-            updateCartUI();
-        }
-
+        function removeFromTeam(index) { teamCart.splice(index, 1); updateCartUI(); }
         function updateCartItem(index, field, value) {
-            if (field === 'qty') {
-                teamCart[index].qty = Math.max(1, parseInt(value) || 1);
-            } else if (field === 'type') {
-                teamCart[index].type = value;
-            }
+            if (field === 'qty') teamCart[index].qty = Math.max(1, parseInt(value) || 1);
+            else if (field === 'type') teamCart[index].type = value;
             updateCartUI();
         }
 
-        // 3. Starter Pods Logic
         const starterPodsData = [
-            { id: 'P1', name: 'NOC Coverage Pack', roles: [{ id: 'R06', qty: 3, type: 'FT' }] }, // 3x NOC Engineers
-            { id: 'P2', name: 'App Dev Squad', roles: [{ id: 'R19', qty: 1, type: 'PT' }, { id: 'R14', qty: 2, type: 'FT' }, { id: 'R24', qty: 1, type: 'FT' }] }, // 1 PT PM, 2 FT Devs, 1 FT UI
+            { id: 'P1', name: 'NOC Coverage Pack', roles: [{ id: 'R06', qty: 3, type: 'FT' }] },
+            { id: 'P2', name: 'App Dev Squad', roles: [{ id: 'R19', qty: 1, type: 'PT' }, { id: 'R14', qty: 2, type: 'FT' }, { id: 'R24', qty: 1, type: 'FT' }] },
             { id: 'P3', name: 'SecOps Starter', roles: [{ id: 'R09', qty: 2, type: 'FT' }, { id: 'R11', qty: 1, type: 'PT' }] }
         ];
 
@@ -3001,91 +2878,32 @@
         function addPodToCart(podId) {
             const pod = starterPodsData.find(p => p.id === podId);
             if (!pod) return;
-
             pod.roles.forEach(podRole => {
                 const dbRole = talentDatabase.find(r => r.id === podRole.id);
                 const existing = teamCart.find(item => item.id === podRole.id && item.type === podRole.type);
-                if (existing) {
-                    existing.qty += podRole.qty;
-                } else {
-                    teamCart.push({ id: dbRole.id, title: dbRole.title, baseRate: dbRole.rate, type: podRole.type, qty: podRole.qty });
-                }
+                if (existing) existing.qty += podRole.qty;
+                else teamCart.push({ id: dbRole.id, title: dbRole.title, baseRate: dbRole.rate, type: podRole.type, qty: podRole.qty });
             });
             updateCartUI();
             document.getElementById('team-cart-drawer').classList.add('open');
         }
 
-        // 4. Submit Payload (Phase 3 Preparation)
-        document.getElementById('submit-cart-btn').addEventListener('click', () => {
-            if (teamCart.length === 0) {
-                alert("Please add roles to your team before submitting.");
-                return;
-            }
-
-            // This is the JSON payload that Golang will eventually receive
-            const payload = {
-                timestamp: new Date().toISOString(),
-                cart: teamCart,
-                monthlyTotal: teamCart.reduce((acc, item) => acc + ((item.type === 'PT' ? item.baseRate * 0.625 : item.baseRate) * item.qty), 0)
-            };
-
-            console.log("SENDING TO BACKEND:", JSON.stringify(payload, null, 2));
-            alert("Calibration Request Sent! (Check console for JSON payload)");
-        });
-
-        // Toggle Drawer Hooks
-        document.getElementById('open-cart-btn').addEventListener('click', () => {
-            document.getElementById('team-cart-drawer').classList.add('open');
-        });
-        document.getElementById('close-cart-btn').addEventListener('click', () => {
-            document.getElementById('team-cart-drawer').classList.remove('open');
-        });
-
-        // Initialize Pods
         document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
             renderStarterPods();
-        });
-
-        function filterCatalog(category, btnElement) {
-            // Update active state on buttons
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-
-            // Filter DOM elements
-            const cards = document.querySelectorAll('.job-card');
-            cards.forEach(card => {
-                if (category === 'All' || card.dataset.category === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Hook up Navigation Triggers
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCatalog(); // Init the catalog
-            renderStarterPods(); // Init the pods
 
             const overlay = document.getElementById('talent-catalog');
-
-            // Find all links that say "Talent Solutions"
             document.querySelectorAll('nav a, .mobile-menu a').forEach(link => {
                 if (link.textContent.toLowerCase().includes('talent solutions')) {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         if (typeof closeMobileMenu === 'function') closeMobileMenu();
                         overlay.classList.add('active');
-
-                        // 🔥 NUCLEAR SCROLL LOCK: Lock both HTML and Body
                         document.documentElement.style.overflow = "hidden";
                         document.body.style.overflow = "hidden";
-                        window.isCatalogOpen = true; // Tell the 3D scroll tracker to stop
+                        window.isCatalogOpen = true;
 
-                        // Detach the 3D camera mouse wheel
                         if (typeof camera !== 'undefined') camera.detachControl();
-
-                        // Trigger cinematic camera pull-back
                         if (typeof camera !== 'undefined' && isGlobeMode) {
                             const zoomOut = new BABYLON.Animation("zoomOut", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
                             zoomOut.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: 8.0 }]);
@@ -3095,58 +2913,46 @@
                 }
             });
 
-            // Close Catalog Button
             document.getElementById('close-catalog-btn').addEventListener('click', () => {
                 overlay.classList.remove('active');
-
-                // 🔥 REMOVE SCROLL LOCK
                 document.documentElement.style.overflow = "";
                 document.body.style.overflow = "auto";
                 window.isCatalogOpen = false;
 
-                // Re-attach camera
-                if (typeof camera !== 'undefined') camera.attachControl(canvas, true);
-
-                // Reset camera zoom
+                // 🔥 Only plug the mouse back in if we are currently looking at the Mountain!
+                if (typeof camera !== 'undefined' && !isGlobeMode) {
+                    camera.attachControl(canvas, true);
+                }
                 if (typeof camera !== 'undefined' && isGlobeMode) {
                     const zoomIn = new BABYLON.Animation("zoomIn", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
                     zoomIn.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: window.innerWidth <= 768 ? 5.5 : 3.5 }]);
                     scene.beginDirectAnimation(camera, [zoomIn], 0, 60, false, 1.0);
                 }
             });
-        });
 
+            document.getElementById('open-cart-btn').addEventListener('click', () => {
+                document.getElementById('team-cart-drawer').classList.add('open');
+            });
+            document.getElementById('close-cart-btn').addEventListener('click', () => {
+                document.getElementById('team-cart-drawer').classList.remove('open');
+            });
 
-        // ==========================================
-        // ELEGANT SCROLL & COUNT-UP LOGIC
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // 1. Reveal elements as they scroll into view
             const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.15 }); // Trigger when 15% visible
-
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+            }, { threshold: 0.15 });
             document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
-            // 2. Premium Number Counter
-            const countUp = (element, target) => {
-                let current = 0;
-                // Faster counting for big numbers like 55000
-                const increment = target / 60;
+            setTimeout(() => {
+                const hero = document.querySelector('.hero-center');
+                if (hero) hero.classList.add('is-visible');
+            }, 100);
 
+            const countUp = (element, target) => {
+                let current = 0; const increment = target / 60;
                 const updateCounter = () => {
                     current += increment;
-                    if (current < target) {
-                        element.innerText = Math.ceil(current).toLocaleString();
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        element.innerText = target.toLocaleString();
-                    }
+                    if (current < target) { element.innerText = Math.ceil(current).toLocaleString(); requestAnimationFrame(updateCounter); }
+                    else { element.innerText = target.toLocaleString(); }
                 };
                 updateCounter();
             };
@@ -3156,40 +2962,29 @@
                     if (entry.isIntersecting) {
                         const targetVal = parseInt(entry.target.getAttribute('data-target'), 10);
                         countUp(entry.target, targetVal);
-                        observer.unobserve(entry.target); // Only count up once
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.5 });
-
             document.querySelectorAll('.counter').forEach(el => metricsObserver.observe(el));
         });
 
-        // ==========================================
-        // HIGH-PERFORMANCE SCROLL TRACKER
-        // ==========================================
-        // Setup initial targets so they don't break on load
         window.targetCameraAlpha = -Math.PI / 2;
         window.targetCameraRadius = window.innerWidth <= 768 ? 5.5 : (window.innerWidth <= 1024 ? 4.5 : 3.5);
 
         window.addEventListener('scroll', () => {
-            if (!isGlobeMode || window.isTransitioning) return;
-
+            if (!isGlobeMode || window.isTransitioning || window.isCatalogOpen) return;
             const scrollY = window.scrollY || document.documentElement.scrollTop;
             const maxScroll = document.body.scrollHeight - window.innerHeight;
             if (maxScroll <= 0) return;
-
             const scrollPercent = Math.max(0, Math.min(1, scrollY / maxScroll));
-
-            // Calculate targets, but DO NOT move the camera here!
             window.targetCameraAlpha = (-Math.PI / 2) + (scrollPercent * Math.PI);
-
             let baseRadius = 3.5;
             if (window.innerWidth <= 768) baseRadius = 5.5;
             else if (window.innerWidth <= 1024) baseRadius = 4.5;
-
             window.targetCameraRadius = baseRadius + (scrollPercent * 5);
-
-        }, { passive: true }); // 🔥 THIS kills the laptop lag! 
-
-        /* <a href="#" class="roi-btn trigger-roi">ROI Calculator</a>) -> try later on hamburger menu */
+        }, { passive: true }); 
     </script>
+</body>
+
+</html>
