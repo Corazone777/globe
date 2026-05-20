@@ -10,15 +10,15 @@
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
 
-    
-    <style>
 
+    <style>
         /* ==========================================================================
            1. GLOBAL RESET & BASE
            ========================================================================== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rajdhani:wght@500;600;700;800&display=swap');
 
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
             overflow-y: auto;
             width: 100%;
@@ -29,7 +29,10 @@
             color: white;
         }
 
-        #renderCanvas, #stars-canvas, #birds-canvas, #retro-bg-elements {
+        #renderCanvas,
+        #stars-canvas,
+        #birds-canvas,
+        #retro-bg-elements {
             position: fixed !important;
             top: 0;
             left: 0;
@@ -43,8 +46,19 @@
             pointer-events: auto;
         }
 
-        #stars-canvas { z-index: 2; opacity: 0; transition: opacity 1s; pointer-events: none; }
-        #birds-canvas { z-index: 3; opacity: 0; transition: opacity 1s; pointer-events: none; }
+        #stars-canvas {
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none;
+        }
+
+        #birds-canvas {
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1s;
+            pointer-events: none;
+        }
 
         /* --- CINEMATIC FADE-TO-BLACK OVERLAY --- */
         #cloud-transition {
@@ -86,7 +100,8 @@
             justify-content: space-between;
             align-items: center;
             background: rgba(5, 10, 15, 0.45);
-            border: 1px solid rgba(38, 0, 60, 0.8); /* Deep Purple Edge */
+            border: 1px solid rgba(38, 0, 60, 0.8);
+            /* Deep Purple Edge */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(38, 0, 60, 0.3);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
@@ -152,7 +167,8 @@
             bottom: 4px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #ffffff; /* White Underline */
+            background-color: #ffffff;
+            /* White Underline */
             transition: width 0.3s ease;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
@@ -163,7 +179,8 @@
 
         /* --- THE PURPLE & WHITE ROI BUTTON --- */
         .roi-btn {
-            background: rgba(38, 0, 60, 0.4); /* Deep Purple Base */
+            background: rgba(38, 0, 60, 0.4);
+            /* Deep Purple Base */
             color: #ffffff !important;
             font-family: 'Rajdhani', sans-serif;
             font-size: 0.9rem;
@@ -182,8 +199,9 @@
         }
 
         .roi-btn:hover {
-            background: #26003c; 
-            border-color: #ffffff; /* White border pops on hover */
+            background: #26003c;
+            border-color: #ffffff;
+            /* White border pops on hover */
             box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
@@ -193,7 +211,8 @@
             display: inline-block;
             width: 6px;
             height: 6px;
-            background: #ffffff; /* White status dot */
+            background: #ffffff;
+            /* White status dot */
             border-radius: 50%;
             box-shadow: 0 0 8px #ffffff, 0 0 15px #ffffff;
             animation: pulseDot 2s infinite;
@@ -221,9 +240,17 @@
             transition: all 0.3s ease-in-out;
         }
 
-        .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
 
         .mobile-menu {
             position: fixed !important;
@@ -264,7 +291,8 @@
         }
 
         .mobile-menu a:not(.roi-btn):hover {
-            color: #ffffff; /* White Hover */
+            color: #ffffff;
+            /* White Hover */
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
             transform: scale(1.05);
         }
@@ -286,14 +314,26 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 120px 5% 60px 5%; 
+            padding: 120px 5% 60px 5%;
             box-sizing: border-box;
             pointer-events: auto;
         }
 
-        .center-align { align-items: center; text-align: center; }
-        .left-align { align-items: flex-start; text-align: left; }
-        .max-w-800 { max-width: 800px; margin-left: auto; margin-right: auto; }
+        .center-align {
+            align-items: center;
+            text-align: center;
+        }
+
+        .left-align {
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .max-w-800 {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         /* --- HERO --- */
         .hero-center {
@@ -332,7 +372,8 @@
         }
 
         .text-gradient {
-            background: linear-gradient(to right, #8fa3b0, #ffffff, #8fa3b0); /* Silver Sweep */
+            background: linear-gradient(to right, #8fa3b0, #ffffff, #8fa3b0);
+            /* Silver Sweep */
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -375,7 +416,7 @@
             margin-bottom: 15px;
             text-transform: uppercase;
             backdrop-filter: blur(5px);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
         }
 
         /* ==========================================================================
@@ -383,7 +424,8 @@
            ========================================================================== */
         .editorial-card {
             background: rgba(5, 15, 25, 0.4);
-            border-left: 3px solid #26003c; /* Deep Purple Border */
+            border-left: 3px solid #26003c;
+            /* Deep Purple Border */
             padding: 40px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -428,7 +470,8 @@
 
         .process-step {
             background: rgba(5, 15, 25, 0.4);
-            border-top: 3px solid #8fa3b0; /* Deep Purple Border */
+            border-top: 3px solid #8fa3b0;
+            /* Deep Purple Border */
             padding: 30px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -470,12 +513,18 @@
         .premium-btn:hover {
             background: #26003c;
             color: #ffffff;
-            border-color: #ffffff; /* White Hover Edge */
+            border-color: #ffffff;
+            /* White Hover Edge */
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
-        .tech-tag-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
-        
+        .tech-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
         .tech-tag {
             padding: 8px 18px;
             background: rgba(255, 255, 255, 0.02);
@@ -489,8 +538,10 @@
         }
 
         .tech-tag:hover {
-            background: rgba(38, 0, 60, 0.5); /* Purple Glass Hover */
-            border-color: #ffffff; /* White Edge */
+            background: rgba(38, 0, 60, 0.5);
+            /* Purple Glass Hover */
+            border-color: #ffffff;
+            /* White Edge */
             color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
@@ -515,7 +566,8 @@
 
         .metric-lbl {
             font-size: 0.9rem;
-            color: #8fa3b0; /* Silver labels */
+            color: #8fa3b0;
+            /* Silver labels */
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 600;
@@ -524,7 +576,8 @@
         /* ==========================================================================
            5. HUD CONTROLS (Back / Reopen Buttons)
            ========================================================================== */
-        .back-btn, .reopen-btn {
+        .back-btn,
+        .reopen-btn {
             position: fixed !important;
             bottom: 40px;
             height: 50px;
@@ -535,7 +588,8 @@
             padding: 0 25px;
             border-radius: 50px;
             background: rgba(5, 10, 15, 0.6);
-            border: 1px solid #26003c; /* Purple borders */
+            border: 1px solid #26003c;
+            /* Purple borders */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
@@ -553,18 +607,26 @@
             transform: translateY(20px);
         }
 
-        .back-btn { left: 40px; }
-        .reopen-btn { right: 40px; }
+        .back-btn {
+            left: 40px;
+        }
 
-        .back-btn.visible, .reopen-btn.visible {
+        .reopen-btn {
+            right: 40px;
+        }
+
+        .back-btn.visible,
+        .reopen-btn.visible {
             opacity: 1;
             pointer-events: auto;
             transform: translateY(0);
         }
 
-        .back-btn:hover, .reopen-btn:hover {
+        .back-btn:hover,
+        .reopen-btn:hover {
             background: #26003c;
-            border-color: #ffffff; /* White interaction */
+            border-color: #ffffff;
+            /* White interaction */
             color: #fff;
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
@@ -598,8 +660,15 @@
             overscroll-behavior: contain;
         }
 
-        .holo-panel::-webkit-scrollbar { display: none; }
-        .holo-panel.visible { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+        .holo-panel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .holo-panel.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
 
         .holo-header {
             display: flex;
@@ -627,7 +696,8 @@
             display: inline-block;
             width: 6px;
             height: 6px;
-            background: #ffffff; /* White title dot */
+            background: #ffffff;
+            /* White title dot */
             border-radius: 50%;
             box-shadow: 0 0 8px #ffffff;
         }
@@ -672,8 +742,10 @@
             bottom: 0;
             width: 33.333%;
             left: 33.333%;
-            background: rgba(38, 0, 60, 0.8); /* Deep Purple active toggle */
-            border-bottom: 2px solid #ffffff; /* White accent line */
+            background: rgba(38, 0, 60, 0.8);
+            /* Deep Purple active toggle */
+            border-bottom: 2px solid #ffffff;
+            /* White accent line */
             transition: left 0.3s ease;
             z-index: 1;
         }
@@ -692,11 +764,28 @@
             font-weight: 600;
         }
 
-        .slider-option.active { color: #fff; }
+        .slider-option.active {
+            color: #fff;
+        }
 
-        .fte-row { display: flex; gap: 15px; margin-bottom: 25px; }
-        .fte-col { flex: 1; }
-        .fte-label { display: block; color: #8fa3b0; font-size: 0.9rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .fte-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .fte-col {
+            flex: 1;
+        }
+
+        .fte-label {
+            display: block;
+            color: #8fa3b0;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         .fte-input {
             width: 100%;
@@ -713,12 +802,38 @@
             text-align: center;
         }
 
-        .fte-input:focus { border-color: #ffffff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
-        
-        .budget-wrap { display: flex; align-items: center; position: relative; }
-        .budget-wrap input { padding-left: 25px; padding-right: 40px; text-align: left; }
-        .currency-prefix { position: absolute; left: 10px; color: #8fa3b0; font-size: 1.2rem; font-weight: 700; }
-        .currency-suffix { position: absolute; right: 10px; color: #8fa3b0; font-size: 0.9rem; font-weight: 600; }
+        .fte-input:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .budget-wrap {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .budget-wrap input {
+            padding-left: 25px;
+            padding-right: 40px;
+            text-align: left;
+        }
+
+        .currency-prefix {
+            position: absolute;
+            left: 10px;
+            color: #8fa3b0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .currency-suffix {
+            position: absolute;
+            right: 10px;
+            color: #8fa3b0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
         .roi-panel-h {
             border-top: 1px solid rgba(38, 0, 60, 0.8);
@@ -726,34 +841,74 @@
             opacity: 0;
             transition: opacity 0.4s;
         }
-        .roi-panel-h.visible { opacity: 1; }
 
-        .roi-title { color: #fff; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-align: center; }
-        .roi-grid { display: flex; justify-content: space-between; }
-        .roi-stat { text-align: center; flex: 1; min-width: 0; }
-        
-        .roi-stat-value { 
-            font-size: clamp(1.2rem, 4vw, 1.8rem); 
-            color: #ffffff; /* White numbers */
-            font-weight: 800; 
-            margin-bottom: 5px; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
+        .roi-panel-h.visible {
+            opacity: 1;
+        }
+
+        .roi-title {
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .roi-grid {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .roi-stat {
+            text-align: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .roi-stat-value {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: #ffffff;
+            /* White numbers */
+            font-weight: 800;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
-        
-        .roi-stat-label { font-size: 0.8rem; color: #8fa3b0; text-transform: uppercase; letter-spacing: 1px; }
+
+        .roi-stat-label {
+            font-size: 0.8rem;
+            color: #8fa3b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         /* ==========================================================================
            7. UTILITIES
            ========================================================================== */
-        @keyframes textShine { to { background-position: 200% center; } }
-        
+        @keyframes textShine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
         @keyframes pulseDot {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .reveal-up {
@@ -761,31 +916,71 @@
             transform: translateY(40px);
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* ==========================================================================
            8. RESPONSIVE BREAKPOINTS & MOBILE OVERRIDES
            ========================================================================== */
         @media (max-width: 1024px) {
-            header { width: 95%; padding: 0 10px 0 20px; height: 60px; }
-            .brand-text { display: none; }
+            header {
+                width: 95%;
+                padding: 0 10px 0 20px;
+                height: 60px;
+            }
+
+            .brand-text {
+                display: none;
+            }
         }
 
         @media (max-width: 900px) {
-            header { padding: 1.2rem 2rem; }
-            .desktop-nav { gap: 1.5rem; }
+            header {
+                padding: 1.2rem 2rem;
+            }
+
+            .desktop-nav {
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 768px) {
-            header { width: calc(100% - 50px) !important; padding: 0 20px !important; height: 60px !important; }
-            .desktop-nav { display: none; }
-            .hamburger { display: flex; margin-right: 10px; }
-            .hero-title { flex-direction: column; gap: 10px; font-size: 1.8rem; letter-spacing: 2px; padding: 0 10px; }
-            .hero-subtitle { font-size: 0.8rem; letter-spacing: 2px; padding: 0 10px; }
+            header {
+                width: calc(100% - 50px) !important;
+                padding: 0 20px !important;
+                height: 60px !important;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-right: 10px;
+            }
+
+            .hero-title {
+                flex-direction: column;
+                gap: 10px;
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                padding: 0 10px;
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+                padding: 0 10px;
+            }
 
             /* --- 🚨 THE NUCLEAR IOS VISIBILITY + COMPACT UI FIX 🚨 --- */
             #ui-layer {
-                min-height: 100dvh !important; /* FIXED TO PREVENT SCROLLBAR */
+                min-height: 100dvh !important;
+                /* FIXED TO PREVENT SCROLLBAR */
                 -webkit-transform: translateZ(0);
             }
 
@@ -805,11 +1000,15 @@
                 max-height: 80vh !important;
                 z-index: 80 !important;
                 padding: 15px 20px !important;
-                width: 95% !important; 
+                width: 95% !important;
             }
-            .holo-panel.visible { display: block !important; }
 
-            .back-btn, .reopen-btn {
+            .holo-panel.visible {
+                display: block !important;
+            }
+
+            .back-btn,
+            .reopen-btn {
                 display: none !important;
                 opacity: 1 !important;
                 visibility: visible !important;
@@ -826,32 +1025,632 @@
                 transform: translateX(-50%) translateY(20px);
             }
 
-            .back-btn.visible, .reopen-btn.visible {
+            .back-btn.visible,
+            .reopen-btn.visible {
                 display: flex !important;
                 transform: translateX(-50%) translateY(0);
             }
 
-            .reopen-btn { bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important; }
-            .back-btn { bottom: calc(35px + env(safe-area-inset-bottom, 20px)) !important; }
+            .reopen-btn {
+                bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important;
+            }
 
-            .holo-header { padding-bottom: 10px !important; margin-bottom: 15px !important; }
-            .fte-row { flex-direction: row !important; gap: 15px !important; margin-bottom: 15px !important; }
-            .fte-input { padding: 8px !important; font-size: 1rem !important; }
-            .fte-label { font-size: 0.75rem !important; margin-bottom: 3px !important; }
-            .landscape-slider { margin-bottom: 15px !important; }
-            .slider-option { padding: 6px 0 !important; font-size: 0.8rem !important; }
-            .roi-panel-h { padding-top: 10px !important; }
-            .roi-title { margin-bottom: 10px !important; font-size: 0.85rem !important; }
-            .roi-stat-value { font-size: 1.2rem !important; margin-bottom: 2px !important; }
-            .roi-stat-label { font-size: 0.7rem !important; }
+            .back-btn {
+                bottom: calc(35px + env(safe-area-inset-bottom, 20px)) !important;
+            }
+
+            .holo-header {
+                padding-bottom: 10px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .fte-row {
+                flex-direction: row !important;
+                gap: 15px !important;
+                margin-bottom: 15px !important;
+            }
+
+            .fte-input {
+                padding: 8px !important;
+                font-size: 1rem !important;
+            }
+
+            .fte-label {
+                font-size: 0.75rem !important;
+                margin-bottom: 3px !important;
+            }
+
+            .landscape-slider {
+                margin-bottom: 15px !important;
+            }
+
+            .slider-option {
+                padding: 6px 0 !important;
+                font-size: 0.8rem !important;
+            }
+
+            .roi-panel-h {
+                padding-top: 10px !important;
+            }
+
+            .roi-title {
+                margin-bottom: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .roi-stat-value {
+                font-size: 1.2rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            .roi-stat-label {
+                font-size: 0.7rem !important;
+            }
         }
 
         @media (max-width: 380px) {
-            .roi-grid { flex-direction: column; gap: 15px; }
+            .roi-grid {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* ==========================================================================
+           9. TALENT CATALOG UI (PREMIUM DEEP PURPLE & ICE)
+           ========================================================================== */
+
+        /* --- MAIN OVERLAY & GLOBE TRANSPARENCY --- */
+        .talent-catalog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 1, 3, 0.65);
+            /* 🔥 Highly transparent to see the globe */
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 200;
+            /* Sits above everything */
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .talent-catalog-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- TOP BAR --- */
+        .catalog-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(5, 10, 15, 0.8);
+        }
+
+        .catalog-heading {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .catalog-sub {
+            color: #8fa3b0;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .catalog-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .close-catalog-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-catalog-btn:hover {
+            background: #ff3c3c;
+            border-color: #ff3c3c;
+            transform: rotate(90deg);
+        }
+
+        /* --- DEPLOYMENT BRIEF (INTRO TEXT) --- */
+        .catalog-intro-banner {
+            padding: 30px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(90deg, rgba(38, 0, 60, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .intro-main-text {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 300;
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .intro-pillars {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .pillar {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid #ffffff;
+            /* Ice White accent */
+            padding: 15px 20px;
+        }
+
+        .pillar-icon {
+            font-family: 'Rajdhani', monospace;
+            color: #8fa3b0;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .pillar h4 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .pillar p {
+            margin: 0;
+            color: #8fa3b0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* --- LAYOUT & CUSTOM SCROLLBARS --- */
+        .catalog-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            /* Keeps scroll inside the grid/sidebar */
+        }
+
+        .catalog-grid::-webkit-scrollbar,
+        .cart-items-container::-webkit-scrollbar,
+        .catalog-sidebar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+            /* For mobile horizontal scroll */
+        }
+
+        .catalog-grid::-webkit-scrollbar-track,
+        .cart-items-container::-webkit-scrollbar-track,
+        .catalog-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .catalog-grid::-webkit-scrollbar-thumb,
+        .cart-items-container::-webkit-scrollbar-thumb,
+        .catalog-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        /* --- PREMIUM SIDEBAR FILTERS --- */
+        .catalog-sidebar {
+            width: 250px;
+            padding: 30px 15px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        .filter-group h3 {
+            font-family: 'Rajdhani', sans-serif;
+            color: #8fa3b0;
+            /* Soft silver */
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            border-left: 2px solid transparent;
+            /* Hidden by default */
+            color: #8fa3b0;
+            padding: 12px 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .filter-btn:hover {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(38, 0, 60, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+            border-left-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .filter-btn.active {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(38, 0, 60, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+            border-left-color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- GRID & JOB CARDS --- */
+        .catalog-grid {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            align-content: start;
+            overscroll-behavior: contain;
+        }
+
+        .job-card {
+            background: rgba(5, 15, 25, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #26003c;
+            border-radius: 8px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            border-top-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .job-cat {
+            color: #8fa3b0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .job-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+
+        .job-rate-wrap {
+            margin-bottom: 20px;
+        }
+
+        .job-rate {
+            font-size: 2rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .job-rate-sub {
+            color: #8fa3b0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .job-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex: 1;
+        }
+
+        .job-skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: #b0bfc9;
+            font-size: 0.75rem;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(38, 0, 60, 0.4);
+            border: 1px solid #26003c;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #ffffff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- PREMIUM CART DRAWER --- */
+        .team-cart-drawer {
+            position: absolute;
+            top: 0;
+            right: -450px;
+            /* Hidden off-screen */
+            width: 400px;
+            height: 100%;
+            background: rgba(5, 10, 15, 0.75);
+            /* Frosted Glass Base */
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 300;
+            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.9);
+        }
+
+        .team-cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(38, 0, 60, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .cart-items-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overscroll-behavior: contain;
+        }
+
+        .cart-footer {
+            padding: 30px;
+            border-top: 1px solid #26003c;
+            background: rgba(5, 10, 15, 0.95);
+        }
+
+        /* --- CART ITEMS --- */
+        .cart-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #ffffff;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: flex-start;
+        }
+
+        .cart-item-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 0;
+            line-height: 1.2;
+            padding-right: 15px;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #8fa3b0;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .cart-item-remove:hover {
+            color: #ff3c3c;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .cart-select {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 10px;
+            border-radius: 4px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .cart-select:focus {
+            border-color: #ffffff;
+        }
+
+        .cart-input {
+            width: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .cart-input:focus {
+            border-color: #ffffff;
+            outline: none;
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            /* --- HOMEPAGE MOBILE OVERRIDES --- */
+            header { width: calc(100% - 50px) !important; padding: 0 20px !important; height: 60px !important; }
+            .desktop-nav { display: none; }
+            .hamburger { display: flex; margin-right: 10px; }
+            .hero-title { flex-direction: column; gap: 10px; font-size: 1.8rem; letter-spacing: 2px; padding: 0 10px; }
+            .hero-subtitle { font-size: 0.8rem; letter-spacing: 2px; padding: 0 10px; }
+
+            #ui-layer { min-height: 100dvh !important; -webkit-transform: translateZ(0); }
+
+            /* ... (keep your existing ROI calculator mobile fixes here) ... */
+            .holo-panel {
+                display: none !important; opacity: 1 !important; visibility: visible !important;
+                background: #050f19 !important; position: fixed !important; top: 50% !important; left: 50% !important;
+                transform: translate(-50%, -50%) !important; max-height: 80vh !important; z-index: 80 !important;
+                padding: 15px 20px !important; width: 95% !important; 
+            }
+            .holo-panel.visible { display: block !important; }
+            .back-btn, .reopen-btn {
+                display: none !important; opacity: 1 !important; visibility: visible !important;
+                background: rgba(5, 15, 25, 0.95) !important; z-index: 80 !important; left: 50%;
+                width: max-content; height: 45px; padding: 0 20px; font-size: 0.9rem;
+                transform: translateX(-50%) translateY(20px);
+            }
+            .back-btn.visible, .reopen-btn.visible { display: flex !important; transform: translateX(-50%) translateY(0); }
+            .reopen-btn { bottom: calc(95px + env(safe-area-inset-bottom, 20px)) !important; }
+            .back-btn { bottom: calc(35px + env(safe-area-bottom, 20px)) !important; }
+
+
+            /* --- 🔥 TALENT CATALOG MOBILE OVERRIDES 🔥 --- */
+            
+            /* Compact Top Bar */
+            .catalog-top-bar { flex-direction: row; gap: 10px; padding: 15px 20px; align-items: center; }
+            .catalog-heading { font-size: 1.5rem; }
+            .catalog-sub { display: none; } /* Hide to save space */
+            .cart-toggle-btn { padding: 8px 12px; font-size: 0.85rem; }
+            .close-catalog-btn { width: 32px; height: 32px; font-size: 1rem; }
+
+            /* Ruthlessly compact the intro banner */
+            .catalog-intro-banner { padding: 15px 20px; }
+            .intro-main-text { font-size: 0.95rem; margin-bottom: 0; line-height: 1.4; }
+            .intro-pillars { display: none; } /* Hide massive text blocks on mobile */
+            
+            /* Starter Pods */
+            .starter-pods-section { padding: 15px 20px !important; }
+            .starter-pods-section h3 { font-size: 0.9rem !important; margin-bottom: 10px !important; }
+
+            /* Layout & Sidebar */
+            .catalog-layout { flex-direction: column; }
+            .catalog-sidebar { 
+                width: 100%; 
+                border-right: none; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                padding: 10px 15px; 
+                overflow-y: hidden;
+            }
+            .filter-group h3 { display: none; } /* Hide "Categories" header */
+            .filter-options { 
+                flex-direction: row; 
+                gap: 5px; 
+                overflow-x: auto; 
+                padding-bottom: 5px;
+                scrollbar-width: none; /* Firefox invisible scroll */
+            }
+            .filter-options::-webkit-scrollbar { display: none; } /* Chrome invisible scroll */
+            
+            /* Sleek horizontal pills */
+            .filter-btn { 
+                width: auto; 
+                padding: 8px 15px; 
+                font-size: 0.85rem; 
+                white-space: nowrap;
+                border-left: none !important;
+                border-bottom: 2px solid transparent;
+            }
+            .filter-btn:hover { background: linear-gradient(0deg, rgba(38, 0, 60, 0.3) 0%, rgba(0,0,0,0) 100%); border-bottom-color: rgba(255, 255, 255, 0.2); }
+            .filter-btn.active { background: linear-gradient(0deg, rgba(38, 0, 60, 0.8) 0%, rgba(0,0,0,0) 100%); border-bottom-color: #ffffff; }
+
+            /* Job Grid */
+            .catalog-grid { 
+                padding: 15px; 
+                grid-template-columns: 1fr; /* Force 1 card per row */
+                gap: 15px; 
+            }
+            .job-card { padding: 20px; }
+            .job-title { font-size: 1.3rem; }
+            .job-rate { font-size: 1.6rem; }
+
+            /* Cart Drawer */
+            .team-cart-drawer { width: 100%; right: -100%; }
+            .cart-header { padding: 15px 20px; }
+            .cart-items-container { padding: 15px; gap: 15px; }
+            .cart-footer { padding: 20px 15px; }
         }
     </style>
 
-    
+
 </head>
 
 
@@ -874,6 +1673,66 @@
         <button id="reopen-roi-btn" class="reopen-btn">
             &#9776; Calculator
         </button>
+
+        <div id="talent-catalog" class="talent-catalog-overlay">
+            <div class="catalog-top-bar">
+                <div class="starter-pods-section"
+                    style="padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="margin-top: 0; color: #fff; font-family: 'Rajdhani', sans-serif;">Starter Pods (One-Click
+                        Setup)</h3>
+                    <div id="starter-pods-container"
+                        style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px;">
+                    </div>
+                </div>
+
+                <div id="team-cart-drawer" class="team-cart-drawer">
+                    <div class="cart-header">
+                        <h3 style="margin:0; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem;">Your Team</h3>
+                        <button class="close-catalog-btn" id="close-cart-btn"
+                            style="width: 30px; height: 30px; font-size: 1rem;">✕</button>
+                    </div>
+
+                    <div id="cart-items-container" class="cart-items-container">
+                        <div style="padding: 20px; color: #8fa3b0; text-align: center;">Your team is empty.</div>
+                    </div>
+
+                    <div class="cart-footer">
+                        <div style="display: flex; justify-content: space-between; color: #8fa3b0; margin-bottom: 5px;">
+                            <span>Monthly Run Rate:</span>
+                            <span id="cart-monthly-total" style="color: #fff; font-weight: bold;">$0</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; color: #8fa3b0; margin-bottom: 15px; font-size: 0.85rem;">
+                            <span>Annualized:</span>
+                            <span id="cart-annual-total">$0</span>
+                        </div>
+                        <button id="submit-cart-btn" class="premium-btn"
+                            style="width: 100%; text-align: center;">Request Calibration</button>
+                    </div>
+                </div>
+                <div class="catalog-title-group">
+                    <h2 class="catalog-heading">Build Your Team</h2>
+                    <span class="catalog-sub">Select roles to configure your deployment</span>
+                </div>
+                <div class="catalog-actions">
+                    <button class="premium-btn cart-toggle-btn" id="open-cart-btn">Your Team (0)</button>
+                    <button class="close-catalog-btn" id="close-catalog-btn">✕</button>
+                </div>
+            </div>
+
+            <div class="catalog-layout">
+                <aside class="catalog-sidebar">
+                    <div class="filter-group">
+                        <h3>Categories</h3>
+                        <div class="filter-options" id="category-filters">
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="catalog-grid" id="catalog-grid">
+                </main>
+            </div>
+        </div>
 
         <header>
             <a href="#" class="brand-container">
@@ -1946,6 +2805,316 @@
             fteInput.addEventListener('blur', () => { let val = parseInt(fteInput.value, 10); fteInput.value = (isNaN(val) || val < 0) ? '' : val; updateHoloROI(); });
         }
         if (budgetInput) budgetInput.addEventListener('input', () => { budgetInput.value = formatBudgetDisplay(parseBudget(budgetInput.value)); updateHoloROI(); });
+
+        // ==========================================================================
+        // TALENT SOLUTIONS DATABASE & CATALOG LOGIC
+        // ==========================================================================
+        const talentDatabase = [
+            // Category 1: Support
+            { id: 'R01', cat: 'Support', title: 'Help Desk Technician Tier 1', rate: 2200, skills: ['Active Directory', 'O365', 'Ticketing'] },
+            { id: 'R02', cat: 'Support', title: 'Help Desk Technician Tier 2', rate: 3100, skills: ['Escalation', 'Hardware', 'Network Setup'] },
+            { id: 'R03', cat: 'Support', title: 'Service Operations Manager', rate: 4500, skills: ['ITIL', 'SLA Management', 'Team Lead'] },
+            // Category 2: Infrastructure
+            { id: 'R04', cat: 'Infrastructure', title: 'Systems Administrator', rate: 3800, skills: ['Windows Server', 'VMware', 'Powershell'] },
+            { id: 'R05', cat: 'Infrastructure', title: 'Linux Administrator', rate: 4000, skills: ['RHEL', 'Bash', 'Apache/Nginx'] },
+            { id: 'R06', cat: 'Infrastructure', title: 'NOC Engineer', rate: 4200, skills: ['Cisco', 'BGP/OSPF', 'Monitoring'] },
+            { id: 'R07', cat: 'Infrastructure', title: 'DevOps Engineer', rate: 5500, skills: ['Docker', 'Kubernetes', 'CI/CD'] },
+            { id: 'R08', cat: 'Infrastructure', title: 'Cloud Architect', rate: 6800, skills: ['AWS', 'Azure', 'Terraform'] },
+            // Category 3: Cybersecurity
+            { id: 'R09', cat: 'Cybersecurity', title: 'Cybersecurity Analyst', rate: 4800, skills: ['SIEM', 'Threat Hunting', 'Splunk'] },
+            { id: 'R10', cat: 'Cybersecurity', title: 'Penetration Tester', rate: 6000, skills: ['Kali Linux', 'Metasploit', 'Red Teaming'] },
+            { id: 'R11', cat: 'Cybersecurity', title: 'GRC Analyst', rate: 5200, skills: ['ISO 27001', 'SOC2', 'Compliance'] },
+            { id: 'R12', cat: 'Cybersecurity', title: 'Digital Forensics', rate: 5800, skills: ['EnCase', 'Malware Analysis', 'Incident Response'] },
+            { id: 'R13', cat: 'Cybersecurity', title: 'Vulnerability Researcher', rate: 6500, skills: ['Reverse Engineering', 'C/C++', '0-day'] },
+            // Category 4: Development
+            { id: 'R14', cat: 'Development', title: 'Full Stack Developer', rate: 5500, skills: ['React', 'Node.js', 'PostgreSQL'] },
+            { id: 'R15', cat: 'Development', title: 'Frontend Developer', rate: 4500, skills: ['Vue.js', 'CSS/SASS', 'TypeScript'] },
+            { id: 'R16', cat: 'Development', title: 'Backend Developer (Python)', rate: 5200, skills: ['Django/FastAPI', 'Microservices', 'Redis'] },
+            { id: 'R17', cat: 'Development', title: 'Mobile App Developer', rate: 5000, skills: ['Flutter/React Native', 'Swift', 'Kotlin'] },
+            { id: 'R18', cat: 'Development', title: 'Embedded Systems Dev', rate: 5800, skills: ['C++', 'RTOS', 'IoT'] },
+            { id: 'R19', cat: 'Development', title: 'Technical Project Manager', rate: 4800, skills: ['Agile/Scrum', 'Jira', 'Stakeholder Mgmt'] },
+            // Category 5: Data & AI
+            { id: 'R20', cat: 'Data & AI', title: 'Database Architect', rate: 6200, skills: ['SQL Server', 'MongoDB', 'Query Tuning'] },
+            { id: 'R21', cat: 'Data & AI', title: 'Data Engineer', rate: 5600, skills: ['ETL', 'Spark', 'Snowflake'] },
+            { id: 'R22', cat: 'Data & AI', title: 'AI/ML Engineer', rate: 7000, skills: ['PyTorch', 'TensorFlow', 'LLMs'] },
+            { id: 'R23', cat: 'Data & AI', title: 'Data Scientist', rate: 6000, skills: ['Python', 'Pandas', 'Predictive Modeling'] },
+            // Category 6: Design & Content
+            { id: 'R24', cat: 'Design', title: 'UI/UX Designer', rate: 4200, skills: ['Figma', 'Wireframing', 'User Research'] },
+            { id: 'R25', cat: 'Design', title: 'Technical Writer', rate: 3200, skills: ['API Documentation', 'Confluence', 'Markdown'] },
+            // Category 7: Marketing
+            { id: 'R26', cat: 'Marketing', title: 'Marketing Manager', rate: 3800, skills: ['SEO/SEM', 'HubSpot', 'Campaigns'] },
+            { id: 'R27', cat: 'Marketing', title: 'Social Media Manager', rate: 2800, skills: ['Copywriting', 'Analytics', 'Brand Voice'] },
+            // Category 8: Operations
+            { id: 'R28', cat: 'Operations', title: 'Executive Assistant', rate: 2200, skills: ['Calendar Mgmt', 'Travel', 'Communication'] },
+            { id: 'R29', cat: 'Operations', title: 'Procurement Specialist', rate: 3000, skills: ['Vendor Negotiation', 'Supply Chain', 'Contracts'] },
+            { id: 'R30', cat: 'Operations', title: 'Finance Assistant', rate: 2800, skills: ['QuickBooks', 'Invoicing', 'Reconciliation'] }
+        ];
+
+        function renderCatalog() {
+            const grid = document.getElementById('catalog-grid');
+            const filterContainer = document.getElementById('category-filters');
+            grid.innerHTML = '';
+
+            // Get unique categories
+            const categories = ['All', ...new Set(talentDatabase.map(r => r.cat))];
+
+            // Build Filters (Only build once)
+            if (filterContainer.innerHTML.trim() === '') {
+                categories.forEach(c => {
+                    const btn = document.createElement('button');
+                    btn.className = `filter-btn ${c === 'All' ? 'active' : ''}`;
+                    btn.innerText = c;
+                    btn.onclick = () => filterCatalog(c, btn);
+                    filterContainer.appendChild(btn);
+                });
+            }
+
+            // Build Job Cards
+            talentDatabase.forEach(role => {
+                const card = document.createElement('div');
+                card.className = 'job-card';
+                card.dataset.category = role.cat;
+
+                const skillsHtml = role.skills.map(s => `<span class="job-skill-tag">${s}</span>`).join('');
+
+                card.innerHTML = `
+                    <div class="job-cat">// ${role.cat}</div>
+                    <h3 class="job-title">${role.title}</h3>
+                    <div class="job-rate-wrap">
+                        <div class="job-rate">$${role.rate.toLocaleString()}</div>
+                        <div class="job-rate-sub">Base Mo. / 40hrs</div>
+                    </div>
+                    <div class="job-skills">${skillsHtml}</div>
+                    <button class="add-to-cart-btn" onclick="addToTeam('${role.id}')">Add to Team</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ==========================================================================
+        // PHASE 2: CART STATE & MATH ENGINE
+        // ==========================================================================
+        let teamCart = [];
+
+        // 1. Core Cart Math & Render
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const moTotalEl = document.getElementById('cart-monthly-total');
+            const annTotalEl = document.getElementById('cart-annual-total');
+            const btnCountEl = document.getElementById('open-cart-btn');
+
+            let monthlyTotal = 0;
+            container.innerHTML = '';
+
+            if (teamCart.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; color: #8fa3b0; text-align: center;">Your team is empty.</div>';
+                btnCountEl.innerText = `Your Team (0)`;
+                moTotalEl.innerText = '$0';
+                annTotalEl.innerText = '$0';
+                return;
+            }
+
+            teamCart.forEach((item, index) => {
+                // Math: If Part-Time (25hrs), rate is ~62.5% of the 40hr base rate
+                const itemRate = item.type === 'PT' ? item.baseRate * 0.625 : item.baseRate;
+                const lineTotal = itemRate * item.qty;
+                monthlyTotal += lineTotal;
+
+                const itemHTML = `
+                    <div class="cart-item">
+                        <div class="cart-item-header">
+                            <h4 class="cart-item-title">${item.title}</h4>
+                            <button class="cart-item-remove" onclick="removeFromTeam(${index})">×</button>
+                        </div>
+                        <div style="color: #00ffcc; margin-bottom: 10px; font-weight: bold;">$${lineTotal.toLocaleString()} / mo</div>
+                        <div class="cart-item-controls">
+                            <select class="cart-select" onchange="updateCartItem(${index}, 'type', this.value)">
+                                <option value="FT" ${item.type === 'FT' ? 'selected' : ''}>Full-Time (40h)</option>
+                                <option value="PT" ${item.type === 'PT' ? 'selected' : ''}>Part-Time (25h)</option>
+                            </select>
+                            <span style="color:#8fa3b0;">Qty:</span>
+                            <input type="number" class="cart-input" min="1" max="50" value="${item.qty}" onchange="updateCartItem(${index}, 'qty', this.value)">
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += itemHTML;
+            });
+
+            btnCountEl.innerText = `Your Team (${teamCart.length})`;
+            moTotalEl.innerText = `$${monthlyTotal.toLocaleString()}`;
+            annTotalEl.innerText = `$${(monthlyTotal * 12).toLocaleString()}`;
+        }
+
+        // 2. Cart Actions
+        function addToTeam(roleId) {
+            const role = talentDatabase.find(r => r.id === roleId);
+            if (!role) return;
+
+            // Check if already in cart
+            const existing = teamCart.find(item => item.id === roleId && item.type === 'FT');
+            if (existing) {
+                existing.qty++;
+            } else {
+                teamCart.push({ id: role.id, title: role.title, baseRate: role.rate, type: 'FT', qty: 1 });
+            }
+
+            updateCartUI();
+            document.getElementById('team-cart-drawer').classList.add('open'); // Auto-open cart
+        }
+
+        function removeFromTeam(index) {
+            teamCart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartItem(index, field, value) {
+            if (field === 'qty') {
+                teamCart[index].qty = Math.max(1, parseInt(value) || 1);
+            } else if (field === 'type') {
+                teamCart[index].type = value;
+            }
+            updateCartUI();
+        }
+
+        // 3. Starter Pods Logic
+        const starterPodsData = [
+            { id: 'P1', name: 'NOC Coverage Pack', roles: [{ id: 'R06', qty: 3, type: 'FT' }] }, // 3x NOC Engineers
+            { id: 'P2', name: 'App Dev Squad', roles: [{ id: 'R19', qty: 1, type: 'PT' }, { id: 'R14', qty: 2, type: 'FT' }, { id: 'R24', qty: 1, type: 'FT' }] }, // 1 PT PM, 2 FT Devs, 1 FT UI
+            { id: 'P3', name: 'SecOps Starter', roles: [{ id: 'R09', qty: 2, type: 'FT' }, { id: 'R11', qty: 1, type: 'PT' }] }
+        ];
+
+        function renderStarterPods() {
+            const container = document.getElementById('starter-pods-container');
+            if (!container) return;
+            container.innerHTML = '';
+            starterPodsData.forEach(pod => {
+                const btn = document.createElement('button');
+                btn.className = 'premium-btn';
+                btn.style.padding = '8px 15px';
+                btn.style.fontSize = '0.85rem';
+                btn.innerText = `+ ${pod.name}`;
+                btn.onclick = () => addPodToCart(pod.id);
+                container.appendChild(btn);
+            });
+        }
+
+        function addPodToCart(podId) {
+            const pod = starterPodsData.find(p => p.id === podId);
+            if (!pod) return;
+
+            pod.roles.forEach(podRole => {
+                const dbRole = talentDatabase.find(r => r.id === podRole.id);
+                const existing = teamCart.find(item => item.id === podRole.id && item.type === podRole.type);
+                if (existing) {
+                    existing.qty += podRole.qty;
+                } else {
+                    teamCart.push({ id: dbRole.id, title: dbRole.title, baseRate: dbRole.rate, type: podRole.type, qty: podRole.qty });
+                }
+            });
+            updateCartUI();
+            document.getElementById('team-cart-drawer').classList.add('open');
+        }
+
+        // 4. Submit Payload (Phase 3 Preparation)
+        document.getElementById('submit-cart-btn').addEventListener('click', () => {
+            if (teamCart.length === 0) {
+                alert("Please add roles to your team before submitting.");
+                return;
+            }
+
+            // This is the JSON payload that Golang will eventually receive
+            const payload = {
+                timestamp: new Date().toISOString(),
+                cart: teamCart,
+                monthlyTotal: teamCart.reduce((acc, item) => acc + ((item.type === 'PT' ? item.baseRate * 0.625 : item.baseRate) * item.qty), 0)
+            };
+
+            console.log("SENDING TO BACKEND:", JSON.stringify(payload, null, 2));
+            alert("Calibration Request Sent! (Check console for JSON payload)");
+        });
+
+        // Toggle Drawer Hooks
+        document.getElementById('open-cart-btn').addEventListener('click', () => {
+            document.getElementById('team-cart-drawer').classList.add('open');
+        });
+        document.getElementById('close-cart-btn').addEventListener('click', () => {
+            document.getElementById('team-cart-drawer').classList.remove('open');
+        });
+
+        // Initialize Pods
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStarterPods();
+        });
+
+        function filterCatalog(category, btnElement) {
+            // Update active state on buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Filter DOM elements
+            const cards = document.querySelectorAll('.job-card');
+            cards.forEach(card => {
+                if (category === 'All' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Hook up Navigation Triggers
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog(); // Init the catalog
+            renderStarterPods(); // Init the pods
+
+            const overlay = document.getElementById('talent-catalog');
+
+            // Find all links that say "Talent Solutions"
+            document.querySelectorAll('nav a, .mobile-menu a').forEach(link => {
+                if (link.textContent.toLowerCase().includes('talent solutions')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (typeof closeMobileMenu === 'function') closeMobileMenu();
+                        overlay.classList.add('active');
+
+                        // 🔥 NUCLEAR SCROLL LOCK: Lock both HTML and Body
+                        document.documentElement.style.overflow = "hidden";
+                        document.body.style.overflow = "hidden";
+                        window.isCatalogOpen = true; // Tell the 3D scroll tracker to stop
+
+                        // Detach the 3D camera mouse wheel
+                        if (typeof camera !== 'undefined') camera.detachControl();
+
+                        // Trigger cinematic camera pull-back
+                        if (typeof camera !== 'undefined' && isGlobeMode) {
+                            const zoomOut = new BABYLON.Animation("zoomOut", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+                            zoomOut.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: 8.0 }]);
+                            scene.beginDirectAnimation(camera, [zoomOut], 0, 60, false, 1.0);
+                        }
+                    });
+                }
+            });
+
+            // Close Catalog Button
+            document.getElementById('close-catalog-btn').addEventListener('click', () => {
+                overlay.classList.remove('active');
+
+                // 🔥 REMOVE SCROLL LOCK
+                document.documentElement.style.overflow = "";
+                document.body.style.overflow = "auto";
+                window.isCatalogOpen = false;
+
+                // Re-attach camera
+                if (typeof camera !== 'undefined') camera.attachControl(canvas, true);
+
+                // Reset camera zoom
+                if (typeof camera !== 'undefined' && isGlobeMode) {
+                    const zoomIn = new BABYLON.Animation("zoomIn", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+                    zoomIn.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: window.innerWidth <= 768 ? 5.5 : 3.5 }]);
+                    scene.beginDirectAnimation(camera, [zoomIn], 0, 60, false, 1.0);
+                }
+            });
+        });
 
 
         // ==========================================
