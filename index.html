@@ -1144,12 +1144,14 @@
             text-transform: uppercase;
         }
 
-        .job-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
-            flex: 1;
+        .job-skills { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 8px; 
+            margin-bottom: 25px; 
+            flex: 1; 
+            align-items: flex-start;    /* 🔥 Stops the tags from stretching vertically */
+            align-content: flex-start;  /* 🔥 Keeps multiple rows packed tightly to the top */
         }
 
         .job-skill-tag {
@@ -2618,12 +2620,14 @@
                 document.body.style.overflow = "auto";
                 cloudOverlay.style.opacity = "0";
 
-                setTimeout(() => {
+               setTimeout(() => {
                     camera.lowerRadiusLimit = 2.5; camera.upperRadiusLimit = 15;
                     camera.lowerBetaLimit = 0.01; camera.upperBetaLimit = Math.PI - 0.01;
-
-                    if (textContainer) textContainer.style.opacity = "1";
+                    
+                    if (textContainer) textContainer.style.opacity = "1"; 
+                    
                     window.isTransitioning = false;
+                    window.dispatchEvent(new Event('scroll')); 
                 }, 800);
             }, 1000);
         }
@@ -2905,9 +2909,7 @@
 
                         if (typeof camera !== 'undefined') camera.detachControl();
                         if (typeof camera !== 'undefined' && isGlobeMode) {
-                            const zoomOut = new BABYLON.Animation("zoomOut", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-                            zoomOut.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: 8.0 }]);
-                            scene.beginDirectAnimation(camera, [zoomOut], 0, 60, false, 1.0);
+                            window.targetCameraRadius = 10.0;
                         }
                     });
                 }
@@ -2924,9 +2926,7 @@
                     camera.attachControl(canvas, true);
                 }
                 if (typeof camera !== 'undefined' && isGlobeMode) {
-                    const zoomIn = new BABYLON.Animation("zoomIn", "radius", 60, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-                    zoomIn.setKeys([{ frame: 0, value: camera.radius }, { frame: 60, value: window.innerWidth <= 768 ? 5.5 : 3.5 }]);
-                    scene.beginDirectAnimation(camera, [zoomIn], 0, 60, false, 1.0);
+                    window.dispatchEvent(new Event('scroll'));
                 }
             });
 
@@ -2969,21 +2969,32 @@
             document.querySelectorAll('.counter').forEach(el => metricsObserver.observe(el));
         });
 
-        window.targetCameraAlpha = -Math.PI / 2;
+       window.targetCameraAlpha = -Math.PI / 2;
         window.targetCameraRadius = window.innerWidth <= 768 ? 5.5 : (window.innerWidth <= 1024 ? 4.5 : 3.5);
 
         window.addEventListener('scroll', () => {
             if (!isGlobeMode || window.isTransitioning || window.isCatalogOpen) return;
+
             const scrollY = window.scrollY || document.documentElement.scrollTop;
             const maxScroll = document.body.scrollHeight - window.innerHeight;
             if (maxScroll <= 0) return;
+
             const scrollPercent = Math.max(0, Math.min(1, scrollY / maxScroll));
+
             window.targetCameraAlpha = (-Math.PI / 2) + (scrollPercent * Math.PI);
+
             let baseRadius = 3.5;
             if (window.innerWidth <= 768) baseRadius = 5.5;
             else if (window.innerWidth <= 1024) baseRadius = 4.5;
-            window.targetCameraRadius = baseRadius + (scrollPercent * 5);
-        }, { passive: true }); 
+
+            // 🔥 FIX: Zoom IN instead of zooming out!
+            // Calculate exactly how far we can safely zoom in before hitting the 2.5 camera limit
+            let maxZoomIn = baseRadius - 2.5; 
+            
+            // Subtract the zoom amount as you scroll down
+            window.targetCameraRadius = baseRadius - (scrollPercent * maxZoomIn);
+
+        }, { passive: true });
     </script>
 </body>
 
