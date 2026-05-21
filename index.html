@@ -2474,10 +2474,12 @@
         const scene = createScene();
 
         const updateCameraZoom = () => {
-            if (!camera) return;
-            if (window.innerWidth <= 768) { camera.radius = 5.5; }
-            else if (window.innerWidth <= 1024) { camera.radius = 4.5; }
-            else { camera.radius = 3.5; }
+            if (!camera || window.isTransitioning || window.isCatalogOpen) return;
+            
+            if (isGlobeMode) {
+                // Just trigger a fake scroll event so our smooth math tracker handles the resize
+                window.dispatchEvent(new Event('scroll'));
+            }
         };
 
         const cloudOverlay = document.getElementById('cloud-transition');
